@@ -23,21 +23,19 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="PreparationSign up for your GitHub accountlink: https:&#x2F;&#x2F;github.com&#x2F; Install node.jslink: https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;check: 1node --version  Install gitlink: https:&#x2F;&#x2F;git-scm.com&#x2F;downloadscheck: 1git --versi">
+<meta name="description" content="This article is about how to build your own blog from start by GitHub + Hexo.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to Create Your Personal Blog [GitHub + Hexo]">
 <meta property="og:url" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/index.html">
 <meta property="og:site_name" content="Random Weirdo">
-<meta property="og:description" content="PreparationSign up for your GitHub accountlink: https:&#x2F;&#x2F;github.com&#x2F; Install node.jslink: https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;check: 1node --version  Install gitlink: https:&#x2F;&#x2F;git-scm.com&#x2F;downloadscheck: 1git --versi">
+<meta property="og:description" content="This article is about how to build your own blog from start by GitHub + Hexo.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/1.png">
 <meta property="og:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/3.png">
 <meta property="og:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/4.png">
 <meta property="og:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/2.jpg">
-<meta property="og:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/5.png">
-<meta property="og:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/7.png">
 <meta property="article:published_time" content="2020-12-09T04:30:05.964Z">
-<meta property="article:modified_time" content="2020-12-22T13:57:33.150Z">
+<meta property="article:modified_time" content="2020-12-22T14:32:00.419Z">
 <meta property="article:author" content="Daisy Ding">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://rdweirdo981.github.io/2020/12/09/How%20to%20Create%20Your%20Personal%20Blog%20[GitHub%20+%20Hexo]/1.png">
@@ -168,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preparation"><span class="nav-number">1.</span> <span class="nav-text">Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sign-up-for-your-GitHub-account"><span class="nav-number">1.1.</span> <span class="nav-text">Sign up for your GitHub account</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-node-js"><span class="nav-number">1.2.</span> <span class="nav-text">Install node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-git"><span class="nav-number">1.3.</span> <span class="nav-text">Install git</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Repo"><span class="nav-number">2.</span> <span class="nav-text">GitHub Repo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#New-repo"><span class="nav-number">2.1.</span> <span class="nav-text">New repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-repo"><span class="nav-number">2.2.</span> <span class="nav-text">Create repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-up-GitHub-Pages"><span class="nav-number">2.3.</span> <span class="nav-text">Set up GitHub Pages</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-Part"><span class="nav-number">3.</span> <span class="nav-text">Hexo Part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Choose-the-local-path-for-your-blog"><span class="nav-number">3.1.</span> <span class="nav-text">Choose the local path for your blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Initialize-your-website"><span class="nav-number">3.2.</span> <span class="nav-text">Initialize your website</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connect-GitHub-amp-Hexo"><span class="nav-number">4.</span> <span class="nav-text">Connect GitHub &amp; Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Condition-1-You%E2%80%99ve-never-generate-an-SSH-key-before"><span class="nav-number">4.1.</span> <span class="nav-text">Condition 1: You’ve never generate an SSH key before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Condition-2-You%E2%80%99ve-got-a-SSH-and-you-want-a-new-one"><span class="nav-number">4.2.</span> <span class="nav-text">Condition 2: You’ve got a SSH and you want a new one</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configure-the-file"><span class="nav-number">4.3.</span> <span class="nav-text">Configure the file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-your-website"><span class="nav-number">4.4.</span> <span class="nav-text">Deploy your website</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-Useful-Setting"><span class="nav-number">5.</span> <span class="nav-text">Some Useful Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-assess-image"><span class="nav-number">5.1.</span> <span class="nav-text">hexo-assess-image</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preparation"><span class="nav-number">1.</span> <span class="nav-text">Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sign-up-for-your-GitHub-account"><span class="nav-number">1.1.</span> <span class="nav-text">Sign up for your GitHub account</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-node-js"><span class="nav-number">1.2.</span> <span class="nav-text">Install node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-git"><span class="nav-number">1.3.</span> <span class="nav-text">Install git</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Repo"><span class="nav-number">2.</span> <span class="nav-text">GitHub Repo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#New-repo"><span class="nav-number">2.1.</span> <span class="nav-text">New repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-repo"><span class="nav-number">2.2.</span> <span class="nav-text">Create repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-up-GitHub-Pages"><span class="nav-number">2.3.</span> <span class="nav-text">Set up GitHub Pages</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-Part"><span class="nav-number">3.</span> <span class="nav-text">Hexo Part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Choose-the-local-path-for-your-blog"><span class="nav-number">3.1.</span> <span class="nav-text">Choose the local path for your blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Initialize-your-website"><span class="nav-number">3.2.</span> <span class="nav-text">Initialize your website</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connect-GitHub-amp-Hexo"><span class="nav-number">4.</span> <span class="nav-text">Connect GitHub &amp; Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configure-the-file"><span class="nav-number">4.1.</span> <span class="nav-text">Configure the file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-your-website"><span class="nav-number">4.2.</span> <span class="nav-text">Deploy your website</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-Useful-Setting"><span class="nav-number">5.</span> <span class="nav-text">Some Useful Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#asset-folder-for-images"><span class="nav-number">5.1.</span> <span class="nav-text">asset folder for images</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -184,15 +182,9 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">posts</span>
         </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
 </div>
@@ -261,7 +253,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-22 21:57:33" itemprop="dateModified" datetime="2020-12-22T21:57:33+08:00">2020-12-22</time>
+        <time title="Modified: 2020-12-22 22:32:00" itemprop="dateModified" datetime="2020-12-22T22:32:00+08:00">2020-12-22</time>
       </span>
 
   
@@ -274,7 +266,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><h3 id="Sign-up-for-your-GitHub-account"><a href="#Sign-up-for-your-GitHub-account" class="headerlink" title="Sign up for your GitHub account"></a>Sign up for your GitHub account</h3><p>link: <a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a></p>
+        <p>This article is about how to build your own blog from start by GitHub + Hexo.</p>
+<a id="more"></a>
+
+<h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><h3 id="Sign-up-for-your-GitHub-account"><a href="#Sign-up-for-your-GitHub-account" class="headerlink" title="Sign up for your GitHub account"></a>Sign up for your GitHub account</h3><p>link: <a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a></p>
 <h3 id="Install-node-js"><a href="#Install-node-js" class="headerlink" title="Install node.js"></a>Install node.js</h3><p>link: <a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a><br>check:</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --version</span><br></pre></td></tr></tbody></table></figure>
 
@@ -355,81 +350,43 @@
 <ol start="8">
 <li>You can pick another theme for your blog. We usually recommend Next. Check  <a target="_blank" rel="noopener" href="https://theme-next.js.org/">https://theme-next.js.org/</a> to see more details.</li>
 </ol>
-<h2 id="Connect-GitHub-amp-Hexo"><a href="#Connect-GitHub-amp-Hexo" class="headerlink" title="Connect GitHub &amp; Hexo"></a>Connect GitHub &amp; Hexo</h2><p>The main step of this part is how to generate an SSH key.</p>
-<h3 id="Condition-1-You’ve-never-generate-an-SSH-key-before"><a href="#Condition-1-You’ve-never-generate-an-SSH-key-before" class="headerlink" title="Condition 1: You’ve never generate an SSH key before"></a>Condition 1: You’ve never generate an SSH key before</h3><ol>
-<li>Enter:</li>
-</ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"ownername"</span></span><br><span class="line">git config --global user.email <span class="string">"owner email"</span></span><br></pre></td></tr></tbody></table></figure>
-
-<ol start="2">
-<li>Generate your local SSH key by entering:</li>
-</ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"owner email"</span></span><br></pre></td></tr></tbody></table></figure>
-
-<ol start="3">
-<li>You will see this:</li>
-</ol>
-<p><img src="5.png"></p>
-<ol start="4">
-<li>Obtain the SSH-RSA key by entering:</li>
-</ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></tbody></table></figure>
-
-<p>and keep the results.</p>
-<ol start="5">
-<li>In GitHub, find <strong>SSH and GPG keys</strong> in your personal settings.</li>
-</ol>
-<p><img src="7.png"></p>
-<ol start="6">
-<li><p>Create a SSH by <strong>New SSH keys</strong></p>
-</li>
-<li><p>You can pick a preferred title. Copy the results from <strong>step 4)</strong> into <strong>Key</strong> block</p>
-</li>
-<li><p>Check if it works by entering:</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></tbody></table></figure>
-
-<p>You will see some info like this:</p>
-<blockquote>
-<p>Hi xxx! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
-</blockquote>
-<h3 id="Condition-2-You’ve-got-a-SSH-and-you-want-a-new-one"><a href="#Condition-2-You’ve-got-a-SSH-and-you-want-a-new-one" class="headerlink" title="Condition 2: You’ve got a SSH and you want a new one"></a>Condition 2: You’ve got a SSH and you want a new one</h3><p>This is what happened to me since I’ve got a personal blog and I want to separate my personal stuffs and tech stuffs. So, I signed up a new GitHub account and create a new GH page. But the problem is, we have to generate a new SSH key and connect the local host to our new account again. So far, it’s reasonable and technical.</p>
-<p>But weirdly, I didn’t use SSH for my first blog. So I solved the 2nd account issue simply by delete the register account in my local setting.</p>
-<p>I will write a more detailed article about what on earth the SSH key is, how it works, and how to manage different blogs on a single PC (by SSH method or my own approach).  (I will go back to this later.)</p>
-<h3 id="Configure-the-file"><a href="#Configure-the-file" class="headerlink" title="Configure the file"></a>Configure the file</h3><ol start="9">
-<li>We can see the _config file under the setting path:</li>
-</ol>
-<p>Open it, and change the last block:</p>
+<h2 id="Connect-GitHub-amp-Hexo"><a href="#Connect-GitHub-amp-Hexo" class="headerlink" title="Connect GitHub &amp; Hexo"></a>Connect GitHub &amp; Hexo</h2><h3 id="Configure-the-file"><a href="#Configure-the-file" class="headerlink" title="Configure the file"></a>Configure the file</h3><p>Open the <strong>_config</strong> file, and change the last block</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Ownername/Ownername.github.io</span><br><span class="line">  branch: main</span><br></pre></td></tr></tbody></table></figure>
 
 <p>You should replace the <strong>Ownername</strong> by your own.</p>
+<p>Note: </p>
+<p>When I created the GH page, I use branch “main” as my website’s source. If you want to use master as your source, you can simply change the source to master in your GitHub repo setting.</p>
 <h3 id="Deploy-your-website"><a href="#Deploy-your-website" class="headerlink" title="Deploy your website"></a>Deploy your website</h3><ol>
 <li><p>In D:\blog, Right click <strong>Git Bash Here</strong></p>
 </li>
 <li><p>Enter: </p>
 </li>
 </ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git  --save</span><br></pre></td></tr></tbody></table></figure>
 
 <p>to install the extension.</p>
 <ol start="3">
-<li><h2 id="Some-Useful-Setting"><a href="#Some-Useful-Setting" class="headerlink" title="Some Useful Setting"></a>Some Useful Setting</h2></li>
+<li>Push your website on GitHub by using these commands:</li>
 </ol>
-<h3 id="hexo-assess-image"><a href="#hexo-assess-image" class="headerlink" title="hexo-assess-image"></a>hexo-assess-image</h3><p>Sometimes we will find that the website can’t upload our images even if we use the correct markdown grammar. This is because we lack of a hexo plugin. So I will introduce how to fix it.</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Notice:</p>
+<p>If you have more than one blog under different GitHub accounts, you will find that it is a problem to push your various blogs. I will suggest two ways here:</p>
 <ol>
-<li>in <strong>_config.yml</strong>, change </li>
+<li><p>Do not save your state. Every time you push your blog, you should login again using the right account.</p>
+</li>
+<li><p>Use different SSH keys to keep your blogs safe. I think this is a safer way, but not necessary. I will write another article to explore what a pair of SSH key is, how it can be used to generate safe connection between website and our localhost, and how it can be used to manage two GH pages. </p>
+</li>
 </ol>
+<h2 id="Some-Useful-Setting"><a href="#Some-Useful-Setting" class="headerlink" title="Some Useful Setting"></a>Some Useful Setting</h2><h3 id="asset-folder-for-images"><a href="#asset-folder-for-images" class="headerlink" title="asset folder for images"></a>asset folder for images</h3><p>Sometimes we will find that the website can’t upload our images even if we use the correct markdown grammar. This is because we have not enabled the asset folder yet.</p>
+<p>In <strong>_config.yml</strong>, change </p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></tbody></table></figure>
 
-<ol start="2">
-<li>in <strong>D:\blog</strong>, use <strong>git bash</strong> and enter:</li>
-</ol>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></tbody></table></figure>
+<p>and it will work.</p>
+<p>Note: there’s no need to install hexo-asset-image, or if you have installed it, you should uninstall it by</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall --save hexo-asset-image</span><br></pre></td></tr></tbody></table></figure>
 
-<ol start="3">
-<li>Now, you will see your images in your posts.</li>
-</ol>
+<p>This is because hexo-asset-image has some errors that will lead to the failure of establishing the actual link to the referred images. </p>
 
     </div>
 
@@ -441,18 +398,6 @@
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2017/03/22/%E9%97%B2%E9%80%9B/" rel="prev" title="闲逛">
-                  <i class="fa fa-chevron-left"></i> 闲逛
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2020/12/09/hello-world/" rel="next" title="Hello World 1">
-                  Hello World 1 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
     </footer>
   </article>
 </div>
