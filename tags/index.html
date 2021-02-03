@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!--pjax: don't stop the music-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+  
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
@@ -39,7 +42,7 @@
 <link rel="canonical" href="https://rdweirdo981.github.io/tags/">
 
 
-<script class="page-configurations">
+<script data-pjax class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -150,6 +153,7 @@
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-overview-active">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1649082&auto=1&height=66"></iframe>
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -177,7 +181,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -243,7 +247,7 @@
     8 tags in total
   </div>
   <div class="tag-cloud-tags">
-    <a href="/tags/Android-Security/" style="font-size: 12px;" class="tag-cloud-0">Android Security</a> <a href="/tags/Buffer-Overflow/" style="font-size: 12px;" class="tag-cloud-0">Buffer Overflow</a> <a href="/tags/CSRF/" style="font-size: 12px;" class="tag-cloud-0">CSRF</a> <a href="/tags/Format-String-Vulnerability/" style="font-size: 12px;" class="tag-cloud-0">Format String Vulnerability</a> <a href="/tags/Java-Security/" style="font-size: 12px;" class="tag-cloud-0">Java Security</a> <a href="/tags/SQLi/" style="font-size: 12px;" class="tag-cloud-0">SQLi</a> <a href="/tags/Website/" style="font-size: 12px;" class="tag-cloud-0">Website</a> <a href="/tags/XSS/" style="font-size: 12px;" class="tag-cloud-0">XSS</a>
+    <a href="/tags/Android-Security/" style="font-size: 12px;" class="tag-cloud-0">Android Security</a> <a href="/tags/Buffer-Overflow/" style="font-size: 12px;" class="tag-cloud-0">Buffer Overflow</a> <a href="/tags/CSRF/" style="font-size: 30px;" class="tag-cloud-10">CSRF</a> <a href="/tags/Format-String-Vulnerability/" style="font-size: 12px;" class="tag-cloud-0">Format String Vulnerability</a> <a href="/tags/Java-Security/" style="font-size: 12px;" class="tag-cloud-0">Java Security</a> <a href="/tags/SQLi/" style="font-size: 30px;" class="tag-cloud-10">SQLi</a> <a href="/tags/Website/" style="font-size: 12px;" class="tag-cloud-0">Website</a> <a href="/tags/XSS/" style="font-size: 30px;" class="tag-cloud-10">XSS</a>
   </div>
 </div>
 
@@ -302,7 +306,41 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
   
 
@@ -317,7 +355,9 @@
 
 
 
+    <div class="pjax">
 
 
+    </div>
 </body>
 </html>

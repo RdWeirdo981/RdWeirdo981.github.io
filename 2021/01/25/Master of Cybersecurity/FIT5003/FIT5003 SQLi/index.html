@@ -26,30 +26,40 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="Notes about cybersecurity, mathematics, and anything else.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Random Weirdo">
-<meta property="og:url" content="https://rdweirdo981.github.io/page/2/index.html">
+<meta name="description" content="This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the at">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FIT5003 SQL Injection">
+<meta property="og:url" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/index.html">
 <meta property="og:site_name" content="Random Weirdo">
-<meta property="og:description" content="Notes about cybersecurity, mathematics, and anything else.">
+<meta property="og:description" content="This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the at">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/1.bmp">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/2.bmp">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/3.bmp">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/4.bmp">
+<meta property="article:published_time" content="2021-01-25T14:04:57.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:12:54.459Z">
 <meta property="article:author" content="Daisy">
+<meta property="article:tag" content="SQLi">
+<meta property="article:tag" content="XSS">
+<meta property="article:tag" content="CSRF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/1.bmp">
 
 
-<link rel="canonical" href="https://rdweirdo981.github.io/page/2/">
+<link rel="canonical" href="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/">
 
 
 <script data-pjax class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>Random Weirdo</title>
+<title>FIT5003 SQL Injection | Random Weirdo</title>
   
 
 
@@ -149,7 +159,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
 		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1649082&auto=1&height=66"></iframe>
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
@@ -163,6 +173,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-9-Lab-SQL-Injection"><span class="nav-number">1.</span> <span class="nav-text">Week 9 Lab - SQL Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Environment-Setup"><span class="nav-number">1.2.</span> <span class="nav-text">Environment Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Program-Requirements"><span class="nav-number">1.2.1.</span> <span class="nav-text">Program Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-Web-Server"><span class="nav-number">1.2.2.</span> <span class="nav-text">Setup Web Server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-Injection"><span class="nav-number">1.3.</span> <span class="nav-text">SQL Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bypass-Authentication"><span class="nav-number">1.3.1.</span> <span class="nav-text">Bypass Authentication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extract-Data"><span class="nav-number">1.3.2.</span> <span class="nav-text">Extract Data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Task-1-amp-2-Extract-user-info"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Task 1 &amp; 2: Extract user info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Task-3-Other-data"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Task 3: Other data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Insert-Data"><span class="nav-number">1.3.3.</span> <span class="nav-text">Insert Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Automated-SQL-injections"><span class="nav-number">1.3.4.</span> <span class="nav-text">Automated SQL injections</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -219,9 +230,10 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
@@ -241,9 +253,9 @@
       <meta itemprop="name" content="Random Weirdo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/" class="post-title-link" itemprop="url">FIT5003 SQL Injection</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          FIT5003 SQL Injection
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -286,7 +298,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <center> This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the attacks.</center>
+        <center> This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the attacks.</center>
 
 <br>
 
@@ -370,7 +382,6 @@
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">proxies = {’http’:’http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>’,’https’:’http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>’}</span><br><span class="line"><span class="comment"># {key:value}</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) != <span class="number">2</span>:</span><br><span class="line">    	<span class="built_in">print</span> (<span class="string">"(+) Usage: %s &lt;sql-query-for-username&gt;"</span> % sys.argv[<span class="number">0</span>])</span><br><span class="line">    	sys.exit(-<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">    username = sys.argv[<span class="number">1</span>]</span><br><span class="line">    target=<span class="string">"http://localhost/mutillidae/index.php?page=user-info.php&amp;username={}&amp;password=&amp;user-info-php-submit-button=View+Account+Details"</span>.<span class="built_in">format</span>(username)</span><br><span class="line">    </span><br><span class="line">    r = requests.get(target,proxies=proxies,allow_redirects=<span class="literal">False</span>) </span><br><span class="line">    <span class="comment">#requests.get(url, params={key: value}, args)</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(r.text) &gt; <span class="number">61000</span>:</span><br><span class="line">    	print(<span class="string">"(+) It works!"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">    	print(<span class="string">"(-) It doesn’t work, try another query"</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">main()</span><br></pre></td></tr></tbody></table></figure>
 
 
-      
     </div>
 
     
@@ -378,8 +389,23 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/SQLi/" rel="tag"># SQLi</a>
+              <a href="/tags/XSS/" rel="tag"># XSS</a>
+              <a href="/tags/CSRF/" rel="tag"># CSRF</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/" rel="prev" title="FIT5003 Assignment 2 - SQLi, XSS, and CSRF in OWASP2017">
+                  <i class="fa fa-chevron-left"></i> FIT5003 Assignment 2 - SQLi, XSS, and CSRF in OWASP2017
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -387,9 +413,7 @@
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
+
 
 
 <script>
