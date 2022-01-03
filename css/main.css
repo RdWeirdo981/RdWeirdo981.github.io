@@ -2480,7 +2480,7 @@ ul.breadcrumb li:last-child {
   border-radius: 15px 15px 15px 15px;
   box-shadow: initial;
   width: 240px;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 @media (max-width: 991px) {
   .header-inner {
@@ -2633,7 +2633,7 @@ ul.breadcrumb li:last-child {
   position: sticky;
   top: 12px;
   width: 240px;
-  opacity: 0.9;
+  opacity: 0.95;
   visibility: hidden;
 }
 @media (max-width: 991px) {
@@ -2704,7 +2704,7 @@ ul.breadcrumb li:last-child {
   background: var(--content-bg-color);
   box-shadow: initial;
   padding: 40px;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 @media (max-width: 991px) {
   .main-inner {
