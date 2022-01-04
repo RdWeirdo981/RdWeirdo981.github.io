@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
@@ -30,7 +30,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="FIT5003 SQL Injection">
 <meta property="og:url" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/index.html">
-<meta property="og:site_name" content="Random Weirdo">
+<meta property="og:site_name" content="Life φlosophy">
 <meta property="og:description" content="This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the at">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/1.bmp">
@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/4.bmp">
 <meta property="article:published_time" content="2021-01-25T14:04:57.000Z">
 <meta property="article:modified_time" content="2022-01-03T12:48:05.392Z">
-<meta property="article:author" content="Daisy">
+<meta property="article:author" content="Xiaohui(Daisy) Ding">
 <meta property="article:tag" content="SQLi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://rdweirdo981.github.io/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/1.bmp">
@@ -57,7 +57,7 @@
     lang   : 'en'
   };
 </script>
-<title>FIT5003 SQL Injection | Random Weirdo</title>
+<title>FIT5003 SQL Injection | Life φlosophy</title>
   
 
 
@@ -119,7 +119,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Random Weirdo</h1>
+      <h1 class="site-title">Life φlosophy</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -176,17 +176,17 @@
 
         <section class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Daisy"
+    <img class="site-author-image" itemprop="image" alt="Xiaohui(Daisy) Ding"
       src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">Daisy</p>
-  <div class="site-description" itemprop="description">Notes about cybersecurity, mathematics, and anything else.</div>
+  <p class="site-author-name" itemprop="name">Xiaohui(Daisy) Ding</p>
+  <div class="site-description" itemprop="description">Notes about cybersecurity, cryptography, mathematics, and anything else.</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -242,12 +242,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Daisy">
-      <meta itemprop="description" content="Notes about cybersecurity, mathematics, and anything else.">
+      <meta itemprop="name" content="Xiaohui(Daisy) Ding">
+      <meta itemprop="description" content="Notes about cybersecurity, cryptography, mathematics, and anything else.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Random Weirdo">
+      <meta itemprop="name" content="Life φlosophy">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -298,7 +298,7 @@
         <center> This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the attacks.</center>
 
 
-<a id="more"></a>
+<span id="more"></span>
 <br>
 
 <h1 id="Week-9-Lab-SQL-Injection"><a href="#Week-9-Lab-SQL-Injection" class="headerlink" title="Week 9 Lab - SQL Injection"></a>Week 9 Lab - SQL Injection</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>OWASP SQL Injection: <a target="_blank" rel="noopener" href="https://owasp.org/www-community/attacks/SQL_Injection">https://owasp.org/www-community/attacks/SQL_Injection</a></p>
@@ -311,14 +311,12 @@
 <li><p>Vulnerable Web App: <strong>Mutillidae</strong> <a target="_blank" rel="noopener" href="https://github.com/webpwnized/mutillidae">https://github.com/webpwnized/mutillidae</a></p>
 <ul>
 <li><p>copy mutillidae directory (and all subdirectries) into /opt/lampp/htdocs:</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo cp -R ./mutillidae /opt/lampp/htdocs/</span></span><br></pre></td></tr></tbody></table></figure>
-</li>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo cp -R ./mutillidae /opt/lampp/htdocs/</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li><p>Helpful setting:</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo nano /opt/lampp/htdocs/mutillidae/includes/database-config.inc</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>In the editor, change the configuration as follows:</p>
-<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(’DB_HOST’, ’<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>’);</span><br><span class="line">define(’DB_USERNAME’, ’root’);</span><br><span class="line">define(’DB_PASSWORD’, ’’);</span><br><span class="line">define(’DB_NAME’, ’mutillidae’);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure>
-</li>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(’DB_HOST’, ’<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>’);</span><br><span class="line">define(’DB_USERNAME’, ’root’);</span><br><span class="line">define(’DB_PASSWORD’, ’’);</span><br><span class="line">define(’DB_NAME’, ’mutillidae’);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
 <li><p>Web analysis tool: <strong>Burpsuite</strong> <a target="_blank" rel="noopener" href="https://portswigger.net/burp/communitydownload">https://portswigger.net/burp/communitydownload</a></p>
@@ -450,10 +448,18 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Daisy</span>
+  <span class="author" itemprop="copyrightHolder">Xiaohui(Daisy) Ding</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
+
+
+  <script src='https://unpkg.com/mermaid@/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
     </div>
   </footer>
@@ -502,6 +508,19 @@ document.addEventListener('pjax:success', () => {
 
 
 
+<script data-pjax>
+if (document.querySelectorAll('.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', () => {
+    mermaid.init({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    }, '.mermaid');
+  }, window.mermaid);
+}
+</script>
 
 
   

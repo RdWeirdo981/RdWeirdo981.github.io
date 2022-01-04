@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
@@ -30,11 +30,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="FIT5124 Assignment 1 - Encrypted Database Attacks &amp; Countermeasures">
 <meta property="og:url" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/index.html">
-<meta property="og:site_name" content="Random Weirdo">
+<meta property="og:site_name" content="Life φlosophy">
 <meta property="og:description" content="This report is related to FIT5124 2021S1 Assignment 1. The main aspects that this assignment reviews are 2 types of encrypted database: SSE &amp; PPE. We will introduce the main attacks &amp; main co">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/1.jpg">
-<meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/2.jpg">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/Master%20of%20Cybersecurity/FIT5124/5124A1/2.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/3.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/4.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/5.jpg">
@@ -47,8 +47,8 @@
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/12.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/06/30/Master%20of%20Cybersecurity/FIT5124/5124A1/13.jpg">
 <meta property="article:published_time" content="2021-06-30T02:15:15.000Z">
-<meta property="article:modified_time" content="2022-01-03T12:49:13.009Z">
-<meta property="article:author" content="Daisy">
+<meta property="article:modified_time" content="2022-01-04T14:32:20.793Z">
+<meta property="article:author" content="Xiaohui(Daisy) Ding">
 <meta property="article:tag" content="Encrypted Database">
 <meta property="article:tag" content="Searchable Symmetric Encryption">
 <meta property="article:tag" content="Properties-Preserving Encryption">
@@ -68,7 +68,7 @@
     lang   : 'en'
   };
 </script>
-<title>FIT5124 Assignment 1 - Encrypted Database Attacks & Countermeasures | Random Weirdo</title>
+<title>FIT5124 Assignment 1 - Encrypted Database Attacks & Countermeasures | Life φlosophy</title>
   
 
 
@@ -130,7 +130,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Random Weirdo</h1>
+      <h1 class="site-title">Life φlosophy</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -187,17 +187,17 @@
 
         <section class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Daisy"
+    <img class="site-author-image" itemprop="image" alt="Xiaohui(Daisy) Ding"
       src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">Daisy</p>
-  <div class="site-description" itemprop="description">Notes about cybersecurity, mathematics, and anything else.</div>
+  <p class="site-author-name" itemprop="name">Xiaohui(Daisy) Ding</p>
+  <div class="site-description" itemprop="description">Notes about cybersecurity, cryptography, mathematics, and anything else.</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -253,12 +253,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Daisy">
-      <meta itemprop="description" content="Notes about cybersecurity, mathematics, and anything else.">
+      <meta itemprop="name" content="Xiaohui(Daisy) Ding">
+      <meta itemprop="description" content="Notes about cybersecurity, cryptography, mathematics, and anything else.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Random Weirdo">
+      <meta itemprop="name" content="Life φlosophy">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -280,7 +280,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-01-03 20:49:13" itemprop="dateModified" datetime="2022-01-03T20:49:13+08:00">2022-01-03</time>
+        <time title="Modified: 2022-01-04 22:32:20" itemprop="dateModified" datetime="2022-01-04T22:32:20+08:00">2022-01-04</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -308,12 +308,12 @@
     <div class="post-body" itemprop="articleBody">
         <center> This report is related to FIT5124 2021S1 Assignment 1. The main aspects that this assignment reviews are 2 types of encrypted database: SSE &amp; PPE. We will introduce the main attacks &amp; main countermeasures about them.</center>
 
-<a id="more"></a>
+<span id="more"></span>
 <br>
 
 <h1 id="Assignment-Requirements"><a href="#Assignment-Requirements" class="headerlink" title="Assignment Requirements"></a>Assignment Requirements</h1><p>You can find it in: <a target="_blank" rel="noopener" href="https://github.com/RdWeirdo981/Master-of-Cybersecurity/blob/main/2021S1%20FIT5124%20Advanced%20Security%20Topics/A1/FIT5124-S1-2021-A1.pdf">https://github.com/RdWeirdo981/Master-of-Cybersecurity/blob/main/2021S1%20FIT5124%20Advanced%20Security%20Topics/A1/FIT5124-S1-2021-A1.pdf</a></p>
 <h1 id="Task-1-Reading-Encryption-Scheme"><a href="#Task-1-Reading-Encryption-Scheme" class="headerlink" title="Task 1: Reading Encryption Scheme"></a>Task 1: Reading Encryption Scheme</h1><h2 id="Security-Definition"><a href="#Security-Definition" class="headerlink" title="Security Definition"></a>Security Definition</h2><p><img src="1.jpg"></p>
-<h2 id="Security-Analysis"><a href="#Security-Analysis" class="headerlink" title="Security Analysis"></a><strong>Security Analysis</strong></h2><p><img src="2.jpg"></p>
+<h2 id="Security-Analysis"><a href="#Security-Analysis" class="headerlink" title="Security Analysis"></a><strong>Security Analysis</strong></h2><p><img src="Master%20of%20Cybersecurity/FIT5124/5124A1/2.jpg"></p>
 <p><img src="3.jpg"></p>
 <p><img src="4.jpg"></p>
 <p><img src="5.jpg"></p>
@@ -764,17 +764,17 @@
 </tr>
 </tbody></table>
 <ol start="4">
-<li><p>Usually, we will observe the unique correlation of q3-q6 with q1 &amp; q2, but here we have a special pattern: <strong>correlation 0 only occurs in q3 &amp; w5</strong>. Thus, we immediately know that <strong>q3</strong> <strong>=</strong> <strong>w5</strong>, which leads to the other pair <strong>q4</strong> <strong>=</strong> <strong>w2</strong>. </p>
-</li>
+<li></li>
 </ol>
+<p>Usually, we will observe the unique correlation of q3-q6 with q1 &amp; q2, but here we have a special pattern: <strong>correlation 0 only occurs in q3 &amp; w5</strong>. Thus, we immediately know that <strong>q3</strong> <strong>=</strong> <strong>w5</strong>, which leads to the other pair <strong>q4</strong> <strong>=</strong> <strong>w2</strong>. </p>
 <p>Check: </p>
 <p>Correlation(w2, w4) = 1 = Correlation(q4, q2)</p>
 <p>Correlation(w2, w6) = 2 = Correlation(q4, q1)</p>
 <p>Thus, this is correct.</p>
 <ol start="5">
-<li><p>Finally, we will look at {q5, q6} × {w1, w3}. </p>
-</li>
+<li></li>
 </ol>
+<p>Finally, we will look at {q5, q6} × {w1, w3}. </p>
 <p>By observing, we should use q6 as our break point.</p>
 <p>Correlation (q6, q2) = 2 = Correlation (w3, w4), and this is a unique correlation. Thus, <strong>q6</strong> <strong>=</strong> <strong>w3</strong>, which also leads to <strong>q5</strong> <strong>=</strong> <strong>w1</strong>.</p>
 <p>Check:</p>
@@ -1381,10 +1381,18 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Daisy</span>
+  <span class="author" itemprop="copyrightHolder">Xiaohui(Daisy) Ding</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
+
+
+  <script src='https://unpkg.com/mermaid@/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
     </div>
   </footer>
@@ -1433,6 +1441,19 @@ document.addEventListener('pjax:success', () => {
 
 
 
+<script data-pjax>
+if (document.querySelectorAll('.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', () => {
+    mermaid.init({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    }, '.mermaid');
+  }, window.mermaid);
+}
+</script>
 
 
   
