@@ -198,7 +198,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Merriweather, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Abril Fatface, Merriweather, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -1203,8 +1203,8 @@ pre code {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: Merriweather, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  font-size: 1.375em;
+  font-family: Syne Mono, Merriweather, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 1.5em;
   font-weight: normal;
   margin: 0;
 }
@@ -1273,7 +1273,7 @@ pre code {
 .menu-item a {
   border-bottom: 0;
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   transition: border-color 0.2s ease-in-out;
 }
 .menu-item a:hover,
@@ -1334,11 +1334,11 @@ pre code {
 }
 .site-description {
   color: #999;
-  font-size: 14px;
+  font-size: 13px;
   margin-top: 0;
 }
 .links-of-author a {
-  font-size: 14px;
+  font-size: 13px;
 }
 .links-of-author .fa,
 .links-of-author .fab,
@@ -1374,7 +1374,7 @@ pre code {
   color: #fff;
 }
 .links-of-blogroll {
-  font-size: 14px;
+  font-size: 13px;
 }
 .links-of-blogroll-title {
   font-size: 15px;
@@ -1571,7 +1571,7 @@ pre code {
 }
 .site-state-item-name {
   color: #999;
-  font-size: 14px;
+  font-size: 13px;
 }
 .footer {
   color: #999;
@@ -1812,7 +1812,7 @@ pre code {
   width: 10px;
 }
 .posts-collapse .post-content .collection-year {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
   margin: 60px 0;
   position: relative;
@@ -1848,7 +1848,7 @@ pre code {
   border: 1px solid #fff;
   left: -6px;
   position: absolute;
-  top: 14px;
+  top: 11px;
   transition: background 0.2s ease-in-out;
   border-radius: 50%;
   content: ' ';
@@ -1863,7 +1863,7 @@ pre code {
 }
 .posts-collapse .post-content .post-meta-container {
   display: inline;
-  font-size: 14px;
+  font-size: 11px;
   margin-right: 10px;
 }
 .posts-collapse .post-content .post-title {
@@ -2045,7 +2045,7 @@ pre code {
   text-align: center;
 }
 .posts-expand .post-title {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: normal;
   margin: initial;
   overflow-wrap: break-word;
@@ -2082,7 +2082,7 @@ pre code {
 .posts-expand .post-meta-container {
   color: #999;
   font-family: Merriweather, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   margin-top: 3px;
 }
 .posts-expand .post-meta-container .post-description {
@@ -2131,7 +2131,7 @@ pre code {
   top: 2px;
 }
 .post-nav-item .fa {
-  font-size: 14px;
+  font-size: 11px;
 }
 .post-nav-item:first-child .fa {
   margin-right: 5px;
@@ -2162,7 +2162,7 @@ pre code {
 }
 .post-tags a {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13px;
 }
 .post-tags a:not(:last-child) {
   margin-right: 10px;
@@ -2404,7 +2404,7 @@ pre code {
   }
 }
 ul.breadcrumb {
-  font-size: 14px;
+  font-size: 11px;
   list-style: none;
   margin: 1em 0;
   padding: 0 2em;
