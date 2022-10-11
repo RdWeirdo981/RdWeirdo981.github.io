@@ -178,7 +178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -229,7 +229,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -242,7 +242,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/" class="post-title-link" itemprop="url">FIT5003 Cross-Site Scripting XSS</a>
+          <a href="/2021/07/01/Virtual%20Internship/ANZ-intern/" class="post-title-link" itemprop="url">ANZ Internship - pcap Forensic by Wireshark</a>
         </h2>
 
         <div class="post-meta-container">
@@ -253,14 +253,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-02-26 17:23:23" itemprop="dateCreated datePublished" datetime="2021-02-26T17:23:23+08:00">2021-02-26</time>
+      <time title="Created: 2021-07-01 15:26:46" itemprop="dateCreated datePublished" datetime="2021-07-01T15:26:46+08:00">2021-07-01</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-03-09 00:23:27" itemprop="dateModified" datetime="2022-03-09T00:23:27+08:00">2022-03-09</time>
+        <time title="Modified: 2022-09-28 01:22:31" itemprop="dateModified" datetime="2022-09-28T01:22:31+08:00">2022-09-28</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,11 +268,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Master-of-Cybersecurity/" itemprop="url" rel="index"><span itemprop="name">Master of Cybersecurity</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Master-of-Cybersecurity/FIT5003-Software-Security/" itemprop="url" rel="index"><span itemprop="name">FIT5003 Software Security</span></a>
+          <a href="/categories/Virtual-Internship/" itemprop="url" rel="index"><span itemprop="name">Virtual Internship</span></a>
         </span>
     </span>
 
@@ -286,10 +282,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <center> This article is related to FIT5003 2020S2 Lab 10. The main aspects that these labs review are 3 types of XSS and CSRF. We will discuss how to inject each of the vulnerability and how to defend the attacks.</center>
+          <center>
+This report is related to my experience early this year to take
+self-enrolled virtual internship provided by ANZ. I was given a pcap
+file in this program, and was asked to analyze malicious files by each
+tasks. This was a really good experience, and I learnt a lot about
+forensic and traffic analysis from it.
+</center>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/#more" rel="contents">
+              <a class="btn" href="/2021/07/01/Virtual%20Internship/ANZ-intern/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -313,7 +315,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -432,6 +434,8 @@ if (document.querySelectorAll('.mermaid').length) {
 
 
     <div class="pjax">
+
+  
 
 
 
