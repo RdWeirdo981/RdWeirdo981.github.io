@@ -325,7 +325,7 @@ information.</p></li>
 <p>There are 3 types of XSS: <strong>Reflected, Stored,
 DOM.</strong></p>
 <h3 id="reflected-xss">Reflected XSS</h3>
-<p><img src="1.bmp"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/1.bmp"></p>
 <p>image from
 https://hydrasky.com/networksecurity/cross-site-scriptingxss-attack/</p>
 <h4 id="task-one-popup-windows">Task One: Popup windows</h4>
@@ -347,7 +347,7 @@ this is reflected XSS.</p>
 <p>I will use the following code to attack the website:</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert("So long and thanks for all the fish!")&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>Results:</p>
-<p><img src="2.bmp"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/2.bmp"></p>
 <h4 id="task-two-display-cookie">Task Two: Display Cookie</h4>
 <p>Practice version:</p>
 <p>'OWASP 2017' --&gt; 'A7 – Cross-Site Scripting (XXS)' --&gt;
@@ -359,14 +359,14 @@ this is reflected XSS.</p>
 <li>Register with a username &amp; password in register page. For
 example, I use Hitchhiker &amp; 42 as username &amp; password.</li>
 </ol>
-<p><img src="3.bmp"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/3.bmp"></p>
 <ol start="2" type="1">
 <li>Login as Hitchhiker. Go to DNS LOOKUP page, and submit the script
 below:</li>
 </ol>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>Results:</p>
-<p><img src="4.bmp"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/4.bmp"></p>
 <h4 id="task-three-attack-from-attackers-port">Task Three: Attack from
 Attacker's port</h4>
 <p>I'm too lame to open another VM, so I just quickly go through this
@@ -414,7 +414,7 @@ succeed or not.</p></li>
 create in step 2.</li>
 </ol>
 <p>Results:</p>
-<p><img src="5.bmp"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/5.bmp"></p>
 <p>This means the database has been reset, which means the resetDB.js
 has been successfully executed.</p>
 <h3 id="stored-xss">Stored XSS</h3>
@@ -422,7 +422,7 @@ has been successfully executed.</p>
 Unfortunately, I found that I can't connect to the database now. So I
 can only describe the following attacks. But I will still provide the
 code and explanation.</p>
-<p><img src="6.BMP"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/6.BMP"></p>
 <p>Stored XSS, image from
 https://hydrasky.com/network-security/crosssite-scriptingxss-attack/</p>
 <p>Practice version:</p>
@@ -464,7 +464,7 @@ to HTML5 Web Storage</h4>
 <p>add this to the blog, and check HTML5 page.</p>
 <h2 id="cross-site-request-forgerycsrf">Cross Site Request
 Forgery(CSRF)</h2>
-<p><img src="7.bmp"></p>
+<p><img src="/2021/02/26/Master%20of%20Cybersecurity/FIT5003/FIT5003%20XSS/7.bmp"></p>
 <p>Cross Site Request Forgery Attacks (image from
 https://hydrasky.com/network-security/crosssite-request-forgery-csrf/)</p>
 <p>Script to add in Add Blog page:</p>

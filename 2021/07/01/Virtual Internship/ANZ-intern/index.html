@@ -33,10 +33,10 @@
 <meta property="og:site_name" content="Life φlosophy">
 <meta property="og:description" content="This report is related to my experience early this year to take self-enrolled virtual internship provided by ANZ. I was given a pcap file in this program, and was asked to analyze malicious files by">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/Virtual%20Internship/ANZ-intern/1.jpg">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/ANZ-intern/1.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/anz-logo.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/bank-card.jpg">
-<meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/Virtual%20Internship/ANZ-intern/2.jpg">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/ANZ-intern/2.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/3.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/4.jpg">
 <meta property="og:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/5.jpg">
@@ -53,7 +53,7 @@
 <meta property="article:tag" content="Forensics">
 <meta property="article:tag" content="Wireshark">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/Virtual%20Internship/ANZ-intern/1.jpg">
+<meta name="twitter:image" content="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/ANZ-intern/1.jpg">
 
 
 <link rel="canonical" href="https://rdweirdo981.github.io/2021/07/01/Virtual%20Internship/ANZ-intern/">
@@ -331,9 +331,9 @@ Wireshark to simplify the process.</p>
 can choose File --&gt; Export Objects --&gt; HTTP to obtain all files
 transmitted by HTTP.</p>
 <p>Thus, we can easily extract these 2 images.</p>
-<p><img src="Virtual%20Internship/ANZ-intern/1.jpg"></p>
-<p><img src="anz-logo.jpg"></p>
-<p><img src="bank-card.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/ANZ-intern/1.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/anz-logo.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/bank-card.jpg"></p>
 <p>Or we can use Hex Editor:</p>
 <ol type="1">
 <li>jpg file signature: FFD8, footer: FFD9</li>
@@ -356,8 +356,8 @@ report.</p>
 <li>You will find the hidden message on the bottom of the streaming
 data</li>
 </ol>
-<p><img src="Virtual%20Internship/ANZ-intern/2.jpg"></p>
-<p><img src="3.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/ANZ-intern/2.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/3.jpg"></p>
 <h1 id="x03-sub-task-3">0x03 Sub-task 3</h1>
 <h2 id="task-description-2">Task description</h2>
 <p>• The user downloaded a <strong>suspicious</strong> document called
@@ -366,7 +366,7 @@ data</li>
 report.</p>
 <h2 id="ans-2">ANS</h2>
 <p>Same steps as Task2.</p>
-<p><img src="4.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/4.jpg"></p>
 <h1 id="x04-sub-task-4">0x04 Sub-task 4</h1>
 <h2 id="task-description-3">Task description</h2>
 <p>• The user accessed <strong>3 pdf</strong> documents:
@@ -379,9 +379,9 @@ Include images of them in your report.</p>
 <ol type="1">
 <li>pdf file signature: 25 50 44 46, no footer</li>
 </ol>
-<p><img src="5.jpg"></p>
-<p><img src="6.jpg"></p>
-<p><img src="7.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/5.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/6.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/7.jpg"></p>
 <h1 id="x05-sub-task-5">0x05 Sub-task 5</h1>
 <h2 id="task-description-4">Task description</h2>
 <p>• The user also accessed a file called
@@ -390,7 +390,7 @@ Include images of them in your report.</p>
 <h2 id="ans-4">ANS</h2>
 <p>It's a jpg hidden as txt. So using same technique in task 1, we got
 the file.</p>
-<p><img src="task5.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/task5.jpg"></p>
 <h1 id="x06-sub-task-6">0x06 Sub-task 6</h1>
 <h2 id="task-description-5">Task description</h2>
 <p>● The user accessed an image called "<strong>atm-image.jpg</strong>"
@@ -402,8 +402,8 @@ actually 2 FFD8 &amp; 2 FFD9 in the stream, which means that this GET
 request actually obtained 2 images.</p>
 <p>We put the Hex data into Editor and save them both to obtain the 2
 images.</p>
-<p><img src="atm-image.jpg"></p>
-<p><img src="task6.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/atm-image.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/task6.jpg"></p>
 <h1 id="x07-sub-task-7">0x07 Sub-task 7</h1>
 <h2 id="task-description-6">Task description</h2>
 <p>• The network traffic shows that the user accessed the image
@@ -416,7 +416,7 @@ actually encoded by base64.</p>
 <p>Then, since this is a png file, the file signature should be 89 50 4E
 47 0D 0A 1A 0A.</p>
 <p>Put it into Hex Editor, and save it to .png</p>
-<p><img src="task7.png"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/task7.png"></p>
 <h1 id="x08-sub-task-8">0x08 Sub-task 8</h1>
 <h2 id="task-description-7">Task description</h2>
 <p>● The user accessed one more document called
@@ -433,7 +433,7 @@ a compressed file.</p>
 03 04.</p>
 <p>We saved it to a zip file and open it with the password.</p>
 <p>We finally got the real pdf inside the compressed file.</p>
-<p><img src="8.jpg"></p>
+<p><img src="/2021/07/01/Virtual%20Internship/ANZ-intern/8.jpg"></p>
 
     </div>
 

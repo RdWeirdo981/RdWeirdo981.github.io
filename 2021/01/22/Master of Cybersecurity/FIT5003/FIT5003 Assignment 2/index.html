@@ -368,8 +368,8 @@ remove it. (Worthy of trying to use python code to remove it, but I’m
 too lazy.)</p></li>
 </ol>
 <h2 id="step-4-result">Step 4: Result</h2>
-<p><img src="1.jpg"></p>
-<p><img src="2.jpg"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/1.jpg"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/2.jpg"></p>
 <p>Username: user8069</p>
 <p>Password: cgwqu12hqzinfoaxjeo8</p>
 <p>The related python file has been attached in the “other file”
@@ -382,8 +382,8 @@ submission box. It is also added in the python file.</p>
 account.</p>
 <h2 id="step-1-get-the-url">Step 1: Get the url</h2>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(<span class="string">"The ultimate question of  life the universe and everything."</span>)&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="3.jpg"></p>
-<p><img src="4.jpg"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/3.jpg"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/4.jpg"></p>
 <p>In BURP, sending the HTTP history of this POST request to
 <strong>Repeater</strong> and change the method to GET will bring us the
 following URL:</p>
@@ -392,7 +392,7 @@ following URL:</p>
 <h2 id="step-2-close-the-proxy">Step 2: Close the proxy</h2>
 <p>We have to change the proxy setting in Firefox to be “No proxy” to
 perform the attack.</p>
-<p><img src="5.png"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/5.png"></p>
 <p>If we don’t do this, when we access 127.0.0.1:9090, the browser will
 be re-directed to the XAMPP dashboard.</p>
 <h2 id="step-3-writing-javascript-file">Step 3: Writing JavaScript
@@ -404,7 +404,7 @@ package. So, I observed the parameter in Edit Profile when I request a
 normal POST on the edit profile page. This is also why we need an
 authenticated account. If we can’t observe the POST request’s
 parameters, we will not know how to structure our data in JS.</p>
-<p><img src="6.png"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/6.png"></p>
 <p>I found this link is very useful:
 https://javascript.info/xmlhttprequest#post-formdata</p>
 <p>So, I used formdata in my POST request rather than filling send()
@@ -418,7 +418,7 @@ if it worked, since we cannot check the BURP (the proxy is closed.). But
 we still need to see if the profile has been changed. I have already
 reset the database before I did this attack, so if the password=42 is
 correct, then this attack can be seen as successful.</p>
-<p><img src="7.png"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/7.png"></p>
 <p>Done!</p>
 <h2 id="step5-the-url">Step5: The URL</h2>
 <p>There is still one thing to do: get the url. So we replace the
@@ -446,13 +446,13 @@ long so I don’t attach them in appendix. But you can see them in the
 deleted the original query and made a <code>defendSQLI()</code> function
 in another file to pass the query.</li>
 </ol>
-<p><img src="8.png"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/8.png"></p>
 <ol start="2" type="1">
 <li>In <code>MySQLHandler.php</code>, I implement the protection by
 writing a new function <code>defendSQLI()</code>. The following is the
 main code of it. I configured the code of week8 lecture.</li>
 </ol>
-<p><img src="9.png"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/9.png"></p>
 <p>Notice:</p>
 <ol type="1">
 <li><p>I thought I can implement it only in the
@@ -480,7 +480,7 @@ the website totally crashed.</p>
 <p>Now, I have fixed it, and the login page is protected well. If you
 enter the following statement in Username and click “Login”, the page
 will show “Password incorrect”.</p>
-<p><img src="10.png"></p>
+<p><img src="/2021/01/22/Master%20of%20Cybersecurity/FIT5003/FIT5003%20Assignment%202/10.png"></p>
 <p>I had a lot of fun in this assignment. Thank you so much!</p>
 
     </div>

