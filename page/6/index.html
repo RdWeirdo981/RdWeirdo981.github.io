@@ -178,7 +178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -229,7 +229,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2022/06/05/Quantum/Qiskit-Lab1/">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2022/10/12/CTF/TCTF-0CTF-2022/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -242,7 +242,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/05/Quantum/Qiskit-Lab1/" class="post-title-link" itemprop="url">Qiskit Learning - Lab 1</a>
+          <a href="/2022/10/12/CTF/TCTF-0CTF-2022/" class="post-title-link" itemprop="url">TCTF/0CTF 2022 Crypto</a>
         </h2>
 
         <div class="post-meta-container">
@@ -253,14 +253,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-06-05 22:15:42" itemprop="dateCreated datePublished" datetime="2022-06-05T22:15:42+08:00">2022-06-05</time>
+      <time title="Created: 2022-10-12 00:53:02" itemprop="dateCreated datePublished" datetime="2022-10-12T00:53:02+08:00">2022-10-12</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-12-21 21:43:58" itemprop="dateModified" datetime="2022-12-21T21:43:58+08:00">2022-12-21</time>
+        <time title="Modified: 2022-11-28 11:27:07" itemprop="dateModified" datetime="2022-11-28T11:27:07+08:00">2022-11-28</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,7 +268,11 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Quantum-Computing/" itemprop="url" rel="index"><span itemprop="name">Quantum Computing</span></a>
+          <a href="/categories/Catch-The-Flag/" itemprop="url" rel="index"><span itemprop="name">Catch The Flag</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Catch-The-Flag/CTF-Crypto/" itemprop="url" rel="index"><span itemprop="name">CTF-Crypto</span></a>
         </span>
     </span>
 
@@ -282,15 +286,92 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Learning materials:</p>
-<p><a target="_blank" rel="noopener" href="https://learn.qiskit.org/course/ch-labs/lab-1-quantum-circuits">Lab
-1 Quantum Circuits</a></p>
-<p>My personal learning notes:</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/RdWeirdo981/qiskit-learning/blob/main/Lab1/qiskit-basic.ipynb">Qiskit
-basics notes</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/RdWeirdo981/qiskit-learning/blob/main/Lab1/Lab-1-Quantum-Circuits.ipynb">Lab
-1 notes</a></p>
-<p>Related QC learning notes (TBD)</p>
+          <h2 id="real_magic_dlog">real_magic_dlog</h2>
+<h3 id="problem-description">Problem description</h3>
+<p>Based on HITCON 2021 "magic dlog". According to its author <span class="citation" data-cites="lyc">@lyc</span>, the intended solution is
+<em>"Finding Smooth Integers in Short Intervals Using CRT
+Decoding"</em>.</p>
+<h4 id="proof-of-work">proof of work</h4>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">proof_of_work</span>(<span class="params">self</span>):</span></span><br><span class="line">    random.seed(urandom(<span class="number">8</span>))</span><br><span class="line">    proof = <span class="string">''</span>.join([random.choice(string.ascii_letters + string.digits + <span class="string">'!#$%&amp;*-?'</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>)])</span><br><span class="line">    digest = sha256(proof.encode()).hexdigest()</span><br><span class="line">    self.dosend(<span class="string">'sha256(XXXX + {}) == {}'</span>.<span class="built_in">format</span>(proof[<span class="number">4</span>: ], digest))</span><br><span class="line">    self.dosend(<span class="string">'Give me XXXX:'</span>)</span><br><span class="line">    x = self.request.recv(<span class="number">10</span>)</span><br><span class="line">    x = (x.strip()).decode(<span class="string">'utf-8'</span>) </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(x) != <span class="number">4</span> <span class="keyword">or</span> sha256((x + proof[<span class="number">4</span>: ]).encode()).hexdigest() != digest: </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="dlog">dlog</h4>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        signal.signal(signal.SIGALRM, self.timeout_handler)</span><br><span class="line">        signal.alarm(<span class="number">50</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.proof_of_work():</span><br><span class="line">            self.dosend(<span class="string">'You must pass the PoW!'</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        signal.alarm(<span class="number">60</span>)</span><br><span class="line">        magic = urandom(LEN)</span><br><span class="line">        magic_num = bytes_to_long(magic)</span><br><span class="line">        self.dosend(magic.<span class="built_in">hex</span>())</span><br><span class="line">        self.dosend(<span class="string">'P:&gt;'</span>)</span><br><span class="line">        P = <span class="built_in">int</span>(self.request.recv(<span class="number">100</span>).strip(), <span class="number">16</span>)</span><br><span class="line">        self.dosend(<span class="string">'E:&gt;'</span>)</span><br><span class="line">        E = <span class="built_in">int</span>(self.request.recv(<span class="number">100</span>).strip(), <span class="number">16</span>)</span><br><span class="line">        self.dosend(<span class="string">'data:&gt;'</span>)</span><br><span class="line">        data = self.request.recv(<span class="number">100</span>).strip()</span><br><span class="line">        num1 = <span class="built_in">int</span>(data, <span class="number">16</span>)</span><br><span class="line">        <span class="keyword">if</span> P &gt;&gt; (<span class="number">384</span> - LEN * <span class="number">8</span>) == magic_num <span class="keyword">and</span> isPrime(P):</span><br><span class="line">            data2 = sha384(data).hexdigest()</span><br><span class="line">            num2 = <span class="built_in">int</span>(data2, <span class="number">16</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">pow</span>(num1, E, P) == num2 % P:</span><br><span class="line">                self.dosend(flag)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.dosend(<span class="string">'try harder!!!'</span>)</span><br><span class="line">    <span class="keyword">except</span> TimeoutError:</span><br><span class="line">        self.dosend(<span class="string">'Timeout!'</span>)</span><br><span class="line">        self.request.close()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        self.dosend(<span class="string">'Wtf?'</span>)</span><br><span class="line">        self.request.close()</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="solution">Solution</h3>
+<h4 id="proof-of-work-1">proof of work</h4>
+<p>The proof of work part requires us to break the first 4 chars of a
+random 8 bytes string. We are given the condition where the SHA-256 of
+the string is shown.</p>
+<p>For example, we are shown something like:</p>
+<blockquote>
+<p>sha256(XXXX + n56#&amp;U856iv#8vI3) ==
+fb3d8b097f094662b84c90fd6faca83a385a075dc2e25f477b379da7408dac19 Give me
+XXXX:</p>
+</blockquote>
+<p>We can just iterate all the possible combinations since the
+complexity isn't too large. It's just a PoW anyway.</p>
+<p>The interactive code is below.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> digits, ascii_letters</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"><span class="comment"># connection</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dosend</span>(<span class="params">sock, msg</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sock.sendall(msg.encode(<span class="string">'latin-1'</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">HOST = <span class="string">"202.120.7.219"</span></span><br><span class="line">PORT = <span class="number">15555</span></span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">c = s.connect((HOST, PORT))</span><br><span class="line">s.sendall(<span class="string">b""</span>)</span><br><span class="line">resp = s.recv(<span class="number">1024</span>).decode().strip()</span><br><span class="line">digest_compare = resp[<span class="number">35</span>:]</span><br><span class="line">proof_rest = resp[<span class="number">14</span>:<span class="number">30</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># breaking SHA-256 first 4 places</span></span><br><span class="line">alpha_bet = digits+ascii_letters+<span class="string">"!#$%&amp;*-?"</span></span><br><span class="line">strlist = itertools.product(alpha_bet, repeat=<span class="number">4</span>)</span><br><span class="line">xxxx = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> strlist:</span><br><span class="line">    data = i[<span class="number">0</span>] + i[<span class="number">1</span>] + i[<span class="number">2</span>] + i[<span class="number">3</span>]</span><br><span class="line">    data_sha = sha256((data + proof_rest).encode(<span class="string">'utf-8'</span>)).hexdigest()</span><br><span class="line">    <span class="keyword">if</span> (data_sha == digest_compare):</span><br><span class="line">        xxxx = data</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># send pow</span></span><br><span class="line">resp = s.recv(<span class="number">1024</span>).decode().strip()</span><br><span class="line">s.sendall(xxxx.encode())</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="dlog-1">dlog</h4>
+<p>The expected solution should be from this paper: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/335305.335337">Finding Smooth
+Integers in Short Intervals Using CRT Decoding</a> Although, in the
+description, the challenge mentions that this problem is developed from
+HITCON 2021 "magic dlog". I searched on the internet and found a <a target="_blank" rel="noopener" href="https://tl2cents.github.io/2021/12/14/Hitcon2021-Crypto-Writeup/">solution</a>
+for HITCON 2021 version. By slightly adjusting the code, the solution
+can be applied to this challenge.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span>  is_prime</span><br><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">LEN = <span class="number">17</span></span><br><span class="line">magic_num = <span class="built_in">int</span>(resp, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65536</span>):</span><br><span class="line">    n = magic_num * <span class="number">2</span> ** (<span class="number">384</span> - LEN*<span class="number">8</span>) + i * <span class="number">2</span> ** (<span class="number">384</span> - LEN*<span class="number">8</span> - <span class="number">16</span>)</span><br><span class="line">    <span class="keyword">if</span> is_prime(n + <span class="number">1</span>):</span><br><span class="line">        f = factor(n)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">all</span>(p &lt; <span class="number">2</span> ** <span class="number">40</span> <span class="keyword">for</span> p, e <span class="keyword">in</span> f):</span><br><span class="line">            num1 = primitive_root(n+<span class="number">1</span>)</span><br><span class="line">            data = <span class="built_in">int</span>(num1).to_bytes(<span class="number">2</span>, <span class="string">'big'</span>).<span class="built_in">hex</span>().encode(<span class="string">'latin-1'</span>).strip()</span><br><span class="line">            data2 = sha384(data).hexdigest()</span><br><span class="line">            num2 = <span class="built_in">int</span>(data2, <span class="number">16</span>)</span><br><span class="line">            e = discrete_log(Zmod(n+<span class="number">1</span>)(num2), Zmod(n+<span class="number">1</span>)(num1))</span><br><span class="line">            <span class="keyword">if</span> (n+<span class="number">1</span>) &gt;&gt; (<span class="number">384</span> - LEN * <span class="number">8</span>) == magic_num <span class="keyword">and</span> isPrime(n+<span class="number">1</span>): <span class="comment">#only for check</span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">pow</span>(num1, e, n+<span class="number">1</span>) == num2 % (n + <span class="number">1</span>): <span class="comment">#only for check</span></span><br><span class="line">                </span><br><span class="line">                    resp = s.recv(<span class="number">1024</span>).decode().strip()</span><br><span class="line">                    print(resp) <span class="comment"># P: </span></span><br><span class="line">                    s.sendall(<span class="built_in">hex</span>(n+<span class="number">1</span>).encode(<span class="string">'latin-1'</span>)) <span class="comment"># send P</span></span><br><span class="line"></span><br><span class="line">                    resp = s.recv(<span class="number">1024</span>).decode().strip()</span><br><span class="line">                    print(resp) <span class="comment"># e: </span></span><br><span class="line">                    s.sendall(<span class="built_in">hex</span>(e).encode(<span class="string">'latin-1'</span>)) <span class="comment"># send e</span></span><br><span class="line"></span><br><span class="line">                    resp = s.recv(<span class="number">65536</span>).decode().strip()</span><br><span class="line">                    print(resp) <span class="comment"># data: </span></span><br><span class="line">                    s.sendall(data) <span class="comment"># send data</span></span><br><span class="line"></span><br><span class="line">                    resp = s.recv(<span class="number">1024</span>).decode().strip()</span><br><span class="line">                    print(resp) <span class="comment"># msg</span></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">break</span></span><br></pre></td></tr></tbody></table></figure>
+<p>We still want to look at how this works.</p>
+<p>The challenge first generates a random 17 bytes (136 bits) and
+converts it to long integer as a <code>magic_num</code> <span class="math inline">\(m\)</span>. We are given the hex of this number
+and expected to find a proper set of <span class="math inline">\(\{P,\;
+E,\; {\rm data}\}\)</span> such that: <span class="math display">\[
+\begin{aligned}
+\lfloor {P \over {2^{248}}} \rfloor = m\; ;\\
+P \; {\rm is \; prime.}
+\end{aligned}
+\]</span> It also means that the first 136 bits of <span class="math inline">\(P\)</span> should be exactly equal to bits in
+<span class="math inline">\(m\)</span>. Since <span class="math inline">\(P\)</span> is prime, <span class="math inline">\(P-1\)</span> can be <span class="math inline">\(m
+\cdot 2^{248} + i\)</span>, where <span class="math inline">\(i \in
+[2^{247}, 2^{248})\)</span> is an even number.</p>
+<p>Here, I learned a trick from the <a target="_blank" rel="noopener" href="https://tl2cents.github.io/2021/12/14/Hitcon2021-Crypto-Writeup/">solution</a>.
+We can actually only iterate the highest 16 bits after 136 bits and let
+all the rest be 0's. It will make the factorization of <span class="math inline">\(P-1\)</span> way easier and faster.</p>
+<p>Also, there's another condition on this set. Let <code>data2</code>
+be hexdigest of sha384 of the input <code>data</code>. <code>num1</code>
+and <code>num2</code> are integer converted from <code>data</code> and
+<code>data2</code>. The other constraints on <span class="math inline">\(\{P,\; E,\; {\rm data}\}\)</span> are: <span class="math display">\[
+\begin{aligned}
+n_{1}^{E} &amp;\equiv n_{2} \mod P \\
+n_{1} &amp;= {\rm int(data, 16)}\\
+n_{2} &amp;= {\rm int(sha384(data), 16)}
+\end{aligned}
+\]</span> It can be clearly seen that this is a Discrete Logarithm (DL)
+problem. The core method for this kind of problem is to find a enough
+smooth <span class="math inline">\(P\)</span> so that <span class="math inline">\(E\)</span> can be easily/quickly obtained by
+calling <code>discrete_log</code> from SageMath (I'll write a sum-up
+later for these maths/cryptanalysis tools). The smoothness can be
+restricted by conditioning all factors of rank of <span class="math inline">\(P\)</span> (which is <span class="math inline">\(P-1\)</span> since <span class="math inline">\(P\)</span> is prime) to be no greater than 40 (or
+50 if it doens't work).</p>
+<p>The detailed explaination can be found <a target="_blank" rel="noopener" href="https://lazzzaro.github.io/2020/05/07/crypto-%E7%A6%BB%E6%95%A3%E5%AF%B9%E6%95%B0/index.html">here</a>
+(in Chinese). This kind of algorithm is called
+<strong>Pohlig-hellman</strong>. The conditions of applying
+Pohlig-hellman to find DLP solution in limited time is:</p>
+<p><span class="math display">\[g^{x} \equiv a \mod P,\; {\rm
+g\;is\;the\;primitive\;root\;of\;P.}\]</span> Thus, we can set <span class="math inline">\(n_{1}\)</span> to be the primitive root of <span class="math inline">\(P\)</span>.</p>
+<h3 id="reference">Reference</h3>
+<p><a target="_blank" rel="noopener" href="https://tl2cents.github.io/2021/12/14/Hitcon2021-Crypto-Writeup/">Hitcon2021
+Crypto Writeup</a> <a target="_blank" rel="noopener" href="https://lazzzaro.github.io/2020/05/07/crypto-%E7%A6%BB%E6%95%A3%E5%AF%B9%E6%95%B0/index.html">离散对数</a>
+<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/335305.335337">Finding Smooth
+Integers in Short Intervals Using CRT Decoding</a></p>
+<h2 id="ezrsa">ezRSA++</h2>
+<h3 id="problem-description-1">Problem description</h3>
+<p>Based on 0CTF 2021 Finals "<a target="_blank" rel="noopener" href="https://github.com/M0urn3r/My-Public-CTF-Challenges#ezRSA+">ezRSA+</a>",
+the intended solution is <em>"Partial Key Exposure Attack on Short
+Secret Exponent CRT-RSA"</em>. Maybe the method in <em>"Small
+CRT-exponent RSA revisited"</em> also works.</p>
+<h4 id="code">code</h4>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ExGCD</span>(<span class="params">a, b</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">0</span> == b:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>, <span class="number">0</span>, a</span><br><span class="line">    x, y, q = ExGCD(b, a % b)</span><br><span class="line">    x, y = y, (x - a // b * y)</span><br><span class="line">    <span class="keyword">return</span> x, y, q</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen</span>(<span class="params">p_size, d_size, l_size</span>):</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        p = getPrime(p_size)</span><br><span class="line">        q = getPrime(p_size)</span><br><span class="line">        <span class="keyword">if</span> GCD(p - <span class="number">1</span>, q - <span class="number">1</span>) == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    d_p = getPrime(d_size)</span><br><span class="line">    d_q = getPrime(d_size)</span><br><span class="line">    s, t, g = ExGCD(p - <span class="number">1</span>, q - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> s &lt; <span class="number">0</span>:</span><br><span class="line">        s += q - <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t += p - <span class="number">1</span></span><br><span class="line">    n = p * q</span><br><span class="line">    phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">    e = (inverse(d_p, p - <span class="number">1</span>) * t * (q - <span class="number">1</span>) + inverse(d_q, q - <span class="number">1</span>)  * s * (p - <span class="number">1</span>)) // g % phi</span><br><span class="line">    <span class="keyword">assert</span> (e * d_q % (q - <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">assert</span> (e * d_p % (p - <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">    k = (e * d_p - <span class="number">1</span>) // (p - <span class="number">1</span>)</span><br><span class="line">    l = (e * d_q - <span class="number">1</span>) // (q - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> (n, e), (d_p, d_q, p, q), (d_p % (<span class="number">2</span>**l_size), d_q % (<span class="number">2</span>**l_size))</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt</span>(<span class="params">m, pk</span>):</span></span><br><span class="line">    n, e = pk</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line">p_size = <span class="number">1000</span></span><br><span class="line">d_size = <span class="number">105</span></span><br><span class="line">l_size = <span class="number">55</span></span><br><span class="line">pk, sk, hint = gen(p_size, d_size, l_size)</span><br><span class="line">flag = urandom(<span class="number">2</span> * p_size // <span class="number">8</span> - <span class="built_in">len</span>(flag) - <span class="number">1</span>) + flag</span><br><span class="line">enc = encrypt(<span class="built_in">int</span>(flag.<span class="built_in">hex</span>(), <span class="number">16</span>), pk)</span><br><span class="line">print(enc)</span><br><span class="line">print(pk)</span><br><span class="line">print(hint)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">35558284230663313298312684064040643811204702946900174110911295087662938676356112802781671547473910691476600838877279843972105403072929243674403244286458898562457747942651643439624568905004454158744508429126554955023110569348839934098381885098523538078300248638407684468503519326866276798222721018258242443186786917829878515320321445508466038372324063139762003962072922393974710763356236627711414307859950011736526834586028087922704589199885845050751932885698053938070734392371814246294798366452078193195538346218718588887085179856336533576097324041969786125752304133487678308830354729347735644474025828</span></span><br><span class="line"><span class="string">(44774502335951608354043148360684114092901940301155357314508676399067538307546121753785009844275454594381602690061553832466871574728524408152400619047820736137949166290404514747591817206669966103047443912935755873432503095952914080827536130899968275165557303493867755627520568588808534411526058896791373252974606364861105086430729757064078675811147972536205086402752245214343186536177015741922559575575911278873118556603923689408629477875537332177644886701517140711134017511229202430437068095342526435886609381176269251580339549071944830141516001532825295594908434587285225415103472279090325281062442217, 29624366183227462965645558392954094074485353876807451497147549927093025197118051280445930543762170853769573962200247669305286333212410439624262142109295839433584663989554419810341266820063074908743295553517790354149623873028162282751352613333181218478850463012413786673509078012976454604598813805735677104174112776060905225493357010861225261560490401501912259585922988353328944884443953564154752191932500561561256069872534626325000901099904014035414792860997025614313564862063784602254606240743545483125618939111639728114664995759380293512809125885893543730614962375399353971677980309835647540883700977)</span></span><br><span class="line"><span class="string">(5013415024346389, 4333469053087705)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="solution-1">Solution</h3>
+<h3 id="reference-1">Reference</h3>
+<p>To be done... I'm too busy at this moment o((&gt;ω&lt; ))o</p>
 
       
     </div>
@@ -310,7 +391,7 @@ basics notes</a></p>
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -344,7 +425,7 @@ basics notes</a></p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -430,7 +511,38 @@ if (document.querySelectorAll('.mermaid').length) {
 
     <div class="pjax">
 
-  
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
 
 
 
