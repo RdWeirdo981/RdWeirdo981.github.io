@@ -178,7 +178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -229,7 +229,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2023/01/06/Paper%20I%20Read/MRM/understanding-MRM-1/">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2023/01/07/Research%20Notes/LBC/HAP2LWE1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -242,7 +242,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/06/Paper%20I%20Read/MRM/understanding-MRM-1/" class="post-title-link" itemprop="url">Measure-Rewind-Measure Paper Reading 1 - FO transform, ROM and QROM</a>
+          <a href="/2023/01/07/Research%20Notes/LBC/HAP2LWE1/" class="post-title-link" itemprop="url">Hardness Assumptions Study Note - Part 2 LWE-1</a>
         </h2>
 
         <div class="post-meta-container">
@@ -254,7 +254,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-01-06 12:53:46 / Modified: 01:00:55" itemprop="dateCreated datePublished" datetime="2023-01-06T12:53:46+08:00">2023-01-06</time>
+      <time title="Created: 2023-01-07 01:45:28 / Modified: 01:46:48" itemprop="dateCreated datePublished" datetime="2023-01-07T01:45:28+08:00">2023-01-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -262,11 +262,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/2-Research-Notes/" itemprop="url" rel="index"><span itemprop="name">2. Research Notes</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/2-Research-Notes/Paper-I-Read/" itemprop="url" rel="index"><span itemprop="name">Paper I Read</span></a>
+          <a href="/categories/1-Study-Notes/" itemprop="url" rel="index"><span itemprop="name">1. Study Notes</span></a>
         </span>
     </span>
 
@@ -280,13 +276,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>This series of articles will follow the paper
-<em>Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs
-for One-Way to Hiding and CCA Security</em> to summarise the up-to-date
-research on IND-CCA security under QROM. This is part 1.</p>
+          <p>This a handwritting self-study note of a lecture note <a target="_blank" rel="noopener" href="https://katinkabou.github.io/PhdCourse2022.html">PhD Course on
+Hardness Assumptions in Lattice-based Cryptography</a> by Katharina
+Boudgoust.</p>
+<p>I have studied: <br> - <strong>Basic Lattice Cryptography: Encryption
+and Fiat-Shamir Signatures</strong> by <em>Vadim Lyubashevsky</em><br> -
+<strong>6.876J Advanced Topics in Cryptography: Lattices</strong> (Fall
+2015) by <em>Vinod Vaikuntanathan</em><br> - not all, some lecture
+notes<br> - and several Simons LBC bootcamp workshops<br></p>
+<p>So, the main purpose for studying this note is systematically
+refreshing my memory of some concepts in theoretical LBC, especially in
+Hardness Assumptions for LBC.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/01/06/Paper%20I%20Read/MRM/understanding-MRM-1/#more" rel="contents">
+              <a class="btn" href="/2023/01/07/Research%20Notes/LBC/HAP2LWE1/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -310,7 +313,7 @@ research on IND-CCA security under QROM. This is part 1.</p>
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -430,38 +433,7 @@ if (document.querySelectorAll('.mermaid').length) {
 
     <div class="pjax">
 
-  <script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'none'
-      },
-      options: {
-        renderActions: {
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              const target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    const script = document.createElement('script');
-    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
-    script.defer = true;
-    document.head.appendChild(script);
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.typesetClear();
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
+  
 
 
 
