@@ -34,7 +34,7 @@
 <meta property="og:description" content="This series of articles will follow the paper Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs for One-Way to Hiding and CCA Security to summarise the up-to-date research on IND-CCA">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-14T04:53:46.000Z">
-<meta property="article:modified_time" content="2023-01-13T17:17:49.230Z">
+<meta property="article:modified_time" content="2023-01-13T17:20:32.166Z">
 <meta property="article:author" content="Daisy">
 <meta property="article:tag" content="Cryptography">
 <meta property="article:tag" content="Post-Quantum Cryptography">
@@ -173,7 +173,7 @@
 Indistinguishability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#computationally-indistinguishability"><span class="nav-number">2.1.</span> <span class="nav-text">Computationally
 indistinguishability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-distinguish-p_0-from-p_1"><span class="nav-number">2.1.1.</span> <span class="nav-text">Attack Game: Distinguish
 \(P_0\) from \(P_1\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#definition-computational-indistinguishability"><span class="nav-number">2.1.2.</span> <span class="nav-text">Definition:
-Computational indistinguishability</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cpa-security"><span class="nav-number">2.2.</span> <span class="nav-text">IND-CPA security</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-ind-cpa-security"><span class="nav-number">2.2.1.</span> <span class="nav-text">Attack Game: IND-CPA security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca1-security-non-adaptive"><span class="nav-number">2.3.</span> <span class="nav-text">IND-CCA1 security
+Computational indistinguishability</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cpa-security"><span class="nav-number">2.2.</span> <span class="nav-text">IND-CPA security</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-ind-cpa-security"><span class="nav-number">2.2.1.</span> <span class="nav-text">Attack Game: IND-CPA security</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#definition-ind-cpa-security"><span class="nav-number">2.2.2.</span> <span class="nav-text">Definition: IND-CPA security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca1-security-non-adaptive"><span class="nav-number">2.3.</span> <span class="nav-text">IND-CCA1 security
 (non-adaptive)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-ind-cca1-security"><span class="nav-number">2.3.1.</span> <span class="nav-text">Attack Game and
 Definition: IND-CCA1 security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca2-security-adaptive"><span class="nav-number">2.4.</span> <span class="nav-text">IND-CCA2 security (adaptive)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-ind-cca2-security"><span class="nav-number">2.4.1.</span> <span class="nav-text">Attack Game and
 Definition: IND-CCA2 security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca3-security-authenticated"><span class="nav-number">2.5.</span> <span class="nav-text">IND-CCA3 security
@@ -181,7 +181,7 @@ Definition: IND-CCA2 security</span></a></li></ol></li><li class="nav-item nav-l
 under ROM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#one-wayness"><span class="nav-number">3.0.1.</span> <span class="nav-text">One-wayness</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trapdoor-function-scheme"><span class="nav-number">3.0.2.</span> <span class="nav-text">Trapdoor function scheme</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#one-way-trapdoor-function"><span class="nav-number">3.0.3.</span> <span class="nav-text">One-way trapdoor function</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#attack-game-and-definition-one-way-trapdoor-function-scheme"><span class="nav-number">3.0.3.1.</span> <span class="nav-text">Attack
 Game and Definition: One-way trapdoor function scheme</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#one-way-trapdoor-function-even-with-image-oracle-iow"><span class="nav-number">3.0.4.</span> <span class="nav-text">One-way
 trapdoor function even with image oracle (IOW)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#attack-game-and-definition-iow"><span class="nav-number">3.0.4.1.</span> <span class="nav-text">Attack Game and Definition:
-IOW</span></a></li></ol></li></ol></li></ol></li></ol></div>
+IOW</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">3.1.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -274,7 +274,7 @@ IOW</span></a></li></ol></li></ol></li></ol></li></ol></div>
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-01-14 12:53:46 / Modified: 01:17:49" itemprop="dateCreated datePublished" datetime="2023-01-14T12:53:46+08:00">2023-01-14</time>
+      <time title="Created: 2023-01-14 12:53:46 / Modified: 01:20:32" itemprop="dateCreated datePublished" datetime="2023-01-14T12:53:46+08:00">2023-01-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -420,7 +420,8 @@ m_{i1})\in \mathcal{M}\)</span> with same length.</li>
 </ol>
 <p>Let <span class="math inline">\(W_b\)</span> be the event that <span class="math inline">\(\mathcal{A}\)</span> outputs <span class="math inline">\(1\)</span> in <span class="math inline">\(E_b\)</span>. We define <span class="math inline">\(\mathcal{A}\)</span>'s advantage wrt <span class="math inline">\(\mathcal{E} = (E, D)\)</span> as below: <span class="math display">\[
 \text{CPA}\mathsf{adv}[\mathcal{A, E}] := | \Pr [W_0] - \Pr [W_1] |.
-\]</span> #### Definition: IND-CPA security</p>
+\]</span></p>
+<h4 id="definition-ind-cpa-security">Definition: IND-CPA security</h4>
 <p>CPA secure: <span class="math inline">\(\text{CPA}\mathsf{adv}[\mathcal{A, E}]\)</span> is
 negligible.</p>
 <p>Another way to define the attack game is by using "bit guessing".
@@ -616,9 +617,15 @@ then Challenger sends "Yes"; else sends "No".</li>
 <p>Advantage: <span class="math inline">\(\text{IOW}\mathsf{adv}[\mathcal{A,
 T}]\)</span></p>
 <p>IOW, if negligible.</p>
-<p>(TBD) ### Reference - A Graduate Course in Applied Cryptography by
-Dan Boneh and Victor Shoup<br> - Chapter 12 Chosen ciphertext secure
-public key encryption</p>
+<p>(TBD)</p>
+<h3 id="reference-2">Reference</h3>
+<ul>
+<li>A Graduate Course in Applied Cryptography by Dan Boneh and Victor
+Shoup<br>
+<ul>
+<li>Chapter 12 Chosen ciphertext secure public key encryption</li>
+</ul></li>
+</ul>
 
     </div>
 
