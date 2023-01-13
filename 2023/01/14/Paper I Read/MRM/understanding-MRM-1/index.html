@@ -34,7 +34,7 @@
 <meta property="og:description" content="This series of articles will follow the paper Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs for One-Way to Hiding and CCA Security to summarise the up-to-date research on IND-CCA">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-14T04:53:46.000Z">
-<meta property="article:modified_time" content="2023-01-13T17:20:32.166Z">
+<meta property="article:modified_time" content="2023-01-13T17:23:02.441Z">
 <meta property="article:author" content="Daisy">
 <meta property="article:tag" content="Cryptography">
 <meta property="article:tag" content="Post-Quantum Cryptography">
@@ -178,10 +178,10 @@ Computational indistinguishability</span></a></li></ol></li><li class="nav-item 
 Definition: IND-CCA1 security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca2-security-adaptive"><span class="nav-number">2.4.</span> <span class="nav-text">IND-CCA2 security (adaptive)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-ind-cca2-security"><span class="nav-number">2.4.1.</span> <span class="nav-text">Attack Game and
 Definition: IND-CCA2 security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca3-security-authenticated"><span class="nav-number">2.5.</span> <span class="nav-text">IND-CCA3 security
 (authenticated)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">2.6.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fujisaki-okamoto-transform-under-rom"><span class="nav-number">3.</span> <span class="nav-text">Fujisaki-Okamoto Transform
-under ROM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#one-wayness"><span class="nav-number">3.0.1.</span> <span class="nav-text">One-wayness</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trapdoor-function-scheme"><span class="nav-number">3.0.2.</span> <span class="nav-text">Trapdoor function scheme</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#one-way-trapdoor-function"><span class="nav-number">3.0.3.</span> <span class="nav-text">One-way trapdoor function</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#attack-game-and-definition-one-way-trapdoor-function-scheme"><span class="nav-number">3.0.3.1.</span> <span class="nav-text">Attack
-Game and Definition: One-way trapdoor function scheme</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#one-way-trapdoor-function-even-with-image-oracle-iow"><span class="nav-number">3.0.4.</span> <span class="nav-text">One-way
-trapdoor function even with image oracle (IOW)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#attack-game-and-definition-iow"><span class="nav-number">3.0.4.1.</span> <span class="nav-text">Attack Game and Definition:
-IOW</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">3.1.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+under ROM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#one-wayness"><span class="nav-number">3.1.</span> <span class="nav-text">One-wayness</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trapdoor-function-scheme"><span class="nav-number">3.2.</span> <span class="nav-text">Trapdoor function scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#one-way-trapdoor-function"><span class="nav-number">3.3.</span> <span class="nav-text">One-way trapdoor function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-one-way-trapdoor-function-scheme"><span class="nav-number">3.3.1.</span> <span class="nav-text">Attack
+Game and Definition: One-way trapdoor function scheme</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#one-way-trapdoor-function-even-with-image-oracle-iow"><span class="nav-number">3.4.</span> <span class="nav-text">One-way
+trapdoor function even with image oracle (IOW)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-iow"><span class="nav-number">3.4.1.</span> <span class="nav-text">Attack Game and Definition:
+IOW</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">3.5.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -274,7 +274,7 @@ IOW</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-01-14 12:53:46 / Modified: 01:20:32" itemprop="dateCreated datePublished" datetime="2023-01-14T12:53:46+08:00">2023-01-14</time>
+      <time title="Created: 2023-01-14 12:53:46 / Modified: 01:23:02" itemprop="dateCreated datePublished" datetime="2023-01-14T12:53:46+08:00">2023-01-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -548,7 +548,7 @@ and code-based cryptography schemes, such as LWE, NTRU, McEliece,
 etc.</p>
 <p>Before we start to introduce FO transform, it is also important to
 define several security properties to understand FO transform.</p>
-<h4 id="one-wayness">One-wayness</h4>
+<h3 id="one-wayness">One-wayness</h3>
 <p>Let <span class="math inline">\(H\)</span> be a hash function over
 <span class="math inline">\(\mathcal{(M, T)}\)</span>. We define the
 advantage <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A,
@@ -563,7 +563,7 @@ as the probability of winning the following game:</p>
 negligible for all efficient adversary <span class="math inline">\(\mathcal{A}\)</span>.</p>
 <p>One-way function is easy to compute but hard to invert. We also see
 the definition of one-way trapdoor function.</p>
-<h4 id="trapdoor-function-scheme">Trapdoor function scheme</h4>
+<h3 id="trapdoor-function-scheme">Trapdoor function scheme</h3>
 <p>Let <span class="math inline">\(\mathcal{X, Y}\)</span> be finite
 sets. A <strong>trapdoor function scheme</strong> <span class="math inline">\(\mathcal{T}\)</span> defined over <span class="math inline">\((\mathcal{X, Y})\)</span> is a triple of
 algorithms <span class="math inline">\((G, F, I)\)</span> where:</p>
@@ -577,9 +577,9 @@ G(\cdot)\)</span>.</li>
 <strong>deterministic</strong> Decr such that <span class="math inline">\(x = I(sk, y)\)</span>, where <span class="math inline">\(x,y \in \mathcal{X,Y}\)</span>, respectively.</li>
 <li>Correctness property: for all possible <span class="math inline">\((pk, sk)\)</span> from <span class="math inline">\(G(\cdot)\)</span>, and for all <span class="math inline">\(x\in \mathcal{X}\)</span>, we have <span class="math inline">\(I(sk, F(pk,x)) = x\)</span>.</li>
 </ol>
-<h4 id="one-way-trapdoor-function">One-way trapdoor function</h4>
-<h5 id="attack-game-and-definition-one-way-trapdoor-function-scheme">Attack
-Game and Definition: One-way trapdoor function scheme</h5>
+<h3 id="one-way-trapdoor-function">One-way trapdoor function</h3>
+<h4 id="attack-game-and-definition-one-way-trapdoor-function-scheme">Attack
+Game and Definition: One-way trapdoor function scheme</h4>
 <p>Given a trapdoor function scheme <span class="math inline">\(\mathcal{T} = (G,F,I)\)</span> defined over <span class="math inline">\((\mathcal{X, Y})\)</span>, an adversary <span class="math inline">\(\mathcal{A}\)</span>, the game is as below:</p>
 <ol type="1">
 <li>Challenger:
@@ -600,10 +600,10 @@ T}]\)</span> is the probability that <span class="math inline">\(\hat{x}
 <p><span class="math inline">\(\mathcal{T}\)</span> is <strong>one
 way</strong> if for all efficient <span class="math inline">\(\mathcal{A}\)</span>, <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A, T}]\)</span> is
 negligible.</p>
-<h4 id="one-way-trapdoor-function-even-with-image-oracle-iow">One-way
-trapdoor function even with image oracle (IOW)</h4>
-<h5 id="attack-game-and-definition-iow">Attack Game and Definition:
-IOW</h5>
+<h3 id="one-way-trapdoor-function-even-with-image-oracle-iow">One-way
+trapdoor function even with image oracle (IOW)</h3>
+<h4 id="attack-game-and-definition-iow">Attack Game and Definition:
+IOW</h4>
 <p>For a ... the game:</p>
 <ol type="1">
 <li>same with above</li>
