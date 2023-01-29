@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--pjax: don't stop the music-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Syne+Mono:300,300italic,400,400italic,700,700italic|Abril+Fatface:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="This report is related to FIT5225 2021S1 Assignment 1. In this assignment, we created a web service by using Docker &amp; Kubernetes.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FIT5225 Assignment 1 - Docker &amp; Kubernetes">
+<meta property="og:url" content="https://rdweirdo981.github.io/2021/07/02/Master-of-Cybersecurity/FIT5225/5225A1/index.html">
+<meta property="og:site_name" content="Life φlosophy">
+<meta property="og:description" content="This report is related to FIT5225 2021S1 Assignment 1. In this assignment, we created a web service by using Docker &amp; Kubernetes.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-02T01:04:47.000Z">
+<meta property="article:modified_time" content="2023-01-05T16:45:48.297Z">
+<meta property="article:author" content="Daisy">
+<meta property="article:tag" content="Restful">
+<meta property="article:tag" content="Cloud Security">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="Flask">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rdweirdo981.github.io/2021/07/02/Master-of-Cybersecurity/FIT5225/5225A1/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>FIT5225 Assignment 1 - Docker & Kubernetes | Life φlosophy</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Life φlosophy</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-collection"><a href="/collection/" rel="section"><i class="fa fa-globe fa-fw"></i>Resources</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+		<iframe src="https://open.spotify.com/embed/track/5Q777K2mEK7lxZHROGIZrt?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#assignment-requirements"><span class="nav-number">1.</span> <span class="nav-text">Assignment Requirements</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#assignment-steps"><span class="nav-number">2.</span> <span class="nav-text">Assignment Steps</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#create-instance"><span class="nav-number">2.1.</span> <span class="nav-text">Create instance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-package"><span class="nav-number">2.2.</span> <span class="nav-text">Install package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-web-service"><span class="nav-number">2.3.</span> <span class="nav-text">The web service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-file"><span class="nav-number">2.4.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#publish-the-docker-image"><span class="nav-number">2.4.1.</span> <span class="nav-text">publish the docker image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section"><span class="nav-number">2.4.2.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kubernetes-cluster"><span class="nav-number">2.5.</span> <span class="nav-text">Kubernetes Cluster</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install-kubectl"><span class="nav-number">2.5.1.</span> <span class="nav-text">install kubectl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-kind"><span class="nav-number">2.5.2.</span> <span class="nav-text">install Kind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-a-kuber-cluster"><span class="nav-number">2.5.3.</span> <span class="nav-text">create a Kuber cluster</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kubernetes-service"><span class="nav-number">2.6.</span> <span class="nav-text">Kubernetes Service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#deployment"><span class="nav-number">2.6.1.</span> <span class="nav-text">deployment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">2.6.2.</span> <span class="nav-text">service</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#experiement"><span class="nav-number">2.7.</span> <span class="nav-text">Experiement</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#related-code"><span class="nav-number">3.</span> <span class="nav-text">Related Code</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#iweb-app"><span class="nav-number">3.1.</span> <span class="nav-text">iWeb App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dockerfile"><span class="nav-number">3.2.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kubernetes-yaml"><span class="nav-number">3.3.</span> <span class="nav-text">Kubernetes yaml</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Daisy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Daisy</p>
+  <div class="site-description" itemprop="description">Cryptography | Mathematics | InfoSec | etc.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2021/07/02/Master-of-Cybersecurity/FIT5225/5225A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Daisy">
+      <meta itemprop="description" content="Cryptography | Mathematics | InfoSec | etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Life φlosophy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FIT5225 Assignment 1 - Docker & Kubernetes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-07-02 09:04:47" itemprop="dateCreated datePublished" datetime="2021-07-02T09:04:47+08:00">2021-07-02</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2023-01-06 00:45:48" itemprop="dateModified" datetime="2023-01-06T00:45:48+08:00">2023-01-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/4-Master-of-Cybersecurity/" itemprop="url" rel="index"><span itemprop="name">4. Master of Cybersecurity</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/4-Master-of-Cybersecurity/FIT5225-Cloud-Computing-and-Security/" itemprop="url" rel="index"><span itemprop="name">FIT5225 Cloud Computing and Security</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+This report is related to FIT5225 2021S1 Assignment 1. In this
+assignment, we created a web service by using Docker &amp; Kubernetes.
+</center>
+<span id="more"></span>
+<p><br></p>
+<h1 id="assignment-requirements">Assignment Requirements</h1>
+<p>You can find it in:
+https://github.com/RdWeirdo981/Master-of-Cybersecurity/blob/main/2021S1%20FIT5225%20Cloud%20Computing%20and%20Security/A1/FIT5225_Assignment1__2021%20(1).pdf</p>
+<h1 id="assignment-steps">Assignment Steps</h1>
+<h2 id="create-instance">Create instance</h2>
+<ol type="1">
+<li>Key: xx-A1</li>
+<li>Security group: add IPv4 TCP 8080 0.0.0.0/0</li>
+<li>Upload: files</li>
+</ol>
+<h2 id="install-package">Install package</h2>
+<ol type="1">
+<li>install pip3</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install python3-pip</span><br><span class="line">$ pip3 --version</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>install numpy</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install numpy</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>install opencv</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install --upgrade pip setuptools wheel</span><br><span class="line">$ pip3 install opencv-python</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libgl1-mesa-glx</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>install flask</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install Flask</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="the-web-service">The web service</h2>
+<ol type="1">
+<li>Run server.py</li>
+<li>Send requests by client.py</li>
+<li>Success!</li>
+</ol>
+<h2 id="docker-file">Dockerfile</h2>
+<ol type="1">
+<li>Give the user the permission</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker ${USER}</span><br></pre></td></tr></tbody></table></figure>
+<p>and re-connect.</p>
+<ol type="1">
+<li>Go to folder containing <strong>server.py, dockerfile,
+requirements.txt, and yolo_tiny_configs folder.</strong></li>
+<li>Encapsulate</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t server_app .</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>Run the docker image in a container</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -i -t -p 5000:5000 --name my_server server_app</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>Test by run the client.py</li>
+<li>Success!</li>
+</ol>
+<h3 id="publish-the-docker-image">publish the docker image</h3>
+<ol type="1">
+<li>Create an account &amp; login</li>
+<li>Create a repo</li>
+<li>Login on the VM:</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker login --username=[your un] --password=[your pw]</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>tag the image:</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br><span class="line">$ docker tag fdfd0ebb119f [username]/app:v1</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>push image:</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker push [username]/app</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="section"></h3>
+<h2 id="kubernetes-cluster">Kubernetes Cluster</h2>
+<h3 id="install-kubectl">install kubectl</h3>
+<p>cmd:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"</span><br><span class="line">$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl</span><br><span class="line">$ kubectl version --client</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="install-kind">install Kind</h3>
+<p>cmd:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64</span><br><span class="line">$ chmod +x ./kind</span><br><span class="line">$ sudo mv ./kind /usr/local/bin/kind</span><br><span class="line">$ kind</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="create-a-kuber-cluster">create a Kuber cluster</h3>
+<p>1 Kuber cluster --&gt; 1 controller + 1 worker</p>
+<ol type="1">
+<li>create a cluster: 1 controller + 1 worker</li>
+</ol>
+<p>go to the folder.</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kind create cluster --config kind_setup_config.yml</span><br><span class="line">$ kubectl cluster-info --context kind-kind</span><br><span class="line">$ kubectl get nodes</span><br></pre></td></tr></tbody></table></figure>
+<p>*Note:</p>
+<p>--name: can't be capital letter.</p>
+<p>container port.</p>
+<p>info:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Kubernetes control plane is running at https://127.0.0.1:36549</span><br><span class="line">KubeDNS is running at https://127.0.0.1:36549/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy</span><br><span class="line"></span><br><span class="line">To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>delete a cluster</li>
+</ol>
+<p>you have to stop and delete all the containers</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kind delete cluster (--name )</span><br><span class="line">$ sudo swapon --show</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="kubernetes-service">Kubernetes Service</h2>
+<h3 id="deployment">deployment</h3>
+<ol type="1">
+<li>write deployment.yml, transfer it to the local path</li>
+<li>launch deployment</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f deployment.yml</span><br><span class="line">$ kubectl describe pod   # see what's wrong</span><br><span class="line">$ kubectl scale deployment iweb-deployment --replicas=4  // change # of pods</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>check the current Kuber:</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get nodes,deployments,pods</span><br></pre></td></tr></tbody></table></figure>
+<p>*Note:</p>
+<p>notice the docker hub path.</p>
+<p>change replicas to change # of pods</p>
+<h3 id="service">service</h3>
+<ol type="1">
+<li>write service.yml</li>
+<li>launch service</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f service.yml</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>get info of service</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get svc -o wide</span><br></pre></td></tr></tbody></table></figure>
+<ol type="1">
+<li>test</li>
+</ol>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://hostip:80</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="experiement">Experiement</h2>
+<p>Note:</p>
+<p>swapfile is full:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ df -Th</span><br><span class="line">$ df -i</span><br><span class="line">$ sudo swapon --show</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="related-code">Related Code</h1>
+<h2 id="iweb-app">iWeb App</h2>
+<p>This is the front-end code for client. Notice that I wrote it as an
+automated process so that we don't have to run it much time.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Generate the parallel requests based on the ThreadPool Executor</span></span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor <span class="keyword">as</span> PoolExecutor</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment">#send http request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">call_object_detection_service</span>(<span class="params">image</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">        url = <span class="string">"http://118.138.245.115:80/server"</span></span><br><span class="line">        data = {}</span><br><span class="line">        <span class="comment">#generate uuid for image</span></span><br><span class="line">        <span class="built_in">id</span> =   uuid.uuid5(uuid.NAMESPACE_OID, image)</span><br><span class="line">        <span class="comment"># Encode image into base64 string</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span> (image, <span class="string">'rb'</span>) <span class="keyword">as</span> image_file:</span><br><span class="line">            data[<span class="string">'image'</span>] =  base64.b64encode(image_file.read()).decode(<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">        data [<span class="string">'id'</span>] = <span class="built_in">str</span>(<span class="built_in">id</span>)</span><br><span class="line"></span><br><span class="line">        headers = {<span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>}</span><br><span class="line"></span><br><span class="line">        response = requests.post(url, json = json.dumps(data), headers = headers)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> response.ok:</span><br><span class="line">            output = <span class="string">"Thread : {},  input image: {},  output:{}"</span>.<span class="built_in">format</span>(threading.current_thread().getName(),</span><br><span class="line">                                                                        image,  response.text)</span><br><span class="line">            print(output)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span> (<span class="string">"Error, response status:{}"</span>.<span class="built_in">format</span>(response))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"Exception in webservice call: {}"</span>.<span class="built_in">format</span>(e))</span><br><span class="line"></span><br><span class="line"><span class="comment"># gets list of all images path from the input folder</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_images_to_be_processed</span>(<span class="params">input_folder</span>):</span></span><br><span class="line">    images = []</span><br><span class="line">    <span class="keyword">for</span> image_file <span class="keyword">in</span> glob.iglob(input_folder + <span class="string">"*.jpg"</span>):</span><br><span class="line">        images.append(image_file)</span><br><span class="line">    <span class="keyword">return</span> images</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="comment">## provide argumetns-&gt; input folder, url, number of wrokers</span></span><br><span class="line"></span><br><span class="line">    path = <span class="string">"inputfolder/"</span></span><br><span class="line">    images = get_images_to_be_processed(path)</span><br><span class="line">    num_images = images.__len__()</span><br><span class="line"></span><br><span class="line">    thread_list = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">11</span>,<span class="number">16</span>,<span class="number">21</span>,<span class="number">26</span>,<span class="number">31</span>]</span><br><span class="line">    response_time = []</span><br><span class="line">    <span class="keyword">for</span> thread <span class="keyword">in</span> thread_list:</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">            start_time = time.time()</span><br><span class="line">            <span class="comment">#craete a worker  thread  to  invoke the requests in parallel</span></span><br><span class="line">            <span class="keyword">with</span> PoolExecutor(max_workers=thread) <span class="keyword">as</span> executor:</span><br><span class="line">                <span class="keyword">for</span> _ <span class="keyword">in</span> executor.<span class="built_in">map</span>(call_object_detection_service,  images):</span><br><span class="line">                    <span class="keyword">pass</span></span><br><span class="line">            elapsed_time =  time.time() - start_time</span><br><span class="line">            response_time.append(<span class="string">"Thread {}: Total time spent: {}, average response time: {} "</span>.<span class="built_in">format</span>(thread,elapsed_time, elapsed_time/num_images))</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> response_time:</span><br><span class="line">        print(item)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>This is the back-end code for server:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import the necessary packages</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="comment"># construct the argument parse and parse the arguments</span></span><br><span class="line">confthres = <span class="number">0.3</span></span><br><span class="line">nmsthres = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_labels</span>(<span class="params">labels_path</span>):</span></span><br><span class="line">    <span class="comment"># load the COCO class labels our YOLO model was trained on</span></span><br><span class="line">    lpath = os.path.sep.join([yolo_path, labels_path])</span><br><span class="line"></span><br><span class="line">    print(yolo_path)</span><br><span class="line">    LABELS = <span class="built_in">open</span>(lpath).read().strip().split(<span class="string">"\n"</span>)</span><br><span class="line">    <span class="keyword">return</span> LABELS</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_weights</span>(<span class="params">weights_path</span>):</span></span><br><span class="line">    <span class="comment"># derive the paths to the YOLO weights and model configuration</span></span><br><span class="line">    weightsPath = os.path.sep.join([yolo_path, weights_path])</span><br><span class="line">    <span class="keyword">return</span> weightsPath</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_config</span>(<span class="params">config_path</span>):</span></span><br><span class="line">    configPath = os.path.sep.join([yolo_path, config_path])</span><br><span class="line">    <span class="keyword">return</span> configPath</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_model</span>(<span class="params">configpath, weightspath</span>):</span></span><br><span class="line">    <span class="comment"># load our YOLO object detector trained on COCO dataset (80 classes)</span></span><br><span class="line">    print(<span class="string">"[INFO] loading YOLO from disk..."</span>)</span><br><span class="line">    net = cv2.dnn.readNetFromDarknet(configpath, weightspath)</span><br><span class="line">    <span class="keyword">return</span> net</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_prediction</span>(<span class="params">image, net, LABELS</span>):</span></span><br><span class="line">    (H, W) = image.shape[:<span class="number">2</span>]</span><br><span class="line">    <span class="comment"># determine only the *output* layer names that we need from YOLO</span></span><br><span class="line">    ln = net.getLayerNames()</span><br><span class="line">    ln = [ln[i[<span class="number">0</span>] - <span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> net.getUnconnectedOutLayers()]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># construct a blob from the input image and then perform a forward</span></span><br><span class="line">    <span class="comment"># pass of the YOLO object detector, giving us our bounding boxes and</span></span><br><span class="line">    <span class="comment"># associated probabilities</span></span><br><span class="line">    blob = cv2.dnn.blobFromImage(image, <span class="number">1</span> / <span class="number">255.0</span>, (<span class="number">416</span>, <span class="number">416</span>),</span><br><span class="line">                                 swapRB=<span class="literal">True</span>, crop=<span class="literal">False</span>)</span><br><span class="line">    net.setInput(blob)</span><br><span class="line">    start = time.time()</span><br><span class="line">    layerOutputs = net.forward(ln)</span><br><span class="line">    <span class="comment"># print(layerOutputs)</span></span><br><span class="line">    end = time.time()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># show timing information on YOLO</span></span><br><span class="line">    print(<span class="string">"[INFO] YOLO took {:.6f} seconds"</span>.<span class="built_in">format</span>(end - start))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># initialize our lists of detected bounding boxes, confidences, and</span></span><br><span class="line">    <span class="comment"># class IDs, respectively</span></span><br><span class="line">    boxes = []</span><br><span class="line">    confidences = []</span><br><span class="line">    classIDs = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># loop over each of the layer outputs</span></span><br><span class="line">    <span class="keyword">for</span> output <span class="keyword">in</span> layerOutputs:</span><br><span class="line">        <span class="comment"># loop over each of the detections</span></span><br><span class="line">        <span class="keyword">for</span> detection <span class="keyword">in</span> output:</span><br><span class="line">            <span class="comment"># extract the class ID and confidence (i.e., probability) of</span></span><br><span class="line">            <span class="comment"># the current object detection</span></span><br><span class="line">            scores = detection[<span class="number">5</span>:]</span><br><span class="line">            <span class="comment"># print(scores)</span></span><br><span class="line">            classID = np.argmax(scores)</span><br><span class="line">            <span class="comment"># print(classID)</span></span><br><span class="line">            confidence = scores[classID]</span><br><span class="line"></span><br><span class="line">            <span class="comment"># filter out weak predictions by ensuring the detected</span></span><br><span class="line">            <span class="comment"># probability is greater than the minimum probability</span></span><br><span class="line">            <span class="keyword">if</span> confidence &gt; confthres:</span><br><span class="line">                <span class="comment"># scale the bounding box coordinates back relative to the</span></span><br><span class="line">                <span class="comment"># size of the image, keeping in mind that YOLO actually</span></span><br><span class="line">                <span class="comment"># returns the center (x, y)-coordinates of the bounding</span></span><br><span class="line">                <span class="comment"># box followed by the boxes' width and height</span></span><br><span class="line">                box = detection[<span class="number">0</span>:<span class="number">4</span>] * np.array([W, H, W, H])</span><br><span class="line">                (centerX, centerY, width, height) = box.astype(<span class="string">"int"</span>)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># use the center (x, y)-coordinates to derive the top and</span></span><br><span class="line">                <span class="comment"># and left corner of the bounding box</span></span><br><span class="line">                x = <span class="built_in">int</span>(centerX - (width / <span class="number">2</span>))</span><br><span class="line">                y = <span class="built_in">int</span>(centerY - (height / <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">                <span class="comment"># update our list of bounding box coordinates, confidences,</span></span><br><span class="line">                <span class="comment"># and class IDs</span></span><br><span class="line">                boxes.append([x, y, <span class="built_in">int</span>(width), <span class="built_in">int</span>(height)])</span><br><span class="line"></span><br><span class="line">                confidences.append(<span class="built_in">float</span>(confidence))</span><br><span class="line">                classIDs.append(classID)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># apply non-maxima suppression to suppress weak, overlapping bounding boxes</span></span><br><span class="line">    idxs = cv2.dnn.NMSBoxes(boxes, confidences, confthres,</span><br><span class="line">                            nmsthres)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># TODO Prepare the output as required to the assignment specification</span></span><br><span class="line">    <span class="comment"># ensure at least one detection exists</span></span><br><span class="line"></span><br><span class="line">    response_dict = {}  <span class="comment"># empty dict for "objects": [{item1}, {item2}, ...]</span></span><br><span class="line">    response_list = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(idxs) &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># loop over the indexes we are keeping</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> idxs.flatten():</span><br><span class="line">            item_dict = {}  <span class="comment"># empty dict for label, accuracy, rectangle</span></span><br><span class="line">            rectangle_dict = {}</span><br><span class="line"></span><br><span class="line">            item_dict[<span class="string">"label"</span>] = LABELS[classIDs[i]]</span><br><span class="line">            item_dict[<span class="string">"accuracy"</span>] = confidences[i]</span><br><span class="line">            rectangle_dict[<span class="string">"height"</span>] = boxes[i][<span class="number">3</span>]</span><br><span class="line">            rectangle_dict[<span class="string">"left"</span>] = boxes[i][<span class="number">0</span>]</span><br><span class="line">            rectangle_dict[<span class="string">"top"</span>] = boxes[i][<span class="number">1</span>]</span><br><span class="line">            rectangle_dict[<span class="string">"width"</span>] = boxes[i][<span class="number">2</span>]</span><br><span class="line">            item_dict[<span class="string">"rectangle"</span>] = rectangle_dict</span><br><span class="line"></span><br><span class="line">            response_list.append(item_dict)</span><br><span class="line"></span><br><span class="line">    response_dict[<span class="string">"objects"</span>] = response_list</span><br><span class="line">    <span class="keyword">return</span> response_dict  <span class="comment"># return a dict</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Yolov3-tiny versrion</span></span><br><span class="line">yolo_path = <span class="string">"yolo_tiny_configs/"</span></span><br><span class="line">labelsPath = <span class="string">"coco.names"</span></span><br><span class="line">cfgpath = <span class="string">"yolov3-tiny.cfg"</span></span><br><span class="line">wpath = <span class="string">"yolov3-tiny.weights"</span></span><br><span class="line"></span><br><span class="line">Lables = get_labels(labelsPath)</span><br><span class="line">CFG = get_config(cfgpath)</span><br><span class="line">Weights = get_weights(wpath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># TODO, you should  make this console script into webservice using Flask</span></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">'/'</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span>():</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="string">"hello!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">'/server'</span>, methods = [<span class="string">'POST'</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        imagefile = request.get_data().decode()</span><br><span class="line">        imagefile = json.loads(json.loads(imagefile))  <span class="comment"># imagefile now is a dict: {'id':xxxx, 'image': yyyy}</span></span><br><span class="line">        return_dict = {}  <span class="comment"># this dict will be: {'id':xxxx, 'objects': [] }</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">## get reqest id</span></span><br><span class="line">        return_dict[<span class="string">'id'</span>] = imagefile[<span class="string">'id'</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment">## get objects</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">## Decode base64</span></span><br><span class="line">        decode_img = base64.b64decode(imagefile[<span class="string">'image'</span>])</span><br><span class="line">        nparr = np.fromstring(decode_img, np.uint8)</span><br><span class="line">        image = cv2.imdecode(nparr, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># load the neural net.  Should be local to this method as its multi-threaded endpoint</span></span><br><span class="line">        nets = load_model(CFG, Weights)</span><br><span class="line">        object_dict = do_prediction(image, nets, Lables)</span><br><span class="line">        return_dict[<span class="string">'objects'</span>] = object_dict[<span class="string">'objects'</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment">## jsonfy return_dict</span></span><br><span class="line">        <span class="keyword">return</span> jsonify(return_dict)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"Exception  {}"</span>.<span class="built_in">format</span>(e))</span><br><span class="line">        <span class="keyword">return</span> jsonify({<span class="string">'objects'</span>: <span class="string">'invalid'</span>})</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>, threaded = <span class="literal">True</span>, host = <span class="string">'0.0.0.0'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="dockerfile">Dockerfile</h2>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FROM python:3.7</span><br><span class="line">WORKDIR /server</span><br><span class="line">ADD iWebLens_server.py /server</span><br><span class="line">COPY requirements.txt requirements.txt</span><br><span class="line">COPY yolo_tiny_configs yolo_tiny_configs</span><br><span class="line">RUN apt-get update</span><br><span class="line">RUN apt-get install ffmpeg libsm6 libxext6  -y</span><br><span class="line">RUN pip3 install -r requirements.txt</span><br><span class="line">CMD ["python3", "/server/iWebLens_server.py"]</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="kubernetes-yaml">Kubernetes yaml</h2>
+<p>Setup yaml</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Cluster</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">kind.x-k8s.io/v1alpha4</span></span><br><span class="line"><span class="attr">nodes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">role:</span> <span class="string">control-plane</span></span><br><span class="line">  <span class="attr">extraPortMappings:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">31414</span></span><br><span class="line">    <span class="attr">hostPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">tcp</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">role:</span> <span class="string">worker</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Deployment yaml</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">iweb-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">iweb</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">iweb</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">iweb</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">iweb</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">dkjrvdfr/a1-server-app:v1</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">5000</span></span><br><span class="line">        <span class="attr">resources:</span></span><br><span class="line">          <span class="attr">requests:</span></span><br><span class="line">            <span class="attr">cpu:</span> <span class="string">"0.5"</span></span><br><span class="line">          <span class="attr">limits:</span></span><br><span class="line">            <span class="attr">cpu:</span> <span class="string">"0.5"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Service yaml</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">iweb-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">iweb</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">5000</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">31414</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></tbody></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Restful/" rel="tag"># Restful</a>
+              <a href="/tags/Cloud-Security/" rel="tag"># Cloud Security</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Kubernetes/" rel="tag"># Kubernetes</a>
+              <a href="/tags/Flask/" rel="tag"># Flask</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/02/Master-of-Cybersecurity/FIT5124/5124A2/" rel="prev" title="FIT5124 Assignment 2 - Neural Network Research">
+                  <i class="fa fa-chevron-left"></i> FIT5124 Assignment 2 - Neural Network Research
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/07/02/Master-of-Cybersecurity/FIT5225/5225A2/" rel="next" title="FIT5225 Assignment 2 - ImageDetection & AWS">
+                  FIT5225 Assignment 2 - ImageDetection & AWS <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daisy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+
+  <script src='https://unpkg.com/mermaid@/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+<script data-pjax>
+if (document.querySelectorAll('.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', () => {
+    mermaid.init({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    }, '.mermaid');
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+
+
+
+    <div class="pjax">
+
+  
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'bf0bd12b8583ef8ad436',
+      clientSecret: 'f092c892e481e1251ac2eb285b2e4130b2de811b',
+      repo        : 'RdWeirdo981.github.io',
+      owner       : 'RdWeirdo981',
+      admin       : ['RdWeirdo981'],
+      id          : 'ad5eed500d3b5263b42b2857e79c843b',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

