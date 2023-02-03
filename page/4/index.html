@@ -178,7 +178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -229,7 +229,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2023/01/14/Paper-I-Read/MRM/understanding-MRM-1/">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2022/11/20/Research-Notes/ComputerArith/Barrett/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -242,7 +242,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/14/Paper-I-Read/MRM/understanding-MRM-1/" class="post-title-link" itemprop="url">Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM</a>
+          <a href="/2022/11/20/Research-Notes/ComputerArith/Barrett/" class="post-title-link" itemprop="url">Modular Arithmetic II - Barrett</a>
         </h2>
 
         <div class="post-meta-container">
@@ -252,10 +252,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2023-01-14 12:53:46 / Modified: 01:23:02" itemprop="dateCreated datePublished" datetime="2023-01-14T12:53:46+08:00">2023-01-14</time>
+      <time title="Created: 2022-11-20 16:23:11" itemprop="dateCreated datePublished" datetime="2022-11-20T16:23:11+08:00">2022-11-20</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2023-01-26 17:25:31" itemprop="dateModified" datetime="2023-01-26T17:25:31+08:00">2023-01-26</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -263,10 +269,6 @@
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/2-Research-Notes/" itemprop="url" rel="index"><span itemprop="name">2. Research Notes</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/2-Research-Notes/Paper-I-Read/" itemprop="url" rel="index"><span itemprop="name">Paper I Read</span></a>
         </span>
     </span>
 
@@ -280,13 +282,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>This series of articles will follow the paper
-<em>Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs
-for One-Way to Hiding and CCA Security</em> to summarise the up-to-date
-research on IND-CCA security under QROM. This is part 1.</p>
+          <center>
+The series of Modular Arithmetic will introduce readers to basic modular
+arithmetic knowledge, and some classical algorithms. I plan to divide it
+into 3 parts: Montgomery, Barrett, and Look-Up Table. Since I don't have
+an ECE background, all of them will mainly focus on mathematical
+perspectives. This is the 2nd part of the series - Barrett and its
+variants.
+</center>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/01/14/Paper-I-Read/MRM/understanding-MRM-1/#more" rel="contents">
+              <a class="btn" href="/2022/11/20/Research-Notes/ComputerArith/Barrett/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -310,7 +316,7 @@ research on IND-CCA security under QROM. This is part 1.</p>
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
