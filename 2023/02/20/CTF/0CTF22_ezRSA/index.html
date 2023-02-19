@@ -26,30 +26,34 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"rdweirdo981.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="Cryptography | Mathematics | InfoSec | etc.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Life φlosophy">
-<meta property="og:url" content="https://rdweirdo981.github.io/page/2/index.html">
+<meta name="description" content="This is a continuous challenge. The first 2 challenges are in 0CTF 2021 Finals ezRSA ezRSA+. I&#39;ll walkthrough all these three challenges and see the connection between them. ezRSA Challenge 1234567891">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCTF&#x2F;0CTF 2022 Crypto ezRSA&#x2F;ezRSA+&#x2F;ezRSA++">
+<meta property="og:url" content="https://rdweirdo981.github.io/2023/02/20/CTF/0CTF22_ezRSA/index.html">
 <meta property="og:site_name" content="Life φlosophy">
-<meta property="og:description" content="Cryptography | Mathematics | InfoSec | etc.">
+<meta property="og:description" content="This is a continuous challenge. The first 2 challenges are in 0CTF 2021 Finals ezRSA ezRSA+. I&#39;ll walkthrough all these three challenges and see the connection between them. ezRSA Challenge 1234567891">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-19T17:17:46.000Z">
+<meta property="article:modified_time" content="2023-02-19T17:18:53.267Z">
 <meta property="article:author" content="Daisy">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Cryptography">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://rdweirdo981.github.io/page/2/">
+<link rel="canonical" href="https://rdweirdo981.github.io/2023/02/20/CTF/0CTF22_ezRSA/">
 
 
 <script data-pjax class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>Life φlosophy</title>
+<title>TCTF/0CTF 2022 Crypto ezRSA/ezRSA+/ezRSA++ | Life φlosophy</title>
   
 
 
@@ -149,7 +153,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
 		<iframe src="https://open.spotify.com/embed/track/5Q777K2mEK7lxZHROGIZrt?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
@@ -163,6 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ezrsa"><span class="nav-number">1.</span> <span class="nav-text">ezRSA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#challenge"><span class="nav-number">1.1.</span> <span class="nav-text">Challenge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution"><span class="nav-number">1.2.</span> <span class="nav-text">Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#code"><span class="nav-number">1.2.1.</span> <span class="nav-text">Code</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ezrsa-1"><span class="nav-number">2.</span> <span class="nav-text">ezRSA+</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#challenge-1"><span class="nav-number">2.1.</span> <span class="nav-text">Challenge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-1"><span class="nav-number">2.2.</span> <span class="nav-text">Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#code-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">Code</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">2.3.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ezrsa-2"><span class="nav-number">3.</span> <span class="nav-text">ezRSA++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#challenge-2"><span class="nav-number">3.1.</span> <span class="nav-text">Challenge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-2"><span class="nav-number">3.2.</span> <span class="nav-text">Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#code-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">Code</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">3.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -219,9 +224,10 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
@@ -241,9 +247,9 @@
       <meta itemprop="name" content="Life φlosophy">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/02/20/CTF/0CTF22_ezRSA/" class="post-title-link" itemprop="url">TCTF/0CTF 2022 Crypto ezRSA/ezRSA+/ezRSA++</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          TCTF/0CTF 2022 Crypto ezRSA/ezRSA+/ezRSA++
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -280,7 +286,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>This is a continuous challenge. The first 2 challenges are in 0CTF
+        <p>This is a continuous challenge. The first 2 challenges are in 0CTF
 2021 Finals <a target="_blank" rel="noopener" href="https://github.com/M0urn3r/My-Public-CTF-Challenges#ezRSA+">ezRSA</a>
 <a target="_blank" rel="noopener" href="https://github.com/M0urn3r/My-Public-CTF-Challenges#ezRSA+">ezRSA+</a>.</p>
 <p>I'll walkthrough all these three challenges and see the connection
@@ -508,7 +514,6 @@ several modifications I can solve it, but the fact is</p>
 <p>Partial Key Exposure Attack on Short Secret Exponent CRT-RSA: <a target="_blank" rel="noopener" href="https://eprint.iacr.org/2021/972.pdf">paper</a></p>
 <p>Small CRT-exponent RSA revisited: <a target="_blank" rel="noopener" href="https://eprint.iacr.org/2017/092.pdf">paper</a></p>
 
-      
     </div>
 
     
@@ -516,8 +521,22 @@ several modifications I can solve it, but the fact is</p>
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/Cryptography/" rel="tag"># Cryptography</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/04/Paper-I-Read/MRM/understanding-MRM-1/" rel="prev" title="Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM">
+                  <i class="fa fa-chevron-left"></i> Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -525,10 +544,9 @@ several modifications I can solve it, but the fact is</p>
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
+
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -680,6 +698,25 @@ if (document.querySelectorAll('.mermaid').length) {
 
 
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'bf0bd12b8583ef8ad436',
+      clientSecret: 'f092c892e481e1251ac2eb285b2e4130b2de811b',
+      repo        : 'RdWeirdo981.github.io',
+      owner       : 'RdWeirdo981',
+      admin       : ['RdWeirdo981'],
+      id          : 'b559617e616b60df3548d89702d7bb81',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
     </div>
 </body>

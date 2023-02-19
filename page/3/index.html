@@ -178,7 +178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -229,7 +229,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2023/01/29/Research-Notes/LBC/HA/">
+    <link itemprop="mainEntityOfPage" href="https://rdweirdo981.github.io/2023/02/04/Paper-I-Read/MRM/understanding-MRM-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -242,7 +242,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/29/Research-Notes/LBC/HA/" class="post-title-link" itemprop="url">Hardness Assumptions Study Note</a>
+          <a href="/2023/02/04/Paper-I-Read/MRM/understanding-MRM-1/" class="post-title-link" itemprop="url">Measure-Rewind-Measure Paper Reading 1 - FO transform under ROM</a>
         </h2>
 
         <div class="post-meta-container">
@@ -252,23 +252,21 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2023-01-29 23:10:36" itemprop="dateCreated datePublished" datetime="2023-01-29T23:10:36+08:00">2023-01-29</time>
+      <time title="Created: 2023-02-04 01:18:10 / Modified: 02:12:22" itemprop="dateCreated datePublished" datetime="2023-02-04T01:18:10+08:00">2023-02-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2023-02-04 01:36:53" itemprop="dateModified" datetime="2023-02-04T01:36:53+08:00">2023-02-04</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/1-Study-Notes/" itemprop="url" rel="index"><span itemprop="name">1. Study Notes</span></a>
+          <a href="/categories/2-Research-Notes/" itemprop="url" rel="index"><span itemprop="name">2. Research Notes</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2-Research-Notes/Paper-I-Read/" itemprop="url" rel="index"><span itemprop="name">Paper I Read</span></a>
         </span>
     </span>
 
@@ -282,29 +280,624 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>This a handwritting self-study note of a lecture note <a target="_blank" rel="noopener" href="https://katinkabou.github.io/PhdCourse2022.html">PhD Course on
-Hardness Assumptions in Lattice-based Cryptography</a> by Katharina
-Boudgoust.</p>
-<p>I have studied: <br> - <strong>Basic Lattice Cryptography: Encryption
-and Fiat-Shamir Signatures</strong> by <em>Vadim Lyubashevsky</em><br> -
-<strong>6.876J Advanced Topics in Cryptography: Lattices</strong> (Fall
-2015) by <em>Vinod Vaikuntanathan</em><br> - not all, some lecture
-notes<br> - and several Simons LBC bootcamp workshops<br></p>
-<p>So, the main purpose for studying this note is systematically
-refreshing my memory of some concepts in theoretical LBC, especially in
-Hardness Assumptions for LBC.</p>
-<p>I'll only put a sample handwritten note here, for simplicity and
-saving the storage, and the rest of them can be accessed by thie <a target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/1-lybTMCGVBeh_K7X3j4UDlhLfCCvGPAM?usp=share_link">link</a>.
-Though, I think it's more helpful to look at the original notes. This is
-just sort of my personal recording of study with several murmurings.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/29/Research-Notes/LBC/HA/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>This series of articles will follow the paper
+<em>Measure-Rewind-Measure: Tighter Quantum Random Oracle Model Proofs
+for One-Way to Hiding and CCA Security</em> to summarise the up-to-date
+research on IND-CCA security under quantum random oracle model
+(QROM).</p>
+<p>I intended to write this series for better understanding my
+supervisors' paper, but it turned out that I actually can use this paper
+to walk through this research topic. By the way, I think this is exactly
+what a good paper can bring to you: a novel technique, with clear
+explanation, that can lead you going through a whole topic, also with
+several open problems at the end.</p>
+<p><mark>Disclaimer</mark>: I took a lot of text directly from my
+reference materials. They were not cited in a strict academic citation
+way. Because I think they have been clear enough and there's no need to
+paraphrase them again. I'll list the reference at the end, though.</p>
+<p>In Part 1, I will walk through the definitions of the followings:</p>
+<ol type="1">
+<li>Random Oracle Model</li>
+<li>CPA, CCA, Indistinguishability</li>
+<li>Fujisaki-Okamoto Transform under ROM</li>
+</ol>
+<p>I will explain QROM and FO Transform under QROM as a short survey in
+Part 2.</p>
+<h2 id="random-oracle-model">Random Oracle Model</h2>
+<p><mark>Random Oracle Model (ROM)</mark> is a heuristic tool for
+modelling a practical <mark>hash function</mark> <span class="math inline">\(H\)</span> as a <mark>truly random function</mark>
+<span class="math inline">\(\mathcal{O} \in \mathsf{Funcs}[\mathcal{M,
+T}]\)</span>, where <span class="math inline">\(\mathsf{Funcs}[\mathcal{M, T}]\)</span> is a set
+containing all functions that map an element from <span class="math inline">\(\mathcal{M}\)</span> to <span class="math inline">\(\mathcal{T}\)</span>.</p>
+<p>In other words, suppose we have a cryptographic scheme <span class="math inline">\(\mathcal{S}\)</span> that contains a hash function
+<span class="math inline">\(H:\mathcal{M} \rightarrow
+\mathcal{T}\)</span>. If <span class="math inline">\(\mathcal{S}\)</span> uses <span class="math inline">\(H\)</span> as a black box, then we say <span class="math inline">\(H\)</span> is used as an oracle. Simply speaking,
+we replace the hash function <span class="math inline">\(H\)</span> in
+security property games by <span class="math inline">\(\mathcal{O}\)</span>.</p>
+<p>Therefore, suppose we are interested in security property X of scheme
+<span class="math inline">\(\mathcal{S}\)</span>, then the game-based
+advantage of an adversary <span class="math inline">\(\mathcal{A}\)</span> is <span class="math inline">\(\text{X}\mathsf{adv}[\mathcal{A, S}]\)</span>. The
+security of <span class="math inline">\(\mathcal{S}\)</span> wrt to
+property X means that <span class="math inline">\(\text{X}\mathsf{adv}[\mathcal{A, S}]\)</span> is
+negligible for all efficient <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>If we want to investigate the security of <span class="math inline">\(\mathcal{S}\)</span> in ROM, the game is modified
+by this way:</p>
+<ol type="1">
+<li>Challenger: randomly chooses <span class="math inline">\(\mathcal{O}
+\in \mathsf{Funcs}[\mathcal{M, T}]\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: chooses random
+oracle queries, say <span class="math inline">\(m\in
+\mathcal{M}\)</span>, to the challenger.</li>
+<li>Challenger: evaluates <span class="math inline">\(t =
+\mathcal{O}(m)\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: repeats this
+process with wanted number of RO queries.</li>
+</ol>
+<p>We call this advantage in ROM as <span class="math inline">\(\text{X}\mathsf{adv}^{RO}[\mathcal{A,
+S}]\)</span>.</p>
+<p>The <mark>advantage</mark> of using ROM in security proof is that it
+<mark>rules out generic attacks</mark>. Thus, when balancing
+applicability and security, security proofs under ROM are more often
+adapted. But ROM <mark>doesn't guarantee security for a specific hash
+function, since it's only heuristic. </mark></p>
+<h2 id="cpa-cca-indistinguishability">CPA, CCA,
+Indistinguishability</h2>
+<h3 id="computationally-indistinguishability">Computationally
+indistinguishability</h3>
+<p><strong>Attack Game: Distinguish <span class="math inline">\(P_0\)</span> from <span class="math inline">\(P_1\)</span></strong></p>
+<p>For given probability distributions <span class="math inline">\(P_0\)</span> and <span class="math inline">\(P_1\)</span> over finite set <span class="math inline">\(\mathcal{R}\)</span>, and for an adversary <span class="math inline">\(\mathcal{A}\)</span>, we define 2 experiments,
+<span class="math inline">\(E_0\)</span> and <span class="math inline">\(E_1\)</span>. For <span class="math inline">\(b =
+0, 1\)</span>, we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: computes <span class="math inline">\(x\)</span> as
+follows: <span class="math inline">\(x \stackrel{\$}{\longleftarrow}
+P_b\)</span>, and sends <span class="math inline">\(x\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: receives <span class="math inline">\(x\)</span>, then computes and outputs a bit <span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Let <span class="math inline">\(W_b\)</span> be the event that <span class="math inline">\(\mathcal{A}\)</span> outputs <span class="math inline">\(1\)</span> in <span class="math inline">\(E_b\)</span>. We define <span class="math inline">\(\mathcal{A}\)</span>'s advantage wrt <span class="math inline">\(P_0, P_1\)</span> as below: <span class="math display">\[
+\text{Dist}\mathsf{adv}[\mathcal{A}, P_0, P_1] := | \Pr [W_0] - \Pr
+[W_1] |.
+\]</span></p>
+<p><strong>Definition: Computational indistinguishability</strong></p>
+<p>Distributions <span class="math inline">\(P_0, P_1\)</span> are
+called <strong>computationally indistinguishable</strong> if the value
+<span class="math inline">\(\text{Dist}\mathsf{adv}[\mathcal{A}, P_0,
+P_1]\)</span> is negligible for all efficient adversaries <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<h3 id="ind-cpa-security">IND-CPA security</h3>
+<p><strong>Attack Game: IND-CPA security</strong></p>
+<p>For a given cipher <span class="math inline">\(\mathcal{E} = (E,
+D)\)</span>, defined over <span class="math inline">\((\mathcal{K, M,
+C})\)</span>, and for an adversary <span class="math inline">\(\mathcal{A}\)</span>, we define 2 experiments
+<span class="math inline">\(E_b\)</span>. For <span class="math inline">\(b = 0, 1\)</span>, we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: selects <span class="math inline">\(k
+\stackrel{\$}{\longleftarrow} \mathcal{K}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<mark>encryption queries</mark> to the challenger. The <span class="math inline">\(i\)</span>th query is a pair of messages <span class="math inline">\((m_{i0}, m_{i1})\in \mathcal{M}\)</span> with same
+length.</li>
+<li>Challenger: computes <span class="math inline">\(c_i
+{\longleftarrow} E(k, m_{ib})\)</span> and sends <span class="math inline">\(c_i\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs a bit
+<span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Let <span class="math inline">\(W_b\)</span> be the event that <span class="math inline">\(\mathcal{A}\)</span> outputs <span class="math inline">\(1\)</span> in <span class="math inline">\(E_b\)</span>. We define <span class="math inline">\(\mathcal{A}\)</span>'s advantage wrt <span class="math inline">\(\mathcal{E} = (E, D)\)</span> as below: <span class="math display">\[
+\text{CPA}\mathsf{adv}[\mathcal{A, E}] := | \Pr [W_0] - \Pr [W_1] |.
+\]</span> <strong>Definition: IND-CPA security</strong></p>
+<p>CPA secure: <span class="math inline">\(\text{CPA}\mathsf{adv}[\mathcal{A, E}]\)</span> is
+negligible.</p>
+<p>Another way to define the attack game is by using "bit guessing".
+Instead of the challenger running 2 experiments and <span class="math inline">\(\mathcal{A}\)</span> outputting <span class="math inline">\(\hat{b}\)</span> twice, in this version, the
+challenger selects <span class="math inline">\(b
+\stackrel{\$}{\longleftarrow} \{0,1\}\)</span> and only runs <span class="math inline">\(E_b\)</span>. The <span class="math inline">\(\mathcal{A}\)</span> will output <span class="math inline">\(\hat{b}\)</span> to guess the correct <span class="math inline">\(b\)</span>.</p>
+<p>The advantage of <span class="math inline">\(\mathcal{A}\)</span> in
+bit-guessing game is: <span class="math display">\[
+\text{CPA}\mathsf{adv}[\mathcal{A, E}]^{*} := | \Pr [\hat{b}=b] - 1/2 |.
+\]</span> And the relationship between these two advantages is: <span class="math display">\[
+\text{CPA}\mathsf{adv}[\mathcal{A, E}] = 2 \cdot
+\text{CPA}\mathsf{adv}[\mathcal{A, E}]^{*}.
+\]</span></p>
+<h3 id="ind-cca1-security-non-adaptive">IND-CCA1 security
+(non-adaptive)</h3>
+<p>Below, the different CCA securities are defined in terms of public
+key encryption for later understanding of Fujisaki-Okamoto
+Transform.</p>
+<p>An <mark>IND-CCA</mark> adversary has <mark>all the power of
+IND-CPA</mark> adversaries, plus a <mark>decryption oracle</mark>.</p>
+<p>In Boneh &amp; Shoup, their definition of IND-CCA security is the
+adaptive one, which is our IND-CCA2. We first give the IND-CCA1,
+though.</p>
+<p><strong>Attack Game and Definition: IND-CCA1 security in
+PKC</strong></p>
+<p>For a given public key encryption scheme <span class="math inline">\(\mathcal{E} = (G,E,D)\)</span> defined over <span class="math inline">\((\mathcal{M,C})\)</span>, we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: computes <span class="math inline">\((pk, sk)
+\stackrel{\$}{\longleftarrow} G()\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>decryption</strong> queries to the challenger.
+<ol type="1">
+<li>The <span class="math inline">\(j\)</span>th decryption query is
+random ciphertext <span class="math inline">\(\tilde{c_j}\)</span>.</li>
+</ol></li>
+<li>Challenger computes <strong>decryption</strong> results and sends to
+<span class="math inline">\(\mathcal{A}\)</span>.
+<ol type="1">
+<li>The <span class="math inline">\(j\)</span>th decryption result is
+<span class="math inline">\(\tilde{m_j} {\longleftarrow} D(k,
+\tilde{c_{j}})\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>encryption</strong> queries to the challenger.
+<ol type="1">
+<li>The <span class="math inline">\(i\)</span>th encryption query is a
+pair of messages <span class="math inline">\((m_{i0}, m_{i1})\in
+\mathcal{M}^2\)</span> with same length.</li>
+</ol></li>
+<li>Challenger computes <strong>encryption</strong> results and sends to
+<span class="math inline">\(\mathcal{A}\)</span>.
+<ol type="1">
+<li>The <span class="math inline">\(i\)</span>th encryption result is
+<span class="math inline">\(c_i {\longleftarrow} E(k,
+m_{ib})\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs a bit
+<span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p>Notice that step 2 and step 4, step 3 and step 5 can be done in
+parallel. (I'm not entirely sure about this, though.)</p>
+<p>Let ... We define ... as below: <span class="math display">\[
+\text{CCA1}\mathsf{adv}[\mathcal{A, E}] := | \Pr [W_0] - \Pr [W_1] |.
+\]</span></p>
+<p>IND-CCA1 secure: <span class="math inline">\(\text{CCA1}\mathsf{adv}[\mathcal{A, E}]\)</span>
+is negligible.</p>
+<h3 id="ind-cca2-security-adaptive">IND-CCA2 security (adaptive)</h3>
+<p>We shall see the difference between <mark>non-adaptive
+IND-CCA1</mark> and <mark>adaptive IND-CCA2</mark>.</p>
+<p><strong>Attack Game and Definition: IND-CCA2 security</strong></p>
+<p>For a given ... we define:</p>
+<p><span class="math inline">\(E_b\)</span>:</p>
+<ol type="1">
+<li>Challenger: computes <span class="math inline">\((pk, sk)
+\stackrel{\$}{\longleftarrow} G()\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>decryption</strong> queries to the challenger.
+<ol type="1">
+<li>The <span class="math inline">\(j\)</span>th decryption query is
+random ciphertext <span class="math inline">\(\tilde{c_j}\)</span>.</li>
+</ol></li>
+<li>Challenger computes <strong>decryption</strong> results and sends to
+<span class="math inline">\(\mathcal{A}\)</span>.
+<ol type="1">
+<li>The <span class="math inline">\(j\)</span>th decryption result is
+<span class="math inline">\(\tilde{m_j} {\longleftarrow} D(k,
+\tilde{c_{j}})\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>encryption</strong> queries to the challenger.
+<ol type="1">
+<li>The <span class="math inline">\(i\)</span>th encryption query is a
+pair of messages <span class="math inline">\((m_{i0}, m_{i1})\in
+\mathcal{M}^2\)</span> with same length.</li>
+</ol></li>
+<li>Challenger computes <strong>encryption</strong> results and sends to
+<span class="math inline">\(\mathcal{A}\)</span>.
+<ol type="1">
+<li>The <span class="math inline">\(i\)</span>th encryption result is
+<span class="math inline">\(c_i {\longleftarrow} E(k, m_{ib})\)</span>.
+Denote the set of all <span class="math inline">\(c_i\)</span> as <span class="math inline">\(\mathcal{C}'\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits sequential
+<strong>decryption</strong> queries to the challenger
+<strong>again</strong>.
+<ol type="1">
+<li>The <span class="math inline">\(k\)</span>th decryption query is
+random ciphertext with restrictions <span class="math inline">\(\hat{c_k}\not\in \mathcal{C}'\)</span>.</li>
+</ol></li>
+<li>Challenger computes <strong>decryption</strong> results and sends to
+<span class="math inline">\(\mathcal{A}\)</span> again.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs a bit
+<span class="math inline">\(\hat{b} \in \{0,1\}\)</span>.</li>
+</ol>
+<p><mark>Line 6 and 7</mark> are the added power of CCA2 adversary.</p>
+<p>Advantage: <span class="math inline">\(\text{CCA2}\mathsf{adv}[\mathcal{A, E}] := | \Pr
+[W_0] - \Pr [W_1] |.\)</span></p>
+<p>IND-CCA2 secure: <span class="math inline">\(\text{CCA2}\mathsf{adv}[\mathcal{A, E}]\)</span>
+is negligible.</p>
+<p>We can observe the difference from the attack game of CCA1 and CCA2.
+IND-CCA1 adversary can only choose random ciphertexts to submit as
+decryption queries, while IND-CCA2 adversary can decide what to be sent
+to the decryption oracle <mark>after</mark> <span class="math inline">\(\mathcal{A}\)</span> knows the output ciphertexts
+<span class="math inline">\(\{c_i\}\)</span> from the challenger.</p>
+<h3 id="ind-cca3-security-authenticated">IND-CCA3 security
+(authenticated)</h3>
+<p>Fewer literatures mentioned this one. For completeness, I put the
+reference link below. I'll skip this definition because this is quite
+out of the topic.</p>
+<h3 id="ind-1cca-security">IND-1CCA security</h3>
+<p>There's also a definition for one-time CCA security. In attack game
+of <strong>IND-CCA2</strong>, if <span class="math inline">\(\mathcal{A}\)</span> is restricted to make a
+<strong>single encryption query</strong>, we denote its advantage by
+<span class="math inline">\(\text{1CCA}\mathsf{adv}[\mathcal{A,E}]\)</span>. A
+PKE scheme <span class="math inline">\(\mathcal{E}\)</span> is
+<strong>one-time semantically secure against CCA</strong> or simply
+<strong>1CCA secure</strong>, if for all efficient <span class="math inline">\(\mathcal{A}\)</span>, the advantage <span class="math inline">\(\text{1CCA}\mathsf{adv}[\mathcal{A,E}]\)</span> is
+negligible.</p>
+<p><mark>Concrete advantage</mark> <span class="math display">\[
+\text{CCA}\mathsf{adv}[\mathcal{A,E}] = Q_e \cdot
+\text{1CCA}\mathsf{adv}[\mathcal{B,E}]
+\]</span> <span class="math inline">\(\mathcal{A}\)</span>: CCA
+adversary against <span class="math inline">\(\mathcal{E}\)</span>,
+makes at most <span class="math inline">\(Q_e\)</span> encryption
+queries to challenger</p>
+<p><span class="math inline">\(\mathcal{B}\)</span>: 1CCA adversary
+against <span class="math inline">\(\mathcal{E}\)</span></p>
+<p>Elementary wrapper: <span class="math inline">\(\mathcal{B}\)</span>
+is an efficient interface interacting with <span class="math inline">\(\mathcal{A}\)</span>. My personal understanding of
+it is: <span class="math inline">\(\mathcal{A}\)</span> against security
+property <span class="math inline">\(\mathsf{A}\)</span> is at most as
+hard as a function of <span class="math inline">\(\mathcal{B}\)</span>
+against security property <span class="math inline">\(\mathsf{B}\)</span> under same assumptions.</p>
+<h2 id="fujisaki-okamoto-transform-in-rom">Fujisaki-Okamoto Transform in
+ROM</h2>
+<p>In this section and the rest of the series, we will only focus on the
+property of public key cryptography.</p>
+<p>An IND-CPA secure cryptographic scheme is often considered weak
+secure. Thus, there are several ways to transform an IND-CPA secure
+Public Key Encryption (PKE) scheme to IND-CCA secure scheme, such
+as:</p>
+<ol type="1">
+<li>using a trapdoor function in ROM;</li>
+<li>using interactive CDH assumption in ROM;</li>
+<li>using DDH assumption in ROM</li>
+</ol>
+<p><mark>Fujisaki-Okamoto (FO)</mark> Transform is a <strong>generic
+way</strong> to transform any IND-CPA PKE to IND-CCA scheme in ROM.
+There is also a way without being in ROM, but that's too inefficient to
+be used.</p>
+<p>The applications of FO transform are more related to Lattice-based
+and code-based cryptography schemes, such as LWE, NTRU, McEliece,
+etc.</p>
+<p>Before we start to introduce FO transform, it is also important to
+define several security properties to understand FO transform.</p>
+<h3 id="one-way-trapdoor-function-and-cca-secure-encryption">One way,
+trapdoor function, and CCA secure encryption</h3>
+<h4 id="one-wayness">One-wayness</h4>
+<p>Let <span class="math inline">\(H\)</span> be a hash function over
+<span class="math inline">\(\mathcal{(M, T)}\)</span>. We define the
+advantage <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A,
+H}]\)</span> of an adversary <span class="math inline">\(\mathcal{A}\)</span> against the
+<strong>one-wayness</strong> of <span class="math inline">\(H\)</span>
+as the probability of winning the following game:</p>
+<ol type="1">
+<li>Challenger: chooses <span class="math inline">\(m\in\mathcal{M}\)</span> at random and sends <span class="math inline">\(t := H(m)\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs <span class="math inline">\(m' \in \mathcal{M}\)</span> and wins if <span class="math inline">\(H(m')=t\)</span>.</li>
+</ol>
+<p><span class="math inline">\(H\)</span> is onw-way if <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A, H}]\)</span> is
+negligible for all efficient adversary <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>One-way function is easy to compute but hard to invert. We will also
+see the definition of one-way trapdoor function later.</p>
+<h4 id="nd-preimage-resistance">2nd-preimage resistance</h4>
+<p>Let <span class="math inline">\(H\)</span> be a hash function over
+<span class="math inline">\(\mathcal{(M, T)}\)</span>. We define the
+advantage <span class="math inline">\(\text{SPR}\mathsf{adv}[\mathcal{A,
+H}]\)</span> of an adversary <span class="math inline">\(\mathcal{A}\)</span> against the
+<strong>2nd-preimage resistance</strong> of <span class="math inline">\(H\)</span> as the probability of winning the
+following game:</p>
+<ol type="1">
+<li>Challenger: chooses <span class="math inline">\(m\in\mathcal{M}\)</span> at random and sends <span class="math inline">\(m\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: outputs <span class="math inline">\(m' \in \mathcal{M}\)</span> and wins if <span class="math inline">\(H(m')=H(m)\)</span> and <span class="math inline">\(m\neq m'\)</span>.</li>
+</ol>
+<p><span class="math inline">\(H\)</span> is 2nd-preimage resistance if
+<span class="math inline">\(\text{SPR}\mathsf{adv}[\mathcal{A,
+H}]\)</span> is negligible for all efficient adversary <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>Suppose: <span class="math inline">\(H\)</span> is compressing (<span class="math inline">\(|\mathcal{M}|&gt;|\mathcal{T}|\)</span>), more
+specifically, <span class="math inline">\(|\mathcal{M}|\geq s\cdot
+|\mathcal{T}|\)</span> for some compression factor <span class="math inline">\(s &gt; 1\)</span>. If <span class="math inline">\(s\)</span> is super-poly, then we have
+implications: <span class="math display">\[
+H \text{ is collision resistant} \Longrightarrow H \text{ is
+2nd-preimage resistant} \Longrightarrow H \text{  is onw-way}.
+\]</span></p>
+<h4 id="one-way-trapdoor-function">One-way trapdoor function</h4>
+<p>Let <span class="math inline">\(\mathcal{X, Y}\)</span> be finite
+sets. A <strong>trapdoor function scheme</strong> <span class="math inline">\(\mathcal{T}\)</span> defined over <span class="math inline">\((\mathcal{X, Y})\)</span> is a triple of
+algorithms <span class="math inline">\((G, F, I)\)</span> where:</p>
+<ol type="1">
+<li><span class="math inline">\(G\)</span> is a
+<strong>probabilistic</strong> KeyGen such that <span class="math inline">\((pk, sk) \stackrel{\$}{\longleftarrow}
+G(\cdot)\)</span>.</li>
+<li><span class="math inline">\(F\)</span> is a
+<strong>deterministic</strong> Encr such that <span class="math inline">\(y = F(pk, x)\)</span>, where <span class="math inline">\(x,y \in \mathcal{X,Y}\)</span>, respectively.</li>
+<li><span class="math inline">\(I\)</span> is a
+<strong>deterministic</strong> Decr such that <span class="math inline">\(x = I(sk, y)\)</span>, where <span class="math inline">\(x,y \in \mathcal{X,Y}\)</span>, respectively.</li>
+<li>Correctness property: for all possible <span class="math inline">\((pk, sk)\)</span> from <span class="math inline">\(G(\cdot)\)</span>, and for all <span class="math inline">\(x\in \mathcal{X}\)</span>, we have <span class="math inline">\(I(sk, F(pk,x)) = x\)</span>.</li>
+</ol>
+<p><strong>Attack Game and Definition: One-way trapdoor function
+scheme</strong></p>
+<p>Given a trapdoor function scheme <span class="math inline">\(\mathcal{T} = (G,F,I)\)</span> defined over <span class="math inline">\((\mathcal{X, Y})\)</span>, an adversary <span class="math inline">\(\mathcal{A}\)</span>, the game is as below:</p>
+<div id="OWTD">
+
+</div>
+<ol type="1">
+<li>Challenger:
+<ol type="1">
+<li>computes <span class="math inline">\((pk, sk)
+\stackrel{\$}{\longleftarrow} G(\cdot)\)</span>;</li>
+<li>computes <span class="math inline">\(x \stackrel{\$}{\longleftarrow}
+\mathcal{X}\)</span>;</li>
+<li>computes <span class="math inline">\(y = F(pk, x)\)</span>;</li>
+<li>sends <span class="math inline">\((pk, y)\)</span> to <span class="math inline">\(\mathcal{A}\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: computes <span class="math inline">\(\hat{x} \in \mathcal{X}\)</span>.</li>
+</ol>
+<p>The advantage of <span class="math inline">\(\mathcal{A}\)</span> as
+<span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A,
+T}]\)</span> is the probability that <span class="math inline">\(\hat{x}
+= x\)</span>.</p>
+<p><span class="math inline">\(\mathcal{T}\)</span> is <strong>one
+way</strong> if for all efficient <span class="math inline">\(\mathcal{A}\)</span>, <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A, T}]\)</span> is
+negligible.</p>
+<h4 id="cca-secure-scheme-from-tdf">CCA secure scheme from TDF</h4>
+<p>A public key encryption (PKE) built from trapdoor function <span class="math inline">\(\mathcal{E}_{TDF}=(G,E,D)\)</span> has several
+components below:</p>
+<ol type="1">
+<li>A trapdoor function <span class="math inline">\(\mathcal{T}=(G,F,I)\)</span> defined over <span class="math inline">\((\mathcal{X,Y})\)</span></li>
+<li>A symmetric cipher <span class="math inline">\(\mathcal{E}_s=(E_s,
+D_s)\)</span> defined over <span class="math inline">\((\mathcal{K,M,C})\)</span></li>
+<li>A hash function <span class="math inline">\(H:\mathcal{X}\longrightarrow
+\mathcal{K}\)</span></li>
+</ol>
+<p>Thus,</p>
+<ol type="1">
+<li>Key generation: <span class="math inline">\(G\)</span> in <span class="math inline">\(\mathcal{E}_{TDF}\)</span> is <span class="math inline">\(G\)</span> in <span class="math inline">\(\mathcal{T}\)</span>. The message space of <span class="math inline">\(\mathcal{E}_{TDF}\)</span> is <span class="math inline">\(\mathcal{M}\)</span>.</li>
+<li>Encryption:
+<ol type="1">
+<li><span class="math inline">\(E(pk,m):= x
+\stackrel{\$}{\longleftarrow} \mathcal{X}, y\longleftarrow F(pk,x),
+k\longleftarrow H(x), c\stackrel{\$}{\longleftarrow}
+E_s(k,m)\)</span></li>
+<li>output: <span class="math inline">\((y,c)\)</span></li>
+</ol></li>
+<li>Decryption:
+<ol type="1">
+<li><span class="math inline">\(D(sk,(y,c)):=x\longleftarrow I(sk,y),
+k\longleftarrow H(x), m\longleftarrow D_s(k,c)\)</span></li>
+<li>output: <span class="math inline">\(m\)</span></li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{E}_{TDF}\)</span> is defined
+over <span class="math inline">\((\mathcal{M,Y\times C})\)</span></li>
+</ol>
+<p>If <span class="math inline">\(\mathcal{X} \neq \mathcal{Y}\)</span>,
+i.e. <span class="math inline">\(\mathcal{T}\)</span> is not a trapdoor
+permutation, we need a modified <span class="math inline">\(\mathcal{E}'_{TDF}\)</span> to construct CCA
+secure scheme. Basically, we change <span class="math inline">\(D\)</span> to a <span class="math inline">\(D'\)</span>: <span class="math display">\[
+\begin{aligned}
+D'(sk,(y,c))&amp;:=x\longleftarrow I(sk,y), \\
+&amp; \text{if: } F(pk,x)=y, \text{then: } k\longleftarrow H(x),
+m\longleftarrow D_s(k,c),\\
+&amp; \text{else: } m\longleftarrow \mathsf{reject},\\
+&amp; \text{output: } m.
+\end{aligned}
+\]</span> If we model <span class="math inline">\(H\)</span> as a ROM,
+<span class="math inline">\(\mathcal{E}'_{TDF}\)</span> can be
+proved CCA secure. (I'll skip this. It can be seen in Boneh &amp; Shoup
+Chapter 12.3.)</p>
+<h4 id="one-way-trapdoor-function-even-with-image-oracle-iow">One-way
+trapdoor function even with image oracle (IOW)</h4>
+<p><strong>Attack Game and Definition: IOW</strong></p>
+<p>For a ... the game:</p>
+<ol type="1">
+<li>same with step 1 in <a href="#OWTD">OWTD</a></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: submits
+<strong>image oracle queries</strong> to Challenger. Each query is of
+the form <span class="math inline">\(\hat{y} \in \mathcal{Y}\)</span>.
+If <span class="math inline">\(F(pk, I(sk, \hat{y}))=\hat{y}\)</span>,
+then Challenger sends "Yes"; else sends "No".</li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: computes <span class="math inline">\(\hat{x} \in \mathcal{X}\)</span>.</li>
+</ol>
+<p>Advantage: <span class="math inline">\(\text{IOW}\mathsf{adv}[\mathcal{A,
+T}]\)</span></p>
+<p>IOW, if negligible.</p>
+<p>Every <strong>one way trapdoor function</strong> scheme can be easily
+converted into one that is <strong>one way given an image
+oracle</strong>.</p>
+<p><mark>Thm 12.2 from B and S</mark> Assume a hash function <span class="math inline">\(H: \mathcal{X}\longleftarrow \mathcal{K}\)</span>
+is modelled as RO. If <span class="math inline">\(\mathcal{T}\)</span>
+is <span class="math inline">\(\text{IOW}\)</span>, and <span class="math inline">\(\mathcal{E}_s\)</span> is 1CCA secure, then <span class="math inline">\(\mathcal{E}'_{\text{TDF}}\)</span> is CCA
+secure.</p>
+<p><mark>Concrete advantage</mark> <span class="math display">\[
+\text{1CCA}^\text{ro}\mathsf{adv}[\mathcal{A},
+\mathcal{E}'_{\text{TDF}}]
+\leq 2 \cdot \text{IOW}\mathsf{adv}[\mathcal{B_{\text{iow}},
+\mathcal{T}}] + \text{1CCA}\mathsf{adv}[\mathcal{B}_s, \mathcal{E}_s]
+\]</span></p>
+<h4 id="one-way-encryption">One-way encryption</h4>
+<div id="owencr">
+Previously, we only defined <strong>one-way trapdoor function</strong>,
+now we are gonna define one-way <strong>encryption</strong>.
+</div>
+<p><strong>Attack game</strong>: One-way encryption</p>
+<p>Given PKE <span class="math inline">\(\mathcal{E}_a=(G_a,E_a,D_a)\)</span> over message
+space and ciphertext space <span class="math inline">\((\mathcal{X,Y})\)</span>. Randomizer space <span class="math inline">\(\mathcal{R}\)</span>, adversary <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<ol type="1">
+<li>Challenger:
+<ol type="1">
+<li>computes
+<ol type="1">
+<li><span class="math inline">\((pk,sk)\stackrel{\$}{\longleftarrow}G_a()\)</span></li>
+<li><span class="math inline">\(x,r\stackrel{\$}{\longleftarrow}\mathcal{X,R}\)</span></li>
+<li><span class="math inline">\(y\longleftarrow
+E_a(pk,x;r)\)</span></li>
+</ol></li>
+<li>sends <span class="math inline">\((pk,y)\)</span> to <span class="math inline">\(\mathcal{A}\)</span></li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span>: ouput <span class="math inline">\(\hat{x}\in\mathcal{R}\)</span></li>
+</ol>
+<p>If <span class="math inline">\(\hat{x}=x\)</span> then <span class="math inline">\(\mathcal{A}\)</span> wins. The probability of
+<span class="math inline">\(\mathcal{A}\)</span> wining the game is
+<span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A,
+E_a}]\)</span>. If <span class="math inline">\(\text{OW}\mathsf{adv}[\mathcal{A, E_a}]\)</span>
+is negligible for all efficient <span class="math inline">\(\mathcal{A}\)</span>, we say <span class="math inline">\(\mathcal{E}_a\)</span> is
+<strong>one-way</strong>.</p>
+<p>Note: it's possible that <span class="math inline">\(\mathcal{A}\)</span> doesn't even aware of the
+winning since <span class="math inline">\(\mathcal{E}_a\)</span> may be
+probablistic.</p>
+<h4 id="unpredictable-encryption">Unpredictable encryption</h4>
+<div id="unpredict">
+
+</div>
+<p><span class="math inline">\(\mathcal{E}_a,
+\mathcal{X,Y,R}\)</span>.</p>
+<p>Say <span class="math inline">\(\mathcal{E}_a\)</span> is
+<strong><span class="math inline">\(\pmb{\epsilon}\)</span>-unpredictable</strong> if
+for every possible <span class="math inline">\((pk,sk)\)</span> from
+<span class="math inline">\(G_a\)</span> and every <span class="math inline">\(y\in\mathcal{Y}\)</span>, a random <span class="math inline">\(r\stackrel{\$}{\longleftarrow}\mathcal{R}\)</span>,
+we have: <span class="math display">\[
+\Pr[E_a(pk,D_a(sk,y);r)=y]\leq\epsilon.
+\]</span> We say <span class="math inline">\(\mathcal{E}_a\)</span> is
+<strong>unpredictable</strong> for negligible <span class="math inline">\(\epsilon\)</span>.</p>
+<p>Similar as one-way encryption to onewayness, unpredictable encryption
+can be seen as an instance for 2nd preimage resistance.</p>
+<h3 id="fujisaki-okamoto-fo-transform-detailed-construction">Fujisaki-Okamoto
+(FO) Transform: detailed construction</h3>
+<p>We <mark>start from</mark> an arbitrary IND-CPA secure PKE <span class="math inline">\(\mathcal{E}_a=(G_a,E_a,D_a)\)</span> defined over
+<span class="math inline">\((\mathcal{X,Y})\)</span>. By introducing a
+hash function <span class="math inline">\(U: \mathcal{X} \longrightarrow
+\mathcal{R}\)</span>, we map a message <span class="math inline">\(x\in\mathcal{X}\)</span> to a randomizer <span class="math inline">\(r\in\mathcal{R}\)</span>. In security proof, this
+hash function is modelled as ROM.</p>
+<p>We can construct a trapdoor function <span class="math inline">\(\mathcal{T}_{\mathrm{FO}} = (G_a, F, D_a)\)</span>
+from above, where <span class="math display">\[
+F(pk,x) := E_a(pk,x;U(x)).
+\]</span> <mark>Now</mark>, we want to prove that <span class="math inline">\(\mathcal{T}_{\mathrm{FO}}\)</span> is <strong>one
+way given an image oracle</strong> in the model where <span class="math inline">\(U\)</span> is a ROM. First, we need 2
+assumptions:</p>
+<ol type="1">
+<li><span class="math inline">\(\mathcal{E}_a\)</span> is <a href="#owencr">one way</a>. Thus, given <span class="math inline">\(E_a(pk,x;r)\)</span>, it's hard to compute <span class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\mathcal{E}_a\)</span> is <a href="#unpredict">unpredictable</a>. Thus, the probability of
+re-encryption of a ciphertext generating the same result will be
+negligible.</li>
+</ol>
+<p><mark>Thm 12.10 from B&amp;S</mark> If 1️⃣ <span class="math inline">\(U\)</span>: ROM, 2️⃣ <span class="math inline">\(\mathcal{E}_a\)</span>: one way &amp;
+unpredictable, then <span class="math inline">\(\mathcal{T}_{\mathrm{FO}}\)</span> from FO
+transform (i.e. <span class="math inline">\(F(pk,x) :=
+E_a(pk,x;U(x))\)</span>) is one way given an image oracle.</p>
+<p><mark>Concrete advantage</mark></p>
+<p>Assume:</p>
+<ol type="1">
+<li><span class="math inline">\(\mathcal{E}_a\)</span> is <span class="math inline">\({\epsilon}\)</span>-unpredictable,</li>
+<li><span class="math inline">\(\mathcal{A}\)</span> attacks <span class="math inline">\(\mathcal{T}_{\text{FO}}\)</span> in ROM in game
+<span class="math inline">\(\text{IOW}\)</span>, makes <strong>at
+most</strong>
+<ol type="1">
+<li><span class="math inline">\(Q_{\text{io}}\)</span> <strong>image
+oracle queries</strong> (query: <span class="math inline">\(\hat{y}\in\mathcal{Y}\)</span>, response: if <span class="math inline">\(F(pk, D_a(sk,y))=\hat{y}\)</span>)</li>
+<li><span class="math inline">\(Q_{\text{ro}}\)</span> <strong>random
+oracle queries</strong> (query: <span class="math inline">\(\hat{x}\in\mathcal{X}\)</span>, response: <span class="math inline">\(U(\hat{x})\)</span>).</li>
+</ol></li>
+<li><span class="math inline">\(\mathcal{A}\)</span> always includes its
+output among its RO queries</li>
+</ol>
+<p>Then <span class="math inline">\(\exists
+\mathcal{B}_{\text{ow}}\)</span> against one-wayness of <span class="math inline">\(\mathcal{E}_a\)</span> of game one-way encryption,
+where <span class="math inline">\(\mathcal{B}_{\text{ow}}\)</span> is an
+elementary wrapper around <span class="math inline">\(\mathcal{A}\)</span>, such that: <span class="math display">\[
+\text{IOW}^\text{ro}\mathsf{adv}[\mathcal{A}, \mathcal{T}_{\text{FO}}]
+\leq Q_{\text{io}} \cdot \epsilon + Q_{\text{ro}}\cdot
+\text{OW}\mathsf{adv}[\mathcal{B_{\text{ow}}, E_a}]
+\]</span></p>
+<p>The concrete proof can be seen in Boneh and Shoup ver 0.6 Ch12.6.</p>
+<p><mark>Finally</mark>, we look at how to get a CCA secure <span class="math inline">\(\mathcal{E}_{\text{FO}}=(G_a,E,D)\)</span> over
+message space and ciphertext space <span class="math inline">\((\mathcal{M,Y\times C})\)</span> from:</p>
+<ol type="1">
+<li>A CPA secure PKE <span class="math inline">\(\mathcal{E}_a=(G_a,E_a,D_a)\)</span> over message
+space, ciphertext space, and randomizer space <span class="math inline">\((\mathcal{X,Y,R})\)</span>;</li>
+<li>A symmetric cipher <span class="math inline">\(\mathcal{E}_s=(E_s,D_s)\)</span> over key space
+and message space <span class="math inline">\((\mathcal{K,M})\)</span>;</li>
+<li>A hash function <span class="math inline">\(H:\mathcal{X}\longrightarrow
+\mathcal{R}\)</span>.</li>
+</ol>
+<p><mark>The construction</mark>of CCA secure <span class="math inline">\(\mathcal{E}_{\text{FO}}\)</span> is as below:</p>
+<ol type="1">
+<li><span class="math inline">\(G_a\)</span>: same as in <span class="math inline">\(\mathcal{E}_a\)</span>;</li>
+<li>Encryption scheme: <span class="math display">\[
+\begin{aligned}
+E(pk,m):= &amp;x\stackrel{\$}{\longleftarrow}\mathcal{X},
+r\longleftarrow U(x), y\longleftarrow E_a(pk,x;r),\\
+&amp; k\longleftarrow H(x), c\stackrel{\$}{\longleftarrow} E_s(k,m),\\
+&amp; \text{output: } (y,c);
+\end{aligned}
+\]</span></li>
+<li>Decryption scheme: <span class="math display">\[
+\begin{aligned}
+D(sk,(y,c)):= &amp;x'{\longleftarrow}D_a(sk,y), r'\longleftarrow
+U(x),\\
+&amp; \text{if: } E_a(pk,x';r')\neq y, \\
+&amp;\qquad\text{then: } m\longleftarrow \mathsf{reject},\\
+&amp; \qquad \text{else: } k \longleftarrow H(x), m\longleftarrow
+D_s(k,c),\\
+&amp; \text{output: } m.
+\end{aligned}
+\]</span></li>
+</ol>
+<p><mark>Concrete advantage</mark> <span class="math display">\[
+\begin{aligned}
+\text{1CCA}^\text{ro}\mathsf{adv}[\mathcal{A}, \mathcal{E}_{\text{FO}}]
+&amp;\leq 2\cdot (Q_{H}+Q_{U}) \cdot
+\text{OW}\mathsf{adv}[\mathcal{B_{\text{ow}}, E_a}] \\
+&amp;+ 2\cdot Q_d\cdot\epsilon \\
+&amp;+ \text{1CCA}\mathsf{adv}[\mathcal{B_s, E_s}]
+\end{aligned}
+\]</span> LHS: advantage of <span class="math inline">\(\mathcal{A}\)</span> against <span class="math inline">\(\mathcal{E}_{\text{FO}}\)</span> in ROM wrt 1CCA
+property, makes at most <span class="math inline">\(Q_d\)</span>
+decryption queries, <span class="math inline">\(Q_H\)</span> random
+oracle queries of <span class="math inline">\(H\)</span>, <span class="math inline">\(Q_U\)</span> random oracle queries of <span class="math inline">\(U\)</span>.</p>
+<p>RHS: 1. advantage of <span class="math inline">\(\mathcal{B}_{\text{ow}}\)</span> against <span class="math inline">\(\mathcal{E}_a\)</span> wrt OW property 2.
+advantage of <span class="math inline">\(\mathcal{A}\)</span> againast
+<span class="math inline">\(\epsilon\)</span>-unpredictable 3. advantage
+of <span class="math inline">\(\mathcal{B}_{s}\)</span> against <span class="math inline">\(\mathcal{E}_s\)</span> wrt 1CCA property</p>
+<p>At the end, we give a figure to summarize the "reduction" above.</p>
+<p><img src="/2023/02/04/Paper-I-Read/MRM/understanding-MRM-1/QROM1.png"></p>
+<h2 id="note">Note</h2>
+<p>At the end of Part 1, we can see that comparing with MRM paper and
+the injectivity paper from my supervisors and me, the advantage from
+injectivity assumption is actually a elementary wrapper of the advantage
+from <span class="math inline">\(\epsilon\)</span>-unpredictable
+assumption. But between them, there's still a long way left to walk
+through. This will be introduced in the next part of this paper reading
+series.</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><p>A Graduate Course in Applied Cryptography by Dan Boneh and Victor
+Shoup<br></p>
+<ul>
+<li>Chapter 3.11 A broader perspective: computational
+indistinguishability<br></li>
+<li>Chapter 5.3 Semantic security against chosen plaintext
+attack<br></li>
+<li>Chapter 8.10 Key derivation and the random oracle model<br></li>
+<li>Chapter 12 Chosen ciphertext secure public key encryption<br></li>
+</ul></li>
+<li><p><a target="_blank" rel="noopener" href="https://crypto.stanford.edu/cs355/22sp">CS355</a>
+Lecture 3<br></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~mihir/papers/ro.pdf">“Random
+Oracles are Practical” Bellare, Rogoway CCS'93</a><br></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~mblum/research/pdf/coin/">“Coin
+Flipping By Telephone” Blum, CRYPTO'81</a><br></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://crypto.stackexchange.com/questions/26689/easy-explanation-of-ind-security-notions">Easy
+explanation of "IND-" security notions?</a> <br></p></li>
+<li><p>Introduction to Security Reduction by Fuchun Guo, Susilo Willy,
+and Yi Mu<br></p>
+<ul>
+<li>2.4 Further Reading<br></li>
+</ul></li>
+<li><p><a target="_blank" rel="noopener" href="https://eprint.iacr.org/2004/272.pdf">A Characterization
+of Authenticated-Encryption as a Form of Chosen-Ciphertext
+Security</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://crypto.stackexchange.com/questions/44188/what-do-the-signature-security-abbreviations-like-euf-cma-mean">What
+do the signature security abbreviations like EUF-CMA mean?</a></p></li>
+</ul>
+
       
     </div>
 
@@ -323,7 +916,7 @@ just sort of my personal recording of study with several murmurings.</p>
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -443,7 +1036,38 @@ if (document.querySelectorAll('.mermaid').length) {
 
     <div class="pjax">
 
-  
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
 
 
 
